@@ -4,16 +4,16 @@ import Main from "./pages/Main";
 
 function App() {
   return (
-    <><div className="App">
-      <Header />
-    </div><BrowserRouter>
-        <div className="App">
-          <Routes>
-            <Route paht="/" element={<Main />} />
-          </Routes>
-        </div>
-      </BrowserRouter></>
-  );
-}
-
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/ask" element={<Ask />} />
+          <Route path="/mypage" element={<Mypage />} />
+          <Route path="/question" element={<Question />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
 export default App;
