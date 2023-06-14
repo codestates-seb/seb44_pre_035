@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "axios": "^1.4.0",
+    "react-quill": "^2.0.0",
+    "styled-components": "^5.3.10"
+  }
+}
