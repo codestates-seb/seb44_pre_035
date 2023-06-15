@@ -72,6 +72,8 @@ export const GlobalStyle = createGlobalStyle`
     align-items: center;
     cursor: pointer;
   }
+  input{
+    box-sizing:border-box;
+  }
 `;
-
 export default GlobalStyle;

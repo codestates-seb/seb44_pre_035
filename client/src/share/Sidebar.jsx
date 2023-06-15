@@ -5,6 +5,7 @@ const Container = styled.aside`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  padding-top: 20px;
   & > a {
     width: 100%;
     & > img {

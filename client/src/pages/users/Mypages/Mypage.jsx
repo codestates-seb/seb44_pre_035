@@ -1,9 +1,9 @@
-import Footer from "../../../share/Footer";
+import Layout from "../../../share/Layout";
 export default function Mypage() {
   return (
     <div>
       마이 페이지
-      <Footer />
+      <Layout />
     </div>
   );
 }
