@@ -1,4 +1,4 @@
-import Layout from "../share/Layout";
+import Layout from "../../share/Layout";
 export default function Main() {
   return (
     <div>
