@@ -232,6 +232,8 @@ const colors = {
   main900: "#7c2d12",
 };
 
-export const theme = {
+const theme = {
   colors,
 };
+
+export default theme;
