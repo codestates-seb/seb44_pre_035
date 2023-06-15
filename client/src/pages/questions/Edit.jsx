@@ -3,6 +3,7 @@ import SubmitButton from "../../components/ask/SubmitButton";
 import SubmitInput from "../../components/ask/SubmitInput";
 import Footer from "../../share/Footer";
 import { Container, Title, Wrapper } from "./Container.styled";
+import SubmitHTML from "../../components/ask/SubmitHTML";
 
 export default function Edit() {
   return (
@@ -15,7 +16,7 @@ export default function Edit() {
           <Title>Edit a question</Title>
         </Wrapper>
         <SubmitInput title="Title" htmlFor="input-title" />
-        <SubmitInput title="Body" htmlFor="input-problem" />
+        <SubmitHTML title="Body" htmlFor="input-problem" />
         <SubmitInput title="Tags" htmlFor="input-tags" />
       </Container>
       <Container contents="true" direction="row">

@@ -1,5 +1,6 @@
 import HelpMessage from "../../components/ask/HelpMessage";
 import SubmitButton from "../../components/ask/SubmitButton";
+import SubmitHTML from "../../components/ask/SubmitHTML";
 import SubmitInput from "../../components/ask/SubmitInput";
 import Footer from "../../share/Footer";
 import { Container, Title, Wrapper } from "./Container.styled";
@@ -21,12 +22,12 @@ export default function Ask() {
           placeholder="e.g Is there an R function for finding the index of an element in a vector?"
           htmlFor="input-title"
         />
-        <SubmitInput
+        <SubmitHTML
           title="What are the details of your problem?"
           comment="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
           htmlFor="input-problem"
         />
-        <SubmitInput
+        <SubmitHTML
           title="What did you try and what were you expecting?"
           comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
           htmlFor="input-try"
