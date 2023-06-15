@@ -1,16 +1,16 @@
 import { Wrapper } from "../../pages/questions/Container.styled";
 import { Input, Label } from "./SubmitInput.styled";
 
-function SubmitInput({ title, comment, htmlFor }) {
+function SubmitInput({ title, comment, htmlFor, placeholder }) {
   return (
-    <Wrapper direction="column">
-      <Label htmlFor={htmlFor} fontSize="15px" bold="true">
+    <Wrapper SubmitInput="true" direction="column">
+      <Label title="true" htmlFor={htmlFor}>
         {title}
       </Label>
-      <Label htmlFor={htmlFor} fontSize="15px">
+      <Label text="true" htmlFor={htmlFor}>
         {comment}
       </Label>
-      <Input type="text" id={htmlFor} />
+      <Input id={htmlFor} placeholder={placeholder} />
     </Wrapper>
   );
 }

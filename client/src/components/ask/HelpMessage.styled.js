@@ -1,16 +1,38 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Text = styled.div`
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.bold};
+  ${(props) =>
+    props.title &&
+    css`
+      font-size: 21px;
+      line-height: 27px;
 
-  margin: 5px;
+      margin-bottom: 10px;
+    `}
+
+  ${(props) =>
+    props.text &&
+    css`
+      font-size: 15px;
+      line-height: 20px;
+
+      margin-bottom: 10px;
+    `}
+
+    ${(props) =>
+    props.steps &&
+    css`
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 17px;
+
+      margin-bottom: 10px;
+    `}
 `;
 
 export const List = styled.li`
-  font-size: ${(props) => props.fontSize};
-  font-weight: ${(props) => props.bold};
+  font-size: 13px;
   list-style: circle;
 
-  margin-left: 25px;
+  margin-left: 30px;
 `;

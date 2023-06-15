@@ -1,9 +1,18 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-  color: #ffffff;
+  font-size: 13px;
+  line-height: 15px;
 
-  background-color: #0074cc;
+  color: white;
+  background-color: #0a95ff;
+  border-radius: 3px;
 
-  margin: 5px;
+  height: 38px;
+  width: 130px;
+  padding: 10px;
+
+  :hover {
+    background-color: #0074cc;
+  }
 `;

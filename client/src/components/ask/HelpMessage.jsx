@@ -3,31 +3,27 @@ import { List, Text } from "./HelpMessage.styled";
 
 function HelpMessage() {
   return (
-    <Wrapper>
-      <Text fontSize="20px" bold="400">
-        Writing a good question
-      </Text>
-      <Text fontSize="15px">
+    <Wrapper helpMessage="true">
+      <Text title="true">Writing a good question</Text>
+      <Text text="true">
         You’re ready to ask a programming-related question and this form will
-        help guide you through the process. Looking to ask a non-programming
-        question? See the topics here to find a relevant site.
+        help guide you through the process.
+        <br />
+        Looking to ask a non-programming question? See the topics here to find a
+        relevant site.
       </Text>
-      <Text fontSize="12px" bold="600">
-        Steps
-      </Text>
+      <Text steps="true">Steps</Text>
       <ul>
-        <List fontSize="12px">Summarize your problem in a one-line title.</List>
-        <List fontSize="12px">Describe your problem in more detail.</List>
-        <List fontSize="12px">
+        <List list="true">Summarize your problem in a one-line title.</List>
+        <List list="true">Describe your problem in more detail.</List>
+        <List list="true">
           Describe what you tried and what you expected to happen.
         </List>
-        <List fontSize="12px">
+        <List list="true">
           Add “tags” which help surface your question to members of the
           community.
         </List>
-        <List fontSize="12px">
-          Review your question and post it to the site.
-        </List>
+        <List list="true">Review your question and post it to the site.</List>
       </ul>
     </Wrapper>
   );
