@@ -1,0 +1,10 @@
+jwt:
+  secret: asd121rR2fmkdRWNfknIDNfnd23r3FSNIFSkmdkfmo3r3FKSokfn4
+
+  access:
+    expiration: 80
+    header: Authorization
+
+  refresh:
+    expiration: 90
+    header: Authorization-refresh
