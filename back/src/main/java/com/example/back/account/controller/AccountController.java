@@ -16,7 +16,7 @@ public class AccountController {
 
     private final AccountService accountService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.OK)
     public void signUp(@RequestBody AccountSignUpDto accountSignUpDto) throws Exception {
         accountService.signUp(accountSignUpDto);

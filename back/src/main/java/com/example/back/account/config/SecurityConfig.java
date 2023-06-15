@@ -45,7 +45,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login","/signUp","/h2/**").permitAll()
+                .antMatchers("/login","/signup","/h2/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
