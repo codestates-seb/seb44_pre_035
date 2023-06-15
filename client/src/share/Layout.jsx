@@ -1,6 +1,7 @@
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import styled from "styled-components";
+import Nav from "./Nav";
 
 /* 전체 레이아웃 */
 const LayoutArea = styled.div`
@@ -44,7 +45,9 @@ export default function Layout() {
     <div>
       <LayoutArea>
         <LayoutContainer>
-          <NavContainer></NavContainer>
+          <NavContainer>
+            <Nav />
+          </NavContainer>
           <MainContainer></MainContainer>
           <SideContainer>
             <Sidebar />
