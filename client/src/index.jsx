@@ -9,7 +9,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-      <GlobalStyle />
-      <App />
+    <GlobalStyle />
+    <App />
   </React.StrictMode>,
 );
