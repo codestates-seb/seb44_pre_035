@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SubmitButton from "../../components/ask/SubmitButton";
 import SubmitInput from "../../components/ask/SubmitInput";
 import Footer from "../../share/Footer";
@@ -19,7 +20,9 @@ export default function Edit() {
       </Container>
       <Container contents="true" direction="row">
         <SubmitButton button="Post your question" />
-        <SubmitButton button="Cancel" />
+        <Link to="/">
+          <SubmitButton button="Cancel" />
+        </Link>
       </Container>
 
       <Footer />
