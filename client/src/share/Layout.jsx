@@ -1,4 +1,5 @@
 import Sidebar from "./Sidebar";
+import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
 import Nav from "./Nav";
@@ -39,6 +40,7 @@ const MainContainer = styled.div`
 export default function Layout() {
   return (
     <div>
+      <Header />
       <LayoutArea>
         <LayoutContainer>
           <NavContainer>
