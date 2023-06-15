@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerPostDto {
-    @NotBlank(message = "빈내용ㄴㄴ")
+    @NotBlank(message = "빈내용ㄴ")
     private String content;
 }
 

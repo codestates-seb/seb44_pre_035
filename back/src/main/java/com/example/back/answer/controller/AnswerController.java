@@ -31,7 +31,7 @@ public class AnswerController {
     @PostMapping
     public ResponseEntity<AnswerResponseDto> postAnswer(@Valid @RequestBody AnswerPostDto answerDto) {
         Answer answer = answerMapper.dtoToEntity(answerDto);
-        Answer createdAnswer = answerService.createAnswer(answer); //이 오류도 오늘 안에 해결해서 다시 올릴게요...
+        Answer createdAnswer = answerService.createAnswer(answer); //이 오류도 오늘 안에 해결할게요...
         AnswerResponseDto responseDto = answerMapper.entityToDto(createdAnswer);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
@@ -41,7 +41,7 @@ public class AnswerController {
             @PathVariable("answerId") @Positive long answerId,
             @Valid @RequestBody AnswerPatchDto answerPatchDto) {
         answerPatchDto.setAnswerId(answerId);
-        Answer updatedAnswer = answerService.updateAnswer(answerMapper.dtoToEntity(answerPatchDto)); //여기도.. 매퍼문제인가..
+        Answer updatedAnswer = answerService.updateAnswer(answerMapper.dtoToEntity(answerPatchDto)); //여기도....
         AnswerResponseDto responseDto = answerMapper.entityToDto(updatedAnswer);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

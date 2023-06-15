@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Answer {
+public class Answer { // 무지성
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;

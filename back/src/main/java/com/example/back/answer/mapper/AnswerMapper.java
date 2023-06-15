@@ -7,7 +7,7 @@ import com.example.back.answer.entity.Answer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AnswerMapper {
+public class AnswerMapper { //여기에 뭔가 문제가 있는 거 같은데 수정 예정
     public Answer dtoToEntity(AnswerPostDto dto) {
         Answer entity = new Answer();
         entity.setContent(dto.getContent());
