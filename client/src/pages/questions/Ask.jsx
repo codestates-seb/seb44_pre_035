@@ -2,8 +2,7 @@ import HelpMessage from "../../components/ask/HelpMessage";
 import SubmitButton from "../../components/ask/SubmitButton";
 import SubmitInput from "../../components/ask/SubmitInput";
 import Footer from "../../share/Footer";
-import { Title } from "./Ask.styled";
-import { Container, Wrapper } from "./Container.styled";
+import { Container, Title, Wrapper } from "./Container.styled";
 
 export default function Ask() {
   return (
