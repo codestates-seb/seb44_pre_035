@@ -1,4 +1,10 @@
-import Footer from "../../share/Footer";
+import SubmitButton from "../../components/ask/SubmitButton";
+import SubmitInput from "../../components/ask/SubmitInput";
+import { Container, Title, Wrapper } from "./Container.styled";
+import SubmitHTML from "../../components/ask/SubmitHTML";
+import Layout from "../../share/Layout";
+import HelpMessage from "../../components/ask/HelpMessage";
+
 export default function Ask() {
   return (
     <>
