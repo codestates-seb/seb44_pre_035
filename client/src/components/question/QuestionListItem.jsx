@@ -51,7 +51,7 @@ export default function QuestionListItem({ item }) {
       <QuestionStatus item={item} />
       <Content>
         <ContentTitle>
-          <Link to={`/questions/${item.Question_id}`}>{item.title}</Link>
+          <Link to={`/question/${item.Question_id}`}>{item.title}</Link>
         </ContentTitle>
         <ContentExcerpt>
           <p>{item.content}</p>
