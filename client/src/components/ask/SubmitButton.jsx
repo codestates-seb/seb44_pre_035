@@ -3,7 +3,7 @@ import { Button } from "./SubmitButton.styled";
 
 function SubmitButton({ button }) {
   return (
-    <Wrapper direction="row">
+    <Wrapper button="true" direction="row">
       <Button>{button}</Button>
     </Wrapper>
   );

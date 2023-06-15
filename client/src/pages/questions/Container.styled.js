@@ -26,6 +26,12 @@ export const Container = styled.div`
     css`
       width: 850px;
     `}
+
+    ${(props) =>
+    props.button &&
+    css`
+      width: 850px;
+    `}
 `;
 
 export const Wrapper = styled.div`
@@ -34,6 +40,7 @@ export const Wrapper = styled.div`
   width: 850px;
   padding: 24px;
   margin: 10px 0;
+
   /* border: 1px solid blue; */
 
   display: flex;
@@ -64,4 +71,10 @@ export const Wrapper = styled.div`
 
       border: 1px solid #c9c9c9;
     `};
+
+  ${(props) =>
+    props.button &&
+    css`
+      width: 425px;
+    `}
 `;
