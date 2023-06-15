@@ -60,6 +60,7 @@ export const Wrapper = styled.div`
     props.SubmitInput &&
     css`
       background-color: white;
+      border-radius: 3px;
 
       border: 1px solid #c9c9c9;
     `};
