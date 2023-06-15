@@ -18,26 +18,29 @@ export const Container = styled.div`
   ${(props) =>
     props.background &&
     css`
-      background-color: #f8f9f9};
+      position: absolute;
+      top: 52px;
+      left: 47%;
+      transform: translate(-50%, 0);
     `}
 
   ${(props) =>
     props.contents &&
     css`
-      width: 850px;
+      width: 700px;
     `}
 
     ${(props) =>
     props.button &&
     css`
-      width: 850px;
+      width: 700px;
     `}
 `;
 
 export const Wrapper = styled.div`
   text-align: left;
 
-  width: 850px;
+  width: 700px;
   padding: 24px;
   margin: 10px 0;
 
@@ -75,6 +78,6 @@ export const Wrapper = styled.div`
   ${(props) =>
     props.button &&
     css`
-      width: 425px;
+      width: 350px;
     `}
 `;
