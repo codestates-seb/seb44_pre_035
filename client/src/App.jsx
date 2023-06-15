@@ -6,7 +6,6 @@ import Ask from "./pages/questions/Ask";
 import Question from "./pages/questions/Question";
 import Signin from "./pages/users/login/Signin";
 import Signup from "./pages/users/login/Signup";
-import Footer from "./share/Footer";
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
-        <Footer />
       </div>
     </BrowserRouter>
   );
