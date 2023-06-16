@@ -38,10 +38,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         );
 
         log.info( "로그인 성공. email: {}" ,email);
-        log.info( "AccessToken 을 발급 AccessToken: {}" ,accessToken);
-        log.info( "RefreshToken 을 발급 RefreshToken: {}" ,refreshToken);
+        log.info( "AccessToken 발급 AccessToken: {}" ,accessToken);
+        log.info( "RefreshToken 발급 RefreshToken: {}" ,refreshToken);
     }
-
 
     private String extractUsername(Authentication authentication){
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

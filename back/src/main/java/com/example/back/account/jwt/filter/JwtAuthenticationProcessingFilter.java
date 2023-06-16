@@ -28,13 +28,14 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final AccountRepository accountRepository;
 
-    private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();//5
+    private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
 
-    private final String NO_CHECK_URL = "/login";//1
+    private final String NO_CHECK_URL = "/login";
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         if(request.getRequestURI().equals(NO_CHECK_URL)) {
             filterChain.doFilter(request, response);
             return;
@@ -43,19 +44,20 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         String refreshToken = jwtService
                 .extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
-                .orElse(null); //2
+                .orElse(null);
 
 
         if(refreshToken != null){
-            checkRefreshTokenAndReIssueAccessToken(response, refreshToken);//3
+            checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
             return;
         }
 
-        checkAccessTokenAndAuthentication(request, response, filterChain);//4
+        checkAccessTokenAndAuthentication(request, response, filterChain);
 
     }
 
     private void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         jwtService.extractAccessToken(request).filter(jwtService::isTokenValid).ifPresent(
 
                 accessToken -> jwtService.extractUseremail(accessToken).ifPresent(
@@ -70,9 +72,8 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
         filterChain.doFilter(request,response);
     }
 
-
-
     private void saveAuthentication(Account account) {
+
         UserDetails user = User.builder()
                 .username(account.getEmail())
                 .password(account.getPassword())
@@ -88,7 +89,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
 
     private void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-
 
         accountRepository.findByRefreshToken(refreshToken).ifPresent(
                 account -> jwtService.sendAccessToken(response, jwtService.createAccessToken(account.getEmail()))
