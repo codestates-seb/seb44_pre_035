@@ -29,7 +29,7 @@ const FirstText = styled.span`
 
 const LastText = styled.span``;
 
-export default function QuestionStatus({ item }) {
+export default function QuestionListItemStatus({ item }) {
   const numberOfAnswer = dummyAnswers.filter(
     (answer) => answer.Question_id === item.Question_id,
   ).length;
