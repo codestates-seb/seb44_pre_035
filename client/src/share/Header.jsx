@@ -106,6 +106,7 @@ const ButtonItem = styled.li`
   &:first-child a {
     background-color: #e1ecf4; // --powder-100
     color: #39739e; // --powder-700
+    border: 1px solid #39739e;
 
     &:hover {
       background-color: #b3d3ea;
@@ -119,7 +120,7 @@ const ButtonItem = styled.li`
 
 const ButtonLink = styled(Link)`
   padding: 8px 10.4px;
-  border: 1px solid #39739e;
+  border: 1px solid transparent;
   border-radius: 3px;
   background-color: #0995ff; // --powder-100
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
