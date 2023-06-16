@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import logo from "../img/logo.svg";
-import burger from "../img/burger.svg";
 import search from "../img/search.svg";
-import Nav from "./Nav";
 
 const HeaderWrapper = styled.header`
   width: 100vw;
@@ -33,25 +31,6 @@ const HeaderContent = styled.div`
   font-size: 13px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
     "Segoe UI", "Liberation Sans", sans-serif;
-`;
-
-const Burger = styled.div`
-  position: relative;
-  height: 100%;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f1f2f3;
-  }
-
-  & nav {
-    position: absolute;
-    top: 56px;
-    left: 0px;
-  }
 `;
 
 const Logo = styled(Link)`
@@ -150,18 +129,11 @@ const ButtonLink = styled(Link)`
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
-  const [isOpenNav, setIsOpenNav] = useState(false);
 
   return (
     <>
       <HeaderWrapper>
         <HeaderContent>
-          {!isLoggedIn && (
-            <Burger onClick={() => setIsOpenNav((prev) => !prev)}>
-              <img src={burger} alt="burger" />
-              {isOpenNav && <Nav />}
-            </Burger>
-          )}
           <Logo to="/">
             <img src={logo} alt="logo" />
           </Logo>
