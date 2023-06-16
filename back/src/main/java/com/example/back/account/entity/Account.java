@@ -67,6 +67,7 @@ public class Account {
         this.refreshToken = null;
     }
 
+    //패스워드 검증 메서드
     public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
         return passwordEncoder.matches(checkPassword, getPassword());
     }
