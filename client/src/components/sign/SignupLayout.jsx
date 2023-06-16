@@ -107,6 +107,8 @@ const Msgdiv = styled.div`
   font-size: 12px;
   margin-top: 10px;
   text-align: left;
+  margin-bottom: 10px;
+  opacity: 0.67;
 `;
 
 const LinkSpan = styled.span`
@@ -175,6 +177,11 @@ const SignupLayout = ({
           required
         />
       </ContentDiv>
+      <Msgdiv>
+        Passwords must contain at least eight
+        <br />
+        characters, including at least 1 letter and 1 number.
+      </Msgdiv>
       <SignupButton type={"signup"} />
       <Msgdiv>
         By clicking “Sign up”, you agree to our
