@@ -97,6 +97,7 @@ const Sign = styled.form`
 const Msgdiv = styled.div`
   font-size: 12px;
   margin-top: 10px;
+  text-align: left;
 `;
 
 const LinkSpan = styled.span`
@@ -168,10 +169,7 @@ const SignupLayout = ({
       <SignupButton type={"signup"} />
       <Msgdiv>
         By clicking “Sign up”, you agree to our
-        <LinkSpan>
-          terms of service
-          <br /> and acknowledge that you have read
-        </LinkSpan>
+        <LinkSpan>terms of service</LinkSpan> and acknowledge that you have read
         <br /> and understand ourservice, privacy policy
         <LinkSpan>code of conduct</LinkSpan>
       </Msgdiv>
