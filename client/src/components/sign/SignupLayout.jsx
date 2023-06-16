@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import SignupButton from "./SignupButton";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DisplayNameInput = styled.input.attrs({
   type: "text",
@@ -129,6 +130,17 @@ const SignupLayout = ({
       "Content-Type": "application/json",
       authorization: "",
     };
+
+    axios
+      .post("", JSON.stringify(reqbody), { headers })
+      .then((res) => {
+        console.error(res);
+        window.alert("회원가입 성공");
+        navigate("../Signin");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <Sign onSubmit={(e) => handleSignupButton(e)}>
@@ -157,12 +169,11 @@ const SignupLayout = ({
       <Msgdiv>
         By clicking “Sign up”, you agree to our
         <LinkSpan>
-          {" "}
-          terms of
+          terms of service
           <br /> and acknowledge that you have read
-          <br /> and understand ourservice, privacy policy
         </LinkSpan>
-        and <LinkSpan>code of conduct</LinkSpan>
+        <br /> and understand ourservice, privacy policy
+        <LinkSpan>code of conduct</LinkSpan>
       </Msgdiv>
     </Sign>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import logo_github from "../../img/logo_github.svg";
 import logo_google from "../../img/logo_google.svg";
+import logo_github from "../../img/logo_github.svg";
 import logo_facebook from "../../img/logo_facebook.svg";
 
 const SignupButton = ({ type }) => {
@@ -14,10 +14,10 @@ const SignupButton = ({ type }) => {
   }
   if (type === "github") {
     return (
-      <GitSignup>
+      <GithubSignup>
         <img src={logo_github} alt="logo_github" />
         Sign up with GitHub
-      </GitSignup>
+      </GithubSignup>
     );
   }
   if (type === "facebook") {
@@ -29,7 +29,7 @@ const SignupButton = ({ type }) => {
     );
   }
   if (type === "signup") {
-    return <BlueButton>Sign up</BlueButton>;
+    return <SignupBlue>Sign up</SignupBlue>;
   }
 };
 
@@ -62,14 +62,13 @@ const SocialSignUpButton = styled.button`
     opacity: 0.8;
   }
 `;
-
-const GitSignup = styled(SocialSignUpButton)`
-  background-color: #232629;
-  color: white;
-  outline: none;
-`;
 const GoogleSignup = styled(SocialSignUpButton)`
   background-color: #ffffff;
+  outline: none;
+`;
+const GithubSignup = styled(SocialSignUpButton)`
+  background-color: #232629;
+  color: white;
   outline: none;
 `;
 const FacebookSignup = styled(SocialSignUpButton)`
@@ -77,7 +76,7 @@ const FacebookSignup = styled(SocialSignUpButton)`
   color: white;
   outline: none;
 `;
-const BlueButton = styled.button`
+const SignupBlue = styled.button`
   display: inline-block;
   width: 100%;
   font-size: 13px;
