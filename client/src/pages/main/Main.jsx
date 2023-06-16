@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import Layout from "../../share/Layout";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/question/QuestionList";
 
@@ -21,16 +20,12 @@ const PageTitle = styled.h1`
 
 export default function Main() {
   return (
-    <div>
-      메인 페이지
-      <Layout />
-      <Container>
-        <PageHeader>
-          <PageTitle>All Questions</PageTitle>
-          <AskButton />
-        </PageHeader>
-        <QuestionList />
-      </Container>
-    </div>
+    <Container>
+      <PageHeader>
+        <PageTitle>All Questions</PageTitle>
+        <AskButton />
+      </PageHeader>
+      <QuestionList />
+    </Container>
   );
 }
