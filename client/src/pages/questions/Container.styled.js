@@ -23,12 +23,9 @@ export const Container = styled.div`
     props.contents &&
     css`
       width: 100%;
-      height: 100%;
       position: absolute;
       top: 52px;
       left: -70px;
-
-      overflow: auto;
     `}
 
     ${(props) =>
@@ -52,6 +49,7 @@ export const Wrapper = styled.div`
     props.title &&
     css`
       height: 130px;
+      justify-content: center;
     `};
 
   ${(props) =>
@@ -76,7 +74,7 @@ export const Wrapper = styled.div`
   ${(props) =>
     props.SubmitHTML &&
     css`
-      height: 370px;
+      height: 380px;
       background-color: white;
       border-radius: 3px;
 
