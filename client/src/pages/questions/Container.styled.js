@@ -13,21 +13,22 @@ export const Container = styled.div`
   flex-direction: ${(props) => (props.direction === "row" ? "row" : "column")};
   align-items: center;
 
-  /* border: 1px solid red; */
-
   ${(props) =>
     props.background &&
     css`
-      position: absolute;
-      top: 52px;
-      left: 47%;
-      transform: translate(-50%, 0);
+      background-color: #fafafa;
     `}
 
   ${(props) =>
     props.contents &&
     css`
-      width: 700px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 52px;
+      left: -70px;
+
+      overflow: auto;
     `}
 
     ${(props) =>
@@ -44,11 +45,8 @@ export const Wrapper = styled.div`
   padding: 24px;
   margin: 10px 0;
 
-  /* border: 1px solid blue; */
-
   display: flex;
   flex-direction: ${(props) => (props.direction === "row" ? "row" : "column")};
-  justify-content: center;
 
   ${(props) =>
     props.title &&
@@ -76,8 +74,14 @@ export const Wrapper = styled.div`
     `};
 
   ${(props) =>
-    props.button &&
+    props.SubmitHTML &&
     css`
-      width: 350px;
-    `}
+      height: 500px;
+      background-color: white;
+      border-radius: 3px;
+
+      border: 1px solid #c9c9c9;
+    `};
+
+  ${(props) => props.button && css``}
 `;

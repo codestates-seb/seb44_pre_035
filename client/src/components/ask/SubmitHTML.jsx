@@ -4,7 +4,7 @@ import { Label } from "./SubmitInput.styled";
 
 function SubmitHTML({ title, comment, htmlFor }) {
   return (
-    <Wrapper SubmitInput="true" direction="column">
+    <Wrapper SubmitHTML="true" direction="column">
       <Label title="true" htmlFor={htmlFor}>
         {title}
       </Label>
