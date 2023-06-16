@@ -5,6 +5,8 @@ export const dummyQuestions = [
     title: "I have a trouble with Git and Github.",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis vitae lacus non egestas. Aenean non nunc quis arcu lacinia dictum ac non tortor. Quisque faucibus sed nisl at pretium. Pellentesque ex metus, luctus eget lacinia tristique, feugiat a enim. Proin varius, magna eget porta maximus, diam est consectetur eros, et luctus nisl orci quis neque. Duis venenatis euismod ex, vel luctus tellus porttitor et. Suspendisse potenti. Vestibulum imperdiet porta orci, nec egestas lacus eleifend id. Aliquam maximus lectus sapien.",
+    createdAt: 1686901871407,
+    modifiedAt: 1686901871407,
     vote: 0,
     view: 0,
     tags: ["git", "github", "clone"],
@@ -15,6 +17,8 @@ export const dummyQuestions = [
     title: "I have a trouble with React.",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis vitae lacus non egestas. Aenean non nunc quis arcu lacinia dictum ac non tortor. Quisque faucibus sed nisl at pretium. Pellentesque ex metus, luctus eget lacinia tristique, feugiat a enim. Proin varius, magna eget porta maximus, diam est consectetur eros, et luctus nisl orci quis neque. Duis venenatis euismod ex, vel luctus tellus porttitor et. Suspendisse potenti. Vestibulum imperdiet porta orci, nec egestas lacus eleifend id. Aliquam maximus lectus sapien.",
+    createdAt: 1686901871407,
+    modifiedAt: 1686901871407,
     vote: 0,
     view: 0,
     tags: [
@@ -37,6 +41,8 @@ export const dummyQuestions = [
     title: "why useEffect occurs rerendering?",
     content:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed venenatis vitae lacus non egestas. Aenean non nunc quis arcu lacinia dictum ac non tortor. Quisque faucibus sed nisl at pretium. Pellentesque ex metus, luctus eget lacinia tristique, feugiat a enim. Proin varius, magna eget porta maximus, diam est consectetur eros, et luctus nisl orci quis neque. Duis venenatis euismod ex, vel luctus tellus porttitor et. Suspendisse potenti. Vestibulum imperdiet porta orci, nec egestas lacus eleifend id. Aliquam maximus lectus sapien.",
+    createdAt: 1686735020000,
+    modifiedAt: 1686735020000,
     vote: 0,
     view: 0,
     tags: ["useEffect", "react"],
