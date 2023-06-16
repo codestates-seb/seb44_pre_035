@@ -6,7 +6,7 @@ import axios from "axios";
 const DisplayNameInput = styled.input.attrs({
   type: "text",
 })`
-  display: inline-block;
+  display: flex;
   padding: 7px 9px;
   width: 100%;
   text-align: start;
@@ -16,10 +16,13 @@ const DisplayNameInput = styled.input.attrs({
   font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI",
     "Liberation Sans", sans-serif;
   box-shadow: none;
+  border-width: 1px;
+  border-color: #babfc4;
+  opacity: 0.77;
   border-radius: 3px;
 `;
 const DisplayNameLabel = styled.label`
-  display: inline-block;
+  display: flex;
   padding: 0 2px;
   text-align: left;
   font-size: 15px;
@@ -33,20 +36,23 @@ const DisplayNameLabel = styled.label`
 const EmailInput = styled.input.attrs({
   type: "text",
 })`
-  display: inline-block;
+  display: flex;
+  text-align: left;
   padding: 7px 9px;
   width: 100%;
   text-align: start;
   font-size: 13px;
-  line-height: normal;
   letter-spacing: normal;
   font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI",
     "Liberation Sans", sans-serif;
   box-shadow: none;
+  opacity: 0.77;
   border-radius: 3px;
+  border-width: 1px;
+  border-color: #babfc4;
 `;
 const EmailLabel = styled.label`
-  display: inline-block;
+  display: flex;
   padding: 0 2px;
   text-align: left;
   font-size: 15px;
@@ -59,7 +65,7 @@ const EmailLabel = styled.label`
 `;
 
 const PasswordLabel = styled.label`
-  display: inline-block;
+  display: flex;
   padding: 0 2px;
   text-align: left;
   font-size: 15px;
@@ -75,6 +81,8 @@ const PasswordInput = styled.input.attrs({
 })`
   display: inline-block;
   padding: 7px 9px;
+  border-width: 1px;
+  border-color: #babfc4;
   width: 100%;
   text-align: start;
   font-size: 13px;
@@ -83,6 +91,7 @@ const PasswordInput = styled.input.attrs({
   font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI",
     "Liberation Sans", sans-serif;
   box-shadow: none;
+  opacity: 0.77;
   border-radius: 3px;
   margin-bottom: 10px;
 `;
