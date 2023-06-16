@@ -67,6 +67,10 @@ public class Account {
         this.refreshToken = null;
     }
 
+    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword) {
+        return passwordEncoder.matches(checkPassword, getPassword());
+    }
+
     public enum Role {
         USER
     }

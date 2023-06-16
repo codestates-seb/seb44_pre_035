@@ -4,6 +4,7 @@ import com.example.back.account.dto.AccountSignUpDto;
 import com.example.back.account.dto.AccountUpdateDto;
 import com.example.back.account.entity.Account;
 import com.example.back.account.repository.AccountRepository;
+import com.example.back.account.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,14 @@ public class AccountServiceImpl implements AccountService{
 
     @Override //패스워드 변경전 변경후
     public void updatePassword(String checkPassword, String toBePassword) throws Exception {
+        Account account = accountRepository.findByEmail(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new Exception("회원이 존재하지 않습니다."));
+
+        if(!account.matchPassword(passwordEncoder, checkPassword)) {
+            throw new Exception("비밀번호가 일치하지 않습니다.");
+        }
+
+        account.updatePassword(passwordEncoder, toBePassword);
 
     }
 }
