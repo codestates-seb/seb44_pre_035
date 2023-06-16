@@ -163,7 +163,7 @@ export default function Header() {
                 <ButtonLink>Log in</ButtonLink>
               </ButtonItem>
               <ButtonItem>
-                <ButtonLink>Sign up</ButtonLink>
+                <ButtonLink to="/signup">Sign up</ButtonLink>
               </ButtonItem>
             </ButtonList>
           )}
