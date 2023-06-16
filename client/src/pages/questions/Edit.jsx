@@ -3,12 +3,10 @@ import SubmitButton from "../../components/ask/SubmitButton";
 import SubmitInput from "../../components/ask/SubmitInput";
 import { Container, Title, Wrapper } from "./Container.styled";
 import SubmitHTML from "../../components/ask/SubmitHTML";
-import Layout from "../../share/Layout";
 
 export default function Edit() {
   return (
     <Container background="true" align="column">
-      <Layout />
       <Container contents="true" direction="column">
         <Wrapper title="true">
           <Title>Edit a question</Title>

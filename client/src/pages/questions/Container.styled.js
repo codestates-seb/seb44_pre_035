@@ -16,17 +16,10 @@ export const Container = styled.div`
   ${(props) =>
     props.background &&
     css`
-      background-color: #fafafa;
+      background-color: #f1f2f3;
     `}
 
-  ${(props) =>
-    props.contents &&
-    css`
-      width: 100%;
-      position: absolute;
-      top: 52px;
-      left: -70px;
-    `}
+  ${(props) => props.contents && css``}
 
     ${(props) =>
     props.button &&

@@ -2,13 +2,11 @@ import SubmitButton from "../../components/ask/SubmitButton";
 import SubmitInput from "../../components/ask/SubmitInput";
 import { Container, Title, Wrapper } from "./Container.styled";
 import SubmitHTML from "../../components/ask/SubmitHTML";
-import Layout from "../../share/Layout";
 import HelpMessage from "../../components/ask/HelpMessage";
 
 export default function Ask() {
   return (
     <Container background="true" align="column">
-      <Layout />
       <Container contents="true" direction="column">
         <Wrapper title="true">
           <Title>Ask a public question</Title>
