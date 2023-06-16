@@ -76,7 +76,7 @@ export const Wrapper = styled.div`
   ${(props) =>
     props.SubmitHTML &&
     css`
-      height: 500px;
+      height: 370px;
       background-color: white;
       border-radius: 3px;
 
