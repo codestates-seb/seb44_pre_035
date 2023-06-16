@@ -10,6 +10,7 @@ public interface JwtService {
     String createAccessToken(String email);
     String createRefreshToken();
 
+    //로그아웃에
     void updateRefreshToken(String email, String refreshToken);
     void destroyRefreshToken(String email);
 

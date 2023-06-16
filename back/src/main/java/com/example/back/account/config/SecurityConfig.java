@@ -33,6 +33,7 @@ public class SecurityConfig {
     private final AccountRepository accountRepository;
     private final JwtService jwtService;
 
+    //인증 및 인가 규칙 설정, 필터 추가
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -45,7 +46,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login","/signup","/h2/**").permitAll()
+                .antMatchers("/login","/signup","/h2/**").permitAll() //인가 요청 경로 추가 해야함
                 .anyRequest().authenticated();
 
         http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
@@ -55,11 +56,13 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //패스워드 인코더
     @Bean
     public PasswordEncoder passwordEncoder(){
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    //daoauthenticationProvider 생성후 인증 처리
     @Bean
     public AuthenticationManager authenticationManager() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -78,6 +81,7 @@ public class SecurityConfig {
         return new LoginFailureHandler();
     }
 
+    //필터 동작 정의
     @Bean
     public JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordLoginFilter(){
         JsonUsernamePasswordAuthenticationFilter jsonUsernamePasswordLoginFilter = new JsonUsernamePasswordAuthenticationFilter(objectMapper);

@@ -50,6 +50,7 @@ public class JwtServiceImpl implements JwtService{
     private final AccountRepository accountRepository;
 
 
+    // 이메일에 액세스토큰 생성 후 서명
     @Override
     public String createAccessToken(String email) {
         return JWT.create()
@@ -59,6 +60,7 @@ public class JwtServiceImpl implements JwtService{
                 .sign(Algorithm.HMAC512(secret));
     }
 
+    // 리프레시 토큰 생성후 서명
     @Override
     public String createRefreshToken() {
         return JWT.create()
@@ -67,26 +69,27 @@ public class JwtServiceImpl implements JwtService{
                 .sign(Algorithm.HMAC512(secret));
     }
 
+    //이메일 해당하는 리프레쉬 토큰 업데이트
     @Override
     public void updateRefreshToken(String email, String refreshToken) {
         accountRepository.findByEmail(email)
                 .ifPresentOrElse(
-                        member -> member.updateRefreshToken(refreshToken),
+                        account -> account.updateRefreshToken(refreshToken),
                         () -> new Exception("회원이 없습니다")
                 );
     }
 
-
-
+    //레프레시 토큰 제거
     @Override
-    public void destroyRefreshToken(String username) {
-        accountRepository.findByEmail(username)
+    public void destroyRefreshToken(String email) {
+        accountRepository.findByEmail(email)
                 .ifPresentOrElse(
-                        member -> member.destroyRefreshToken(),
+                        account -> account.destroyRefreshToken(),
                         () -> new Exception("회원이 없습니다")
                 );
     }
 
+    //http response에 토큰 포함시켜 전송 status 200 OK
     @Override
     public void sendAccessAndRefreshToken(HttpServletResponse response, String accessToken, String refreshToken){
         response.setStatus(HttpServletResponse.SC_OK);
@@ -101,6 +104,7 @@ public class JwtServiceImpl implements JwtService{
 
     }
 
+    //http response에 액세스토큰 포함시켜 전송 status 200 OK
     @Override
     public void sendAccessToken(HttpServletResponse response, String accessToken){
         response.setStatus(HttpServletResponse.SC_OK);
@@ -113,6 +117,7 @@ public class JwtServiceImpl implements JwtService{
     }
 
 
+    // 헤더확인후 Bearer 제거
 
     @Override
     public Optional<String> extractAccessToken(HttpServletRequest request) {
@@ -132,6 +137,8 @@ public class JwtServiceImpl implements JwtService{
         ).map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
 
+
+    //액세스토큰에서 사용자 이메일 추출
     @Override
     public Optional<String> extractUseremail(String accessToken) {
         try {
@@ -142,6 +149,8 @@ public class JwtServiceImpl implements JwtService{
         }
     }
 
+
+    //헤더 토큰 설정
     @Override
     public void setAccessTokenHeader(HttpServletResponse response, String accessToken) {
         response.setHeader(accessHeader, accessToken);
@@ -151,13 +160,15 @@ public class JwtServiceImpl implements JwtService{
     public void setRefreshTokenHeader(HttpServletResponse response, String refreshToken) {
         response.setHeader(refreshHeader, refreshToken);
     }
+
+    //토큰 유효성 검사
     @Override
     public boolean isTokenValid(String token){
         try {
             JWT.require(Algorithm.HMAC512(secret)).build().verify(token);
             return true;
         }catch (Exception e){
-            log.error("유효하지 않은 Token입니다", e.getMessage());
+            log.error("유효하지 않은 토큰입니다", e.getMessage());
             return false;
         }
     }

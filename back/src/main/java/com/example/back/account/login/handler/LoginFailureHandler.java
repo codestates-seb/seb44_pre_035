@@ -15,8 +15,8 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write("fail");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); //보안상 OK로 설정하는 방식이 있다는데 일단은 401
+        response.getWriter().write("로그인 실패");
         log.info("로그인에 실패했습니다");
     }
 }

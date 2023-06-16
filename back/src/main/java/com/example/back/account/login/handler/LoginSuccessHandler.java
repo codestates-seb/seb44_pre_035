@@ -21,6 +21,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final AccountRepository accountRepository;
 
 
+    //사용자 인증 성공시 액세스토큰과 리프레시토큰 생성
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
@@ -37,9 +38,10 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
                 }
         );
 
+        //로그
         log.info( "로그인 성공. email: {}" ,email);
-        log.info( "AccessToken 발급 AccessToken: {}" ,accessToken);
-        log.info( "RefreshToken 발급 RefreshToken: {}" ,refreshToken);
+        log.info( "AccessToken 발급 : {}" ,accessToken);
+        log.info( "RefreshToken 발급 : {}" ,refreshToken);
     }
 
     private String extractUsername(Authentication authentication){

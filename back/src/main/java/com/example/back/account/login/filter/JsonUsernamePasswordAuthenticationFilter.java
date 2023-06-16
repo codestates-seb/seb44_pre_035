@@ -30,6 +30,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
     private static final String PASSWORD_KEY="password";
 
 
+    //요청 매칭
     private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER =
             new AntPathRequestMatcher(DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD);
 
@@ -40,6 +41,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
         this.objectMapper = objectMapper;
     }
 
+    //인증
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         if(request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)  ) {
