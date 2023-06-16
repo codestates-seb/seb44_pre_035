@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import styled from "styled-components";
 import Nav from "./Nav";
+import { Outlet } from "react-router-dom";
 
 /* 전체 레이아웃 */
 const LayoutArea = styled.div`
@@ -46,7 +47,9 @@ export default function Layout() {
           <NavContainer>
             <Nav />
           </NavContainer>
-          <MainContainer></MainContainer>
+          <MainContainer>
+            <Outlet />
+          </MainContainer>
           <SideContainer>
             <Sidebar />
           </SideContainer>
