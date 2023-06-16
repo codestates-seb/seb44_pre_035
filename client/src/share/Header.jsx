@@ -46,6 +46,12 @@ const Burger = styled.div`
   &:hover {
     background-color: #f1f2f3;
   }
+
+  & nav {
+    position: absolute;
+    top: 56px;
+    left: 0px;
+  }
 `;
 
 const Logo = styled(Link)`
