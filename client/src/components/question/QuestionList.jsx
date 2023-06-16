@@ -113,7 +113,9 @@ export default function QuestionList() {
         ))}
         <PageButtonDiv>...</PageButtonDiv>
         <PageButton to={`?tab=${filter}&page=100`}>100</PageButton>
-        <PageButton to={`?tab=${filter}&page=${page + 1}`}>Next</PageButton>
+        <PageButton to={`?tab=${filter}&page=${page >= 100 ? 100 : page + 1}`}>
+          Next
+        </PageButton>
       </Pagination>
     </Wrapper>
   );
