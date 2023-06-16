@@ -12,6 +12,17 @@ const HeaderWrapper = styled.header`
   height: 56px;
   border-top: 3px solid #f48224;
   border-bottom: 1px solid #c8ccd0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
+`;
+
+const Hidden = styled.div`
+  display: block;
+  width: 100vw;
+  height: 55px;
 `;
 
 const HeaderContent = styled.div`
@@ -136,40 +147,43 @@ export default function Header() {
   const [isOpenNav, setIsOpenNav] = useState(false);
 
   return (
-    <HeaderWrapper>
-      <HeaderContent>
-        {!isLoggedIn && (
-          <Burger onClick={() => setIsOpenNav((prev) => !prev)}>
-            <img src={burger} alt="burger" />
-            {isOpenNav && <Nav />}
-          </Burger>
-        )}
-        <Logo to="/">
-          <img src={logo} alt="logo" />
-        </Logo>
-        <Form>
-          <SearchIcon src={search} alt="search" />
-          <SearchInput />
-        </Form>
-        <Buttons>
-          {isLoggedIn ? (
-            <ButtonList>
-              <ButtonItem onClick={() => setIsLoggedIn(false)}>
-                <ButtonLink>Log out</ButtonLink>
-              </ButtonItem>
-            </ButtonList>
-          ) : (
-            <ButtonList>
-              <ButtonItem onClick={() => setIsLoggedIn(true)}>
-                <ButtonLink>Log in</ButtonLink>
-              </ButtonItem>
-              <ButtonItem>
-                <ButtonLink to="/signup">Sign up</ButtonLink>
-              </ButtonItem>
-            </ButtonList>
+    <>
+      <HeaderWrapper>
+        <HeaderContent>
+          {!isLoggedIn && (
+            <Burger onClick={() => setIsOpenNav((prev) => !prev)}>
+              <img src={burger} alt="burger" />
+              {isOpenNav && <Nav />}
+            </Burger>
           )}
-        </Buttons>
-      </HeaderContent>
-    </HeaderWrapper>
+          <Logo to="/">
+            <img src={logo} alt="logo" />
+          </Logo>
+          <Form>
+            <SearchIcon src={search} alt="search" />
+            <SearchInput />
+          </Form>
+          <Buttons>
+            {isLoggedIn ? (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(false)}>
+                  <ButtonLink>Log out</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            ) : (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(true)}>
+                  <ButtonLink>Log in</ButtonLink>
+                </ButtonItem>
+                <ButtonItem>
+                  <ButtonLink to="/signup">Sign up</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            )}
+          </Buttons>
+        </HeaderContent>
+      </HeaderWrapper>
+      <Hidden />
+    </>
   );
 }
