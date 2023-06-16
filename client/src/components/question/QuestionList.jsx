@@ -27,7 +27,7 @@ const ListFilterItem = styled(Link)`
   padding: 9.6px;
   border: 1px solid #838c95;
   background-color: ${(props) =>
-    props.filterSelected ? "#e3e6e8" : "transparent"};
+    props.$currentFilter ? "#e3e6e8" : "transparent"};
 
   &:first-child {
     border-top-left-radius: 3px;
@@ -44,9 +44,37 @@ const ListFilterItem = styled(Link)`
   }
 `;
 
+const Pagination = styled.div`
+  display: flex;
+  margin: 20px 0;
+  justify-content: center;
+  gap: 5px;
+`;
+
+const PageButton = styled(Link)`
+  width: fit-content;
+  min-width: 26px;
+  height: 26px;
+  line-height: 26px;
+  padding: 0 8px;
+  background-color: ${(props) =>
+    props.$currentPage ? "#f48224" : "transparent"};
+  color: ${(props) => (props.$currentPage ? "#fff" : "inherit")};
+  border: 1px solid #d6d9dc;
+  border-radius: 3px;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+`;
+
+const PageButtonDiv = styled(PageButton).attrs({ as: "div" })`
+  border: none;
+`;
+
 export default function QuestionList() {
   const { search } = useLocation();
-  const filter = new URLSearchParams(search).get("tab");
+  const filter = new URLSearchParams(search).get("tab") || "Newest";
+  const page = Number(new URLSearchParams(search).get("page")) || 1;
 
   return (
     <Wrapper>
@@ -55,13 +83,13 @@ export default function QuestionList() {
         <ListFilter>
           <ListFilterItem
             to="/?tab=Newest"
-            filterSelected={filter === "Newest"}
+            $currentFilter={filter === "Newest"}
           >
             Newest
           </ListFilterItem>
           <ListFilterItem
             to="/?tab=Unanswered"
-            filterSelected={filter === "Unanswered"}
+            $currentFilter={filter === "Unanswered"}
           >
             Unanswered
           </ListFilterItem>
@@ -70,6 +98,23 @@ export default function QuestionList() {
       {dummyQuestions.map((question) => (
         <QuestionListItem key={question.Question_id} item={question} />
       ))}
+      <Pagination>
+        <PageButton to={`?tab=${filter}&page=${page <= 1 ? 1 : page - 1}`}>
+          Prev
+        </PageButton>
+        {[1, 2, 3, 4, 5].map((num) => (
+          <PageButton
+            key={num}
+            to={`?tab=${filter}&page=${num}`}
+            $currentPage={num === page}
+          >
+            {num}
+          </PageButton>
+        ))}
+        <PageButtonDiv>...</PageButtonDiv>
+        <PageButton to={`?tab=${filter}&page=100`}>100</PageButton>
+        <PageButton to={`?tab=${filter}&page=${page + 1}`}>Next</PageButton>
+      </Pagination>
     </Wrapper>
   );
 }
