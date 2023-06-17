@@ -46,7 +46,7 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login","/signup","/h2/**").permitAll() //인가 요청 경로 추가 해야함
+                .antMatchers("/login","/accounts/signup","/h2/**").permitAll() //경로 추가 해야함
                 .anyRequest().authenticated();
 
         http.addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class);
