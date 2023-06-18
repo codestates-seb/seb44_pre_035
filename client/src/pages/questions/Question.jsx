@@ -6,6 +6,8 @@ import { dummyQuestions } from "../../dummy/dummyQuestions";
 import QuestionStatus from "../../components/question/QuestionStatus";
 import PostContainer from "../../components/question/PostContainer";
 import { dummyAnswers } from "../../dummy/dummyAnswers";
+import Writer from "../../share/Writer";
+import PostButton from "../../components/question/PostButton";
 
 const Container = styled.div`
   padding: 24px 16px;
@@ -40,13 +42,21 @@ const AnswerHeader = styled.div`
 
 const AnswerStatus = styled.div`
   font-size: 19px;
+  font-weight: 600;
   display: flex;
   align-items: center;
 `;
 
 const AnswerContent = styled.div``;
 
-const AnswerWriter = styled.div``;
+const AnswerWriter = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  & button {
+    margin-top: 24px;
+  }
+`;
 
 export default function Question() {
   const { id: questionId } = useParams("id");
@@ -77,7 +87,13 @@ export default function Question() {
           <PostContainer key={answer.Answer_id} post={answer} />
         ))}
       </AnswerContent>
-      <AnswerWriter></AnswerWriter>
+      <AnswerWriter>
+        <AnswerHeader>
+          <AnswerStatus>Your Answer</AnswerStatus>
+        </AnswerHeader>
+        <Writer />
+        <PostButton />
+      </AnswerWriter>
     </Container>
   );
 }
