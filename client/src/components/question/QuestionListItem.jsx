@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import Tags from "./Tags";
-import QuestionStatus from "./QuestionStatus";
+import QuestionListItemStatus from "./QuestionListItemStatus";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -49,7 +49,7 @@ const ContentExcerpt = styled.div`
 export default function QuestionListItem({ item }) {
   return (
     <Wrapper>
-      <QuestionStatus item={item} />
+      <QuestionListItemStatus item={item} />
       <Content>
         <ContentTitle>
           <Link to={`/question/${item.Question_id}`}>{item.title}</Link>
