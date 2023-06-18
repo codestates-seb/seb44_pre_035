@@ -1,14 +1,15 @@
 package com.example.back.question.dto;
 
 import com.example.back.question.validator.NotSpace;
-import org.springframework.data.annotation.CreatedDate;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
-
+@Getter
 public class QuestionPatchDto {
-    private long QuestionId;
+    private long questionId;
 
     @NotSpace
     private String title;
@@ -16,13 +17,10 @@ public class QuestionPatchDto {
     @NotSpace
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createdDate;
-
     @LastModifiedDate
-    private LocalDateTime modifiedDate;
+    private LocalDateTime modifiedAt;
 
-    public void setQuestionId(long QuestionId) {
-        this.QuestionId = QuestionId;
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
     }
 }

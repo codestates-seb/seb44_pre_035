@@ -21,11 +21,11 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping()
+@RequestMapping("/questions")
 @Validated
 @Slf4j
 public class QuestionController {
-    private final static String ORDER_DEFAULT_URL = "";
+    private final static String QUESTION_DEFAULT_URL = "/questions";
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
@@ -38,11 +38,12 @@ public class QuestionController {
 
     // Account
     //private final AccountService accountService;
-    @PostMapping
+    @PostMapping("/ask")
     public ResponseEntity postQuestion(
             @Valid @RequestBody QuestionPostDto questionPostDto) {
-        Question question = questionService.createQuestion(mapper.questionPostDtoToQuestion(questionPostDto));
-        URI location = UriCreator.createUri(ORDER_DEFAULT_URL, question.getQuestionId());
+        Question question = questionService.createQuestion(
+                mapper.questionPostDtoToQuestion(questionPostDto));
+        URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, question.getQuestionId());
 
         return ResponseEntity.created(location).build();
     }
@@ -58,8 +59,8 @@ public class QuestionController {
     }
     @GetMapping
     public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                        @Positive @RequestParam int size) {
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+                                       @Positive @RequestParam int size) {
+        Page<Question> pageQuestions = questionService.findQuestions(page-1, size);
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(
@@ -74,30 +75,18 @@ public class QuestionController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    /*
     @PatchMapping("/{question_id}")
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
-                                        @Valid @RequestBody QuestionPatchDto questionPatchDto){
+                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) {
         questionPatchDto.setQuestionId(questionId);
-        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
+        questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
 
-        return new ResponseEntity<>(
-                new
-        )
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
-
-     */
-}
 /*
 
+*/
 
-    @DeleteMapping
-        public ResponseEntity get(){
-        return new ResponseEntity<>();
-    {
 
-    @DeleteMapping
-        public ResponseEntity get(){
-        return new ResponseEntity<>();
-    {*/
-
+}

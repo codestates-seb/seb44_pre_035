@@ -2,6 +2,7 @@ package com.example.back.question.service;
 
 
 import com.example.back.question.entity.Question;
+import com.example.back.question.mapper.QuestionMapperImpl;
 import com.example.back.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,19 +32,30 @@ public class QuestionService {
     조회수 계산
     조회수 업데이트
      */
-    public Question findQuestion(long questionId) {return findQuestion(questionId);}
+    public Question findQuestion(long questionId) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        return optionalQuestion.orElseThrow(NullPointerException::new);
+    }
 
     public Page<Question> findQuestions(int page, int size){
         return questionRepository.findAll(PageRequest.of(page,size,
-                Sort.by("createdDate").descending()));
+                Sort.by("createdAt").descending()));
     }
 
     public void deleteQuestion(long questionId){
-        Question findQuestion = findQuestion(questionId);
-
+        questionRepository.delete(findQuestion(questionId));
     }
 
     private Question saveQuestion(Question question){
         return questionRepository.save(question);
+    }
+
+    public void updateQuestion(Question question){
+        Question foundQuestion = findQuestion(question.getQuestionId());
+        foundQuestion.setTitle(question.getTitle());
+        foundQuestion.setContent(question.getContent());
+        foundQuestion.setModifiedAt(question.getModifiedAt());
+
+        questionRepository.save(foundQuestion);
     }
 }

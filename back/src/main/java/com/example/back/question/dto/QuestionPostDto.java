@@ -1,17 +1,13 @@
 package com.example.back.question.dto;
 
 import lombok.Getter;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.NotNull;
 
 @Getter
 public class QuestionPostDto {
 
-    @Positive
-    private long questionId;
-
-    @NotBlank
+    @NotNull
     private String title;
 
     @NotBlank
