@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,6 +34,13 @@ public class Account {
 
     @Column(length = 1000)
     private String refreshToken;
+
+//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Question> questionList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Answer> questionList = new ArrayList<>();
+
 
      // oauth 2.0 깃헙 사전설정
 //    @Enumerated(EnumType.STRING)
