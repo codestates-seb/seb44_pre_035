@@ -19,6 +19,7 @@ function Writer() {
       theme="snow"
       value={value}
       onChange={setValue}
+      style={{ height: "250px" }}
     />
   );
 }

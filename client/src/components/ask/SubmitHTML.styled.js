@@ -23,17 +23,3 @@ export const Label = styled.label`
       margin-bottom: 5px;
     `};
 `;
-
-export const Input = styled.input`
-  font-size: 13px;
-
-  border: 1px solid #babfc4;
-  border-radius: 3px;
-  padding: 8px 9px;
-
-  :focus {
-    background-color: #f8f9f9;
-
-    outline: 1px solid gray;
-  }
-`;
