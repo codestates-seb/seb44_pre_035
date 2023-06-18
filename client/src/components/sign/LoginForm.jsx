@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import EmailForm from "./EmailForm";
 import PasswordForm from "./PasswordForm";
-import LoginButton from "./LoginButtons";
+import LoginButton from "./LoginButton";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
