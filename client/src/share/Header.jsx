@@ -3,15 +3,24 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import logo from "../img/logo.svg";
-import burger from "../img/burger.svg";
 import search from "../img/search.svg";
-import Nav from "./Nav";
 
 const HeaderWrapper = styled.header`
   width: 100vw;
   height: 56px;
   border-top: 3px solid #f48224;
   border-bottom: 1px solid #c8ccd0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 2;
+`;
+
+const Hidden = styled.div`
+  display: block;
+  width: 100vw;
+  height: 55px;
 `;
 
 const HeaderContent = styled.div`
@@ -22,19 +31,6 @@ const HeaderContent = styled.div`
   font-size: 13px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
     "Segoe UI", "Liberation Sans", sans-serif;
-`;
-
-const Burger = styled.div`
-  position: relative;
-  height: 100%;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #f1f2f3;
-  }
 `;
 
 const Logo = styled(Link)`
@@ -106,6 +102,7 @@ const ButtonItem = styled.li`
   &:first-child a {
     background-color: #e1ecf4; // --powder-100
     color: #39739e; // --powder-700
+    border: 1px solid #39739e;
 
     &:hover {
       background-color: #b3d3ea;
@@ -119,7 +116,7 @@ const ButtonItem = styled.li`
 
 const ButtonLink = styled(Link)`
   padding: 8px 10.4px;
-  border: 1px solid #39739e;
+  border: 1px solid transparent;
   border-radius: 3px;
   background-color: #0995ff; // --powder-100
   box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
@@ -132,43 +129,39 @@ const ButtonLink = styled(Link)`
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
-  const [isOpenNav, setIsOpenNav] = useState(false);
 
   return (
-    <HeaderWrapper>
-      <HeaderContent>
-        {!isLoggedIn && (
-          <Burger onClick={() => setIsOpenNav((prev) => !prev)}>
-            <img src={burger} alt="burger" />
-            {isOpenNav && <Nav />}
-          </Burger>
-        )}
-        <Logo to="/">
-          <img src={logo} alt="logo" />
-        </Logo>
-        <Form>
-          <SearchIcon src={search} alt="search" />
-          <SearchInput />
-        </Form>
-        <Buttons>
-          {isLoggedIn ? (
-            <ButtonList>
-              <ButtonItem onClick={() => setIsLoggedIn(false)}>
-                <ButtonLink>Log out</ButtonLink>
-              </ButtonItem>
-            </ButtonList>
-          ) : (
-            <ButtonList>
-              <ButtonItem onClick={() => setIsLoggedIn(true)}>
-                <ButtonLink>Log in</ButtonLink>
-              </ButtonItem>
-              <ButtonItem>
-                <ButtonLink to="/signup">Sign up</ButtonLink>
-              </ButtonItem>
-            </ButtonList>
-          )}
-        </Buttons>
-      </HeaderContent>
-    </HeaderWrapper>
+    <>
+      <HeaderWrapper>
+        <HeaderContent>
+          <Logo to="/">
+            <img src={logo} alt="logo" />
+          </Logo>
+          <Form>
+            <SearchIcon src={search} alt="search" />
+            <SearchInput />
+          </Form>
+          <Buttons>
+            {isLoggedIn ? (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(false)}>
+                  <ButtonLink>Log out</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            ) : (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(true)}>
+                  <ButtonLink>Log in</ButtonLink>
+                </ButtonItem>
+                <ButtonItem>
+                  <ButtonLink to="/signup">Sign up</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            )}
+          </Buttons>
+        </HeaderContent>
+      </HeaderWrapper>
+      <Hidden />
+    </>
   );
 }

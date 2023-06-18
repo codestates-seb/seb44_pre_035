@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: auto;
   display: flex;
-  padding: 16px;
+  padding: 16px 0;
   border-bottom: 1px solid #e3e6e8;
 `;
 
@@ -24,6 +24,7 @@ const Content = styled.div`
 const ContentTitle = styled.div`
   & a {
     font-size: 17px;
+    font-weight: 500;
     color: #0074cc; // --powder-700;
 
     &:hover {

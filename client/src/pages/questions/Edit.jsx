@@ -14,12 +14,12 @@ export default function Edit() {
         <SubmitInput title="Title" htmlFor="input-title" />
         <SubmitHTML title="Body" htmlFor="input-problem" />
         <SubmitInput title="Tags" htmlFor="input-tags" />
-        <Container button="true" direction="row">
-          <SubmitButton button="Post your question" />
-          <Link to="/">
-            <SubmitButton button="Cancel" />
-          </Link>
-        </Container>
+      </Container>
+      <Container contents="true" direction="row">
+        <SubmitButton button="Post your question" />
+        <Link to="/">
+          <SubmitButton button="Cancel" />
+        </Link>
       </Container>
     </Container>
   );
