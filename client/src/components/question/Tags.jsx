@@ -10,9 +10,9 @@ const List = styled.ul`
 
 const ListItem = styled.li``;
 
-export default function Tags({ tags }) {
+export default function Tags({ tags, className }) {
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <List>
         {tags.map((tag) => (
           <ListItem key={tag}>
