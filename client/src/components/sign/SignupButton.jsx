@@ -48,7 +48,6 @@ const SocialSignUpButton = styled.button`
   border-radius: 5px;
   letter-spacing: normal;
   text-align: center;
-
   & > img {
     display: inline-block;
     width: 18px;
