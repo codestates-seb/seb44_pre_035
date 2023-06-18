@@ -4,12 +4,14 @@ import com.example.back.answer.dto.AnswerPatchDto;
 import com.example.back.answer.dto.AnswerPostDto;
 import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-16T04:17:00+0900",
+    date = "2023-06-18T21:32:37+0900",
     comments = "version: 1.4.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.1.jar, environment: Java 11.0.18 (Azul Systems, Inc.)"
 )
 @Component
@@ -29,14 +31,13 @@ public class AnswerMapperImpl implements AnswerMapper {
     }
 
     @Override
-    public Answer answerPatchDtoToAnswer(AnswerPatchDto answerPatchDto) {
+    public Answer answerPatchDtoToDtoAnswer(AnswerPatchDto answerPatchDto) {
         if ( answerPatchDto == null ) {
             return null;
         }
 
         Answer answer = new Answer();
 
-        answer.setAnswerId( answerPatchDto.getAnswerId() );
         answer.setContent( answerPatchDto.getContent() );
 
         return answer;
@@ -50,11 +51,22 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         AnswerResponseDto answerResponseDto = new AnswerResponseDto();
 
-        if ( answer.getAnswerId() != null ) {
-            answerResponseDto.setAnswerId( answer.getAnswerId() );
-        }
         answerResponseDto.setContent( answer.getContent() );
 
         return answerResponseDto;
+    }
+
+    @Override
+    public List<AnswerResponseDto> answersToAnswerResponseDtos(List<Answer> answers) {
+        if ( answers == null ) {
+            return null;
+        }
+
+        List<AnswerResponseDto> list = new ArrayList<AnswerResponseDto>( answers.size() );
+        for ( Answer answer : answers ) {
+            list.add( answerToAnswerResponseDto( answer ) );
+        }
+
+        return list;
     }
 }
