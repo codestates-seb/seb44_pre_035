@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SignupButton from "../../components/sign/SignupButton";
-import SignupLayout from "../../components/sign/SignupLayout";
+import SignupButton from "../../components/sign/Signup/SignupButton";
+import SignupLayout from "../../components/sign/Signup/SignupLayout";
 import { Link } from "react-router-dom";
 import icon_question from "../../img/icon_question.svg";
 import icon_tag from "../../img/icon_question.svg";

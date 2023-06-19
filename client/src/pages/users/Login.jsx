@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import LoginButton from "../../components/sign/LoginButton";
-import LoginInputForm from "../../components/sign/LoginFormInput";
+import LoginButton from "../../components/sign/Login/LoginButton";
+import LoginInputForm from "../../components/sign/Login/LoginFormInput";
 import logo_stack from "../../img/logo_stack.svg";
 import copyButton from "../../img/copyButton.svg";
 import { Link } from "react-router-dom";
