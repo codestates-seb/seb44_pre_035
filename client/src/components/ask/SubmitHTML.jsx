@@ -16,15 +16,13 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 10px;
 
-  height: 385px;
+  height: 425px;
   border: 1px solid #d1d1d1;
   border-radius: 3px;
   padding: 24px;
 `;
 
 const InputTitle = styled.label`
-  /* border: 1px solid red; */
-
   ${(props) =>
     props.text === "title" &&
     css`

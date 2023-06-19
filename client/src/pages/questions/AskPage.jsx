@@ -8,7 +8,7 @@ export default function AskPage() {
         <Wrapper>
           <Ask.Title title="Ask a public question" />
           <Ask.HelpMsg />
-          <Ask.Input />
+          <Ask.Inputs />
         </Wrapper>
       </Ask>
     </Container>

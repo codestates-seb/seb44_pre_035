@@ -5,11 +5,13 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 
 const AskInputs = () => {
-  const [inputs, setInputs] = useState({
-    Question_id: "",
-  });
+  const [ask, setAsk] = useState({ title: "", problem: "", try: "", tags: "" });
 
-  console.log(inputs, setInputs);
+  const handleChange = (e) => {
+    setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  console.log(ask);
 
   return (
     <Container>
@@ -17,6 +19,8 @@ const AskInputs = () => {
         <SubmitInput
           title="Title"
           comment="Be specific and imagine you’re asking a question to another person."
+          name="title"
+          handleChange={handleChange}
         />
         <SubmitHTML
           title="What are the details of your problem?"
@@ -27,8 +31,10 @@ const AskInputs = () => {
           comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
         />
         <SubmitInput
-          title="Tags"
+          title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
+          name="tags"
+          handleChange={handleChange}
         />
       </Wrapper>
       <Wrapper>
