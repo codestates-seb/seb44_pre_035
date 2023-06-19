@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import EditTitle from "./EditTitle";
-import EditInput from "./EditInput";
+import EditInputs from "./EditInputs";
 
 const Edit = ({ children }) => {
   return <Container>{children}</Container>;
@@ -12,6 +12,6 @@ const Container = styled.div`
 `;
 
 Edit.Title = EditTitle;
-Edit.Input = EditInput;
+Edit.Inputs = EditInputs;
 
 export default Edit;

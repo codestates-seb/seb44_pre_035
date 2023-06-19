@@ -4,7 +4,7 @@ import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link } from "react-router-dom";
 
-const EditInput = () => {
+const EditInputs = () => {
   return (
     <Container>
       <InputsWrapper>
@@ -63,4 +63,4 @@ const CancelButton = styled(Link)`
   }
 `;
 
-export default EditInput;
+export default EditInputs;

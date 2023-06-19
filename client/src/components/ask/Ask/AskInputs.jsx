@@ -2,8 +2,15 @@ import styled from "styled-components";
 import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
+import { useState } from "react";
 
-const AskInput = () => {
+const AskInputs = () => {
+  const [inputs, setInputs] = useState({
+    Question_id: "",
+  });
+
+  console.log(inputs, setInputs);
+
   return (
     <Container>
       <Wrapper>
@@ -47,4 +54,4 @@ const Wrapper = styled.div`
   /* border: 1px solid red; */
 `;
 
-export default AskInput;
+export default AskInputs;
