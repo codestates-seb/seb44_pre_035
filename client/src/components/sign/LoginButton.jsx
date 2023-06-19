@@ -1,81 +1,86 @@
 import styled from "styled-components";
-import logo_google from "../../img/logo_google.svg";
 import logo_github from "../../img/logo_github.svg";
+import logo_google from "../../img/logo_google.svg";
 import logo_facebook from "../../img/logo_facebook.svg";
 
-const SignupButton = ({ type }) => {
+const LoginButton = ({ type, onClick }) => {
   if (type === "google") {
     return (
-      <GoogleSignup>
+      <GoogleLogin onClick={onClick}>
         <img src={logo_google} alt="logo_google" />
-        Sign up with Google
-      </GoogleSignup>
+        Log in with Google
+      </GoogleLogin>
     );
   }
   if (type === "github") {
     return (
-      <GithubSignup>
+      <GitLogin onClick={onClick}>
         <img src={logo_github} alt="logo_github" />
-        Sign up with GitHub
-      </GithubSignup>
+        Log in with GitHub
+      </GitLogin>
     );
   }
   if (type === "facebook") {
     return (
-      <FacebookSignup>
+      <FacebookLogin onClick={onClick}>
         <img src={logo_facebook} alt="logo_facebook" />
-        Sign up with Facebook
-      </FacebookSignup>
+        Log in with Facebook
+      </FacebookLogin>
     );
   }
-  if (type === "signup") {
-    return <SignupBlue>Sign up</SignupBlue>;
+  if (type === "login") {
+    return <BlueButton>Log in</BlueButton>;
   }
 };
 
-const SocialSignUpButton = styled.button`
+const SocialLoginButton = styled.button`
   display: inline-block;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 13px;
   font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI",
     "Liberation Sans", sans-serif;
   word-spacing: normal;
-  width: 100%;
-  margin: 4px 0;
-  padding: 10px;
   border: 1px solid #d7d9dd;
+  padding: 10px;
+  margin: 4px 0;
   border-radius: 5px;
   letter-spacing: normal;
   text-align: center;
+  font-weight: norbal;
+
   & > img {
     display: inline-block;
     width: 18px;
     height: 18px;
     text-align: center;
     letter-spacing: normal;
-    margin-right: 10px;
+    margin-right: 4px;
   }
 
   &:hover {
     opacity: 0.8;
   }
 `;
-const GoogleSignup = styled(SocialSignUpButton)`
-  background-color: #ffffff;
-  outline: none;
-`;
-const GithubSignup = styled(SocialSignUpButton)`
+
+const GitLogin = styled(SocialLoginButton)`
   background-color: #232629;
   color: white;
   outline: none;
 `;
-const FacebookSignup = styled(SocialSignUpButton)`
+
+const GoogleLogin = styled(SocialLoginButton)`
+  outline: none;
+`;
+
+const FacebookLogin = styled(SocialLoginButton)`
   background-color: #385499;
   color: white;
   outline: none;
 `;
-const SignupBlue = styled.button`
+
+const BlueButton = styled.button`
   display: inline-block;
   width: 100%;
   font-size: 13px;
@@ -86,15 +91,16 @@ const SignupBlue = styled.button`
     "Liberation Sans", sans-serif;
   background-color: #0a95ff;
   padding: 10px;
-  margin: 2px 0;
+  margin: 6px 0;
   color: white;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px 0px inset;
   border-radius: 3px;
   outline: none;
+  margin: 10px 0px;
 
   &:hover {
     opacity: 0.8;
   }
 `;
 
-export default SignupButton;
+export default LoginButton;
