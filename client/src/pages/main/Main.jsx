@@ -2,6 +2,18 @@ import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
 
+export default function Main() {
+  return (
+    <Container>
+      <PageHeader>
+        <PageTitle>All Questions</PageTitle>
+        <AskButton />
+      </PageHeader>
+      <QuestionList />
+    </Container>
+  );
+}
+
 const Container = styled.div`
   padding: 24px 16px;
 `;
@@ -16,15 +28,3 @@ const PageHeader = styled.div`
 const PageTitle = styled.h1`
   font-size: 27px;
 `;
-
-export default function Main() {
-  return (
-    <Container>
-      <PageHeader>
-        <PageTitle>All Questions</PageTitle>
-        <AskButton />
-      </PageHeader>
-      <QuestionList />
-    </Container>
-  );
-}

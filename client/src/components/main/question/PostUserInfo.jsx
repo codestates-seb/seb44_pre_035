@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import profileImage from "../../../img/profile_img.png";
 
+export default function PostUserInfo({ userId }) {
+  console.log(userId);
+
+  return (
+    <Wrapper>
+      <Image src={profileImage} />
+      <Content>{userId} hahagarden</Content>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   display: flex;
 `;
@@ -15,14 +26,3 @@ const Content = styled.div`
   display: flex;
   align-items: center;
 `;
-
-export default function PostUserInfo({ userId }) {
-  console.log(userId);
-
-  return (
-    <Wrapper>
-      <Image src={profileImage} />
-      <Content>{userId} hahagarden</Content>
-    </Wrapper>
-  );
-}

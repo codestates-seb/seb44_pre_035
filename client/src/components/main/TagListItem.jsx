@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export default function TagListItem({ tag }) {
+  return <Wrapper to={`/questions/tagged/${tag}`}>{tag}</Wrapper>;
+}
+
 const Wrapper = styled(Link)`
   display: block;
   width: fit-content;
@@ -13,7 +17,3 @@ const Wrapper = styled(Link)`
   margin-right: 5px;
   margin-bottom: 5px;
 `;
-
-export default function TagListItem({ tag }) {
-  return <Wrapper to={`/questions/tagged/${tag}`}>{tag}</Wrapper>;
-}

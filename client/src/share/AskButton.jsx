@@ -1,6 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+export default function AskButton() {
+  return (
+    <ButtonWrapper>
+      <ButtonLink to="/ask">Ask Question</ButtonLink>
+    </ButtonWrapper>
+  );
+}
+
 const ButtonWrapper = styled.div``;
 
 const ButtonLink = styled(Link)`
@@ -16,11 +24,3 @@ const ButtonLink = styled(Link)`
     background-color: #0162bf;
   }
 `;
-
-export default function AskButton() {
-  return (
-    <ButtonWrapper>
-      <ButtonLink to="/ask">Ask Question</ButtonLink>
-    </ButtonWrapper>
-  );
-}

@@ -2,6 +2,20 @@ import styled from "styled-components";
 import voteUpIcon from "../../../img/voteUpIcon.svg";
 import voteDownIcon from "../../../img/voteDownIcon.svg";
 
+export default function PostSidebar() {
+  return (
+    <Wrapper>
+      <Button>
+        <Image src={voteUpIcon} alt="voteUp" />
+      </Button>
+      <Text>0</Text>
+      <Button>
+        <Image src={voteDownIcon} alt="voteDown" />
+      </Button>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   width: auto;
   padding-right: 16px;
@@ -32,17 +46,3 @@ const Text = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export default function PostSidebar() {
-  return (
-    <Wrapper>
-      <Button>
-        <Image src={voteUpIcon} alt="voteUp" />
-      </Button>
-      <Text>0</Text>
-      <Button>
-        <Image src={voteDownIcon} alt="voteDown" />
-      </Button>
-    </Wrapper>
-  );
-}
