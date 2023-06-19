@@ -2,6 +2,10 @@ import styled from "styled-components";
 import SignupButton from "./SignupButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import Input from "../../../share/Input";
+import AlertWarning from "./AlertWarning";
+import ModalComponent from "../../../share/Modal";
 
 const DisplayNameInput = styled.input.attrs({
   type: "text",
