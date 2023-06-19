@@ -3,18 +3,24 @@ import SubmitButton from "../SubmitButton";
 import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const EditInputs = () => {
+  const [ask, setAsk] = useState({ title: "", body: "", tags: "" });
+  const [body, setBody] = useState({ problem: "", try: "" });
+
+  const handleChange = (e) => {
+    setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  console.log("ask:", ask, "//", "body", body);
+
   return (
     <Container>
       <InputsWrapper>
-        <SubmitInput title="Title" />
-        <SubmitHTML title="Body" />
-        <SubmitHTML
-          title="What did you try and what were you expecting?"
-          comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
-        />
-        <SubmitInput title="Tags" />
+        <SubmitInput title="Title" name="title" handleChange={handleChange} />
+        <SubmitHTML title="Body" name="problem" setBody={setBody} />
+        <SubmitInput title="Tags" name="title" handleChange={handleChange} />
       </InputsWrapper>
       <ButtonsWrapper>
         <SubmitButton button="Past your question" />
