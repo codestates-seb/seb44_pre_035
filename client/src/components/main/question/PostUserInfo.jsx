@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import profileImage from "../../img/profile_img.png";
+import profileImage from "../../../img/profile_img.png";
 
 const Wrapper = styled.div`
   display: flex;

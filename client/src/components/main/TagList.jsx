@@ -10,7 +10,7 @@ const List = styled.ul`
 
 const ListItem = styled.li``;
 
-export default function Tags({ tags, className }) {
+export default function TagList({ tags, className }) {
   return (
     <Wrapper className={className}>
       <List>
