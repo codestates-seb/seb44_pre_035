@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import Tags from "./Tags";
+import Tags from "../Tags";
 import QuestionListItemStatus from "./QuestionListItemStatus";
 
 const Wrapper = styled.div`

@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Main from "./pages/main/Main";
 import Mypage from "./pages/users/mypages/Mypage";
 import AskPage from "./pages/questions/AskPage";
-import Question from "./pages/questions/Question";
+import Question from "./pages/main/Question";
 import Signin from "./pages/users/login/Signin";
 import Signup from "./pages/users/login/Signup";
 import EditPage from "./pages/questions/EditPage";

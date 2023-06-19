@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PostSidebar from "./PostSidebar";
-import Tags from "./Tags";
 import PostButtons from "./PostButtons";
 import PostUserInfo from "./PostUserInfo";
+import Tags from "../Tags";
 
 const Wrapper = styled.div`
   display: flex;
