@@ -14,6 +14,6 @@ const Container = styled.div`
 
 Ask.Title = AskTitle;
 Ask.HelpMsg = AskHelpMsg;
-Ask.Input = AskInputs;
+Ask.Inputs = AskInputs;
 
 export default Ask;
