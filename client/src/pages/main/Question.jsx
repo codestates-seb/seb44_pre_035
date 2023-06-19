@@ -9,6 +9,46 @@ import PostContainer from "../../components/main/question/PostContainer";
 import QuestionStatus from "../../components/main/question/QuestionStatus";
 import PostButton from "../../components/main/question/PostButton";
 
+export default function Question() {
+  const { id: questionId } = useParams("id");
+  const question = dummyQuestions.find(
+    (item) => item.Question_id === Number(questionId),
+  );
+  const answers = dummyAnswers.filter(
+    (item) => item.Question_id === Number(questionId),
+  );
+
+  return (
+    <Container>
+      <PageHeader>
+        <PageTitleBox>
+          <PageTitle>{question.title}</PageTitle>
+          <QuestionStatus question={question} />
+        </PageTitleBox>
+        <AskButton />
+      </PageHeader>
+      <PageContent>
+        <PostContainer post={question} />
+      </PageContent>
+      <AnswerHeader>
+        <AnswerStatus>{answers.length} Answers</AnswerStatus>
+      </AnswerHeader>
+      <AnswerContent>
+        {answers.map((answer) => (
+          <PostContainer key={answer.Answer_id} post={answer} />
+        ))}
+      </AnswerContent>
+      <AnswerWriter>
+        <AnswerHeader>
+          <AnswerStatus>Your Answer</AnswerStatus>
+        </AnswerHeader>
+        <Writer />
+        <PostButton />
+      </AnswerWriter>
+    </Container>
+  );
+}
+
 const Container = styled.div`
   padding: 24px 16px;
 `;
@@ -57,43 +97,3 @@ const AnswerWriter = styled.div`
     margin-top: 24px;
   }
 `;
-
-export default function Question() {
-  const { id: questionId } = useParams("id");
-  const question = dummyQuestions.find(
-    (item) => item.Question_id === Number(questionId),
-  );
-  const answers = dummyAnswers.filter(
-    (item) => item.Question_id === Number(questionId),
-  );
-
-  return (
-    <Container>
-      <PageHeader>
-        <PageTitleBox>
-          <PageTitle>{question.title}</PageTitle>
-          <QuestionStatus question={question} />
-        </PageTitleBox>
-        <AskButton />
-      </PageHeader>
-      <PageContent>
-        <PostContainer post={question} />
-      </PageContent>
-      <AnswerHeader>
-        <AnswerStatus>{answers.length} Answers</AnswerStatus>
-      </AnswerHeader>
-      <AnswerContent>
-        {answers.map((answer) => (
-          <PostContainer key={answer.Answer_id} post={answer} />
-        ))}
-      </AnswerContent>
-      <AnswerWriter>
-        <AnswerHeader>
-          <AnswerStatus>Your Answer</AnswerStatus>
-        </AnswerHeader>
-        <Writer />
-        <PostButton />
-      </AnswerWriter>
-    </Container>
-  );
-}
