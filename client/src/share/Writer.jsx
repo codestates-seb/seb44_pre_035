@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import styled from "styled-components";
 
 function Writer() {
   const [value, setValue] = useState("");
@@ -14,14 +15,19 @@ function Writer() {
   const module = { toolbar: toolbarOptions };
 
   return (
-    <ReactQuill
+    <ReactQuillStyle
       modules={module}
       theme="snow"
       value={value}
       onChange={setValue}
-      style={{ height: "250px" }}
     />
   );
 }
+
+const ReactQuillStyle = styled(ReactQuill)`
+  & .ql-editor {
+    height: 250px;
+  }
+`;
 
 export default Writer;
