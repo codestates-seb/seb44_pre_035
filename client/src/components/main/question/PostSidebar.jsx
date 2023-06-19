@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import voteUpIcon from "../../img/voteUpIcon.svg";
-import voteDownIcon from "../../img/voteDownIcon.svg";
+import voteUpIcon from "../../../img/voteUpIcon.svg";
+import voteDownIcon from "../../../img/voteDownIcon.svg";
 
 const Wrapper = styled.div`
   width: auto;

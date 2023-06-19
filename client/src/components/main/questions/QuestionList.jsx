@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { dummyQuestions } from "../../dummy/dummyQuestions";
+import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import QuestionListItem from "./QuestionListItem";
 import { Link, useLocation } from "react-router-dom";
 

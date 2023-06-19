@@ -3,11 +3,11 @@ import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import { useParams } from "react-router-dom";
 import { dummyQuestions } from "../../dummy/dummyQuestions";
-import QuestionStatus from "../../components/question/QuestionStatus";
-import PostContainer from "../../components/question/PostContainer";
 import { dummyAnswers } from "../../dummy/dummyAnswers";
 import Writer from "../../share/Writer";
-import PostButton from "../../components/question/PostButton";
+import PostContainer from "../../components/main/question/PostContainer";
+import QuestionStatus from "../../components/main/question/QuestionStatus";
+import PostButton from "../../components/main/question/PostButton";
 
 const Container = styled.div`
   padding: 24px 16px;

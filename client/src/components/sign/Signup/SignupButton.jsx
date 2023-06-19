@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import logo_google from "../../img/logo_google.svg";
-import logo_github from "../../img/logo_github.svg";
-import logo_facebook from "../../img/logo_facebook.svg";
+import logo_google from "../../../img/logo_google.svg";
+import logo_github from "../../../img/logo_github.svg";
+import logo_facebook from "../../../img/logo_facebook.svg";
 
 const SignupButton = ({ type }) => {
   if (type === "google") {

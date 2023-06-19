@@ -17,7 +17,7 @@ const Button = styled(Link)`
   }
 `;
 
-export default function PostButtons() {
+export default function PostController() {
   const handleDeletePost = () => {};
 
   return (

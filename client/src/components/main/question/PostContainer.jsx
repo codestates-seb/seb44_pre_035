@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PostSidebar from "./PostSidebar";
-import Tags from "./Tags";
-import PostButtons from "./PostButtons";
 import PostUserInfo from "./PostUserInfo";
+import TagList from "../TagList";
+import PostController from "./PostController";
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const Content = styled.div`
   }
 `;
 
-const PostTags = styled(Tags)`
+const PostTags = styled(TagList)`
   margin-bottom: 24px;
 `;
 
@@ -42,7 +42,7 @@ export default function PostContainer({ post }) {
         <p>{post.content}</p>
         {post.tags && <PostTags tags={post.tags} />}
         <ContentMeta>
-          <PostButtons />
+          <PostController />
           <PostUserInfo userId={post.user_id} />
         </ContentMeta>
       </Content>

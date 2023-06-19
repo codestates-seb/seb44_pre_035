@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { dummyAnswers } from "../../dummy/dummyAnswers";
+import { dummyAnswers } from "../../../dummy/dummyAnswers";
 
 const Wrapper = styled.div`
   width: 110px;
