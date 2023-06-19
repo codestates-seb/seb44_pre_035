@@ -57,10 +57,13 @@ public class QuestionController {
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),
                 HttpStatus.OK);
     }
+
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size) {
-        Page<Question> pageQuestions = questionService.findQuestions(page-1, size);
+    public ResponseEntity getQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                                       @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
+                                       @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
+                                       @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort) {
+        Page<Question> pageQuestions = questionService.findQuestions(page-1, size, criteria, sort);
         List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(

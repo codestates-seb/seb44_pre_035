@@ -6,6 +6,7 @@ import com.example.back.question.mapper.QuestionMapperImpl;
 import com.example.back.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +38,11 @@ public class QuestionService {
         return optionalQuestion.orElseThrow(NullPointerException::new);
     }
 
-    public Page<Question> findQuestions(int page, int size){
-        return questionRepository.findAll(PageRequest.of(page,size,
-                Sort.by("createdAt").descending()));
+    public Page<Question> findQuestions(int page, int size, String criteria, String sort){
+        Pageable pageable = (sort.equals("ASC")) ?
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
+                : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
+        return questionRepository.findAll(pageable);
     }
 
     public void deleteQuestion(long questionId){
