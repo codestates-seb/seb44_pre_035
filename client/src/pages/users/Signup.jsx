@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-import SignupButton from "../../../components/sign/SignupButton";
-import SignupLayout from "../../../components/sign/SignupLayout";
+import SignupButton from "../../components/sign/SignupButton";
+import SignupLayout from "../../components/sign/SignupLayout";
 import { Link } from "react-router-dom";
-import icon_question from "../../../img/icon_question.svg";
-import icon_tag from "../../../img/icon_question.svg";
-import icon_topdown from "../../../img/icon_topdown.svg";
-import icon_trophy from "../../../img/icon_trophy.svg";
-import { Desktop, Tablet, Mobile } from "../../../components/sign/Responsive";
+import icon_question from "../../img/icon_question.svg";
+import icon_tag from "../../img/icon_question.svg";
+import icon_topdown from "../../img/icon_topdown.svg";
+import icon_trophy from "../../img/icon_trophy.svg";
+import { Desktop, Tablet, Mobile } from "../../components/sign/Responsive";
 
 const Signup = () => {
   const [displayName, setDisplayName] = useState("");

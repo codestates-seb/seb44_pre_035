@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import MyInfo from "../../../components/mypage/MyInfo/MyInfo";
-import MyActivity from "../../../components/mypage/MyActivity/MyActivity";
+import MyInfo from "../../components/mypage/MyInfo/MyInfo";
+import MyActivity from "../../components/mypage/MyActivity/MyActivity";
 
 export default function Mypage() {
   return (

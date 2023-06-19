@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import LoginButton from "../../../components/sign/LoginButton";
-import LoginInputForm from "../../../components/sign/LoginFormInput";
-import logo_stack from "../../../img/logo_stack.svg";
-import copyButton from "../../../img/copyButton.svg";
+import LoginButton from "../../components/sign/LoginButton";
+import LoginInputForm from "../../components/sign/LoginFormInput";
+import logo_stack from "../../img/logo_stack.svg";
+import copyButton from "../../img/copyButton.svg";
 import { Link } from "react-router-dom";
 
 const Page = styled.div`
