@@ -1,9 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components";
 import SignupButton from "./SignupButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
-import Input from "../../../share/Input";
 import AlertWarning from "./AlertWarning";
 import ModalComponent from "../../../share/Modal";
 
@@ -25,6 +24,7 @@ const DisplayNameInput = styled.input.attrs({
   opacity: 0.77;
   border-radius: 3px;
 `;
+
 const DisplayNameLabel = styled.label`
   display: flex;
   padding: 0 2px;
@@ -37,6 +37,7 @@ const DisplayNameLabel = styled.label`
   font-weight: bold;
   vertical-align: bottom;
 `;
+
 const EmailInput = styled.input.attrs({
   type: "text",
 })`
@@ -55,6 +56,7 @@ const EmailInput = styled.input.attrs({
   border-width: 1px;
   border-color: #babfc4;
 `;
+
 const EmailLabel = styled.label`
   display: flex;
   padding: 0 2px;
@@ -80,6 +82,7 @@ const PasswordLabel = styled.label`
   font-weight: bold;
   vertical-align: bottom;
 `;
+
 const PasswordInput = styled.input.attrs({
   type: "password",
 })`
@@ -125,23 +128,43 @@ const ContentDiv = styled.div`
   width: 100%;
 `;
 
-const SignupLayout = ({
-  displayName,
-  setDisplayName,
-  signupEmail,
-  setSignupEmail,
-  signupPassword,
-  setSignupPassword,
-}) => {
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validatePassword = (password) => {
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  return passwordRegex.test(password);
+};
+
+const SignupLayout = () => {
+  const [displayName, setDisplayName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
   const navigate = useNavigate();
+
   const handleSignupButton = (e) => {
     e.preventDefault();
+
+    if (!displayName || !signupEmail || !signupPassword) {
+      setShowModal(true);
+      return;
+    }
+
+    if (!validateEmail(signupEmail) || !validatePassword(signupPassword)) {
+      window.alert("Please enter a valid email and password.");
+      return;
+    }
 
     const reqbody = {
       email: signupEmail,
       password: signupPassword,
       name: displayName,
     };
+
     const headers = {
       "Content-Type": "application/json",
       authorization: "",
@@ -158,25 +181,33 @@ const SignupLayout = ({
         console.log(err);
       });
   };
+
   return (
-    <Sign onSubmit={(e) => handleSignupButton(e)}>
+    <Sign onSubmit={handleSignupButton}>
       <ContentDiv>
         <DisplayNameLabel htmlFor="displayNameInput">
           Display name
         </DisplayNameLabel>
         <DisplayNameInput
           id="displayNameInput"
+          value={displayName}
           onChange={(e) => setDisplayName(e.target.value)}
           required
         />
       </ContentDiv>
       <ContentDiv>
         <EmailLabel>Email</EmailLabel>
-        <EmailInput onChange={(e) => setSignupEmail(e.target.value)} required />
+        <EmailInput
+          value={signupEmail}
+          onChange={(e) => setSignupEmail(e.target.value)}
+          required
+        />
       </ContentDiv>
       <ContentDiv>
         <PasswordLabel>Password</PasswordLabel>
         <PasswordInput
+          type="password"
+          value={signupPassword}
           onChange={(e) => setSignupPassword(e.target.value)}
           required
         />
@@ -188,11 +219,16 @@ const SignupLayout = ({
       </Msgdiv>
       <SignupButton type={"signup"} />
       <Msgdiv>
-        By clicking “Sign up”, you agree to our
+        By clicking "Sign up", you agree to our{" "}
         <LinkSpan>terms of service</LinkSpan> and acknowledge that you have read
-        <br /> and understand ourservice, privacy policy
+        <br /> and understand our service, privacy policy, and{" "}
         <LinkSpan>code of conduct</LinkSpan>
       </Msgdiv>
+      {showModal && (
+        <ModalComponent onClose={() => setShowModal(false)}>
+          <AlertWarning message="Please fill in all fields." />
+        </ModalComponent>
+      )}
     </Sign>
   );
 };
