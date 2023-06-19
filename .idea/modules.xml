@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/back.iml" filepath="$PROJECT_DIR$/.idea/modules/back.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/back.main.iml" filepath="$PROJECT_DIR$/.idea/modules/back.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/back.test.iml" filepath="$PROJECT_DIR$/.idea/modules/back.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.back.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.back.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/seb44_pre_035.iml" filepath="$PROJECT_DIR$/.idea/seb44_pre_035.iml" />
     </modules>
   </component>
