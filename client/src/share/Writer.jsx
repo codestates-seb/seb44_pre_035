@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 
-function Writer() {
+function Writer({ name, setAsk }) {
   const [value, setValue] = useState("");
   const toolbarOptions = [
     ["bold", "italic"],
@@ -14,11 +14,16 @@ function Writer() {
 
   const module = { toolbar: toolbarOptions };
 
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, [name]: value }));
+  }, [value]);
+
   return (
     <ReactQuillStyle
       modules={module}
       theme="snow"
       value={value}
+      name={name}
       onChange={setValue}
     />
   );
