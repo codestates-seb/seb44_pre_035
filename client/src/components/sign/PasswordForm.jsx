@@ -44,6 +44,8 @@ const PasswordInput = styled.input.attrs({
   box-shadow: none;
   border-radius: 3px;
   margin-bottom: 5px;
+  border-width: 1px;
+  border-color: #babfc4;
 `;
 
 const PasswordForm = ({ loginPassword, setLoginPassword }) => {
