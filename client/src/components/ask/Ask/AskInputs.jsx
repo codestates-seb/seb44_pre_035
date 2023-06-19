@@ -5,13 +5,14 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 
 const AskInputs = () => {
-  const [ask, setAsk] = useState({ title: "", problem: "", try: "", tags: "" });
+  const [ask, setAsk] = useState({ title: "", body: "", tags: "" });
+  const [body, setBody] = useState({ problem: "", try: "" });
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log(ask);
+  console.log("ask:", ask, "//", "body", body);
 
   return (
     <Container>
@@ -25,10 +26,14 @@ const AskInputs = () => {
         <SubmitHTML
           title="What are the details of your problem?"
           comment="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
+          name="problem"
+          setBody={setBody}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
           comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
+          name="try"
+          setBody={setBody}
         />
         <SubmitInput
           title="tags"

@@ -1,12 +1,12 @@
 import styled, { css } from "styled-components";
 import Writer from "../../share/Writer";
 
-function SubmitHTML({ title, comment }) {
+function SubmitHTML({ title, comment, name, setBody }) {
   return (
     <Wrapper SubmitHTML="true" direction="column">
       <InputTitle text="title">{title}</InputTitle>
       <InputTitle text="sub">{comment}</InputTitle>
-      <Writer />
+      <Writer name={name} setBody={setBody} />
     </Wrapper>
   );
 }
