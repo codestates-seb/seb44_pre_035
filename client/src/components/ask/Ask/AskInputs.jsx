@@ -2,17 +2,22 @@ import styled from "styled-components";
 import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AskInputs = () => {
+  // eslint-disable-next-line no-unused-vars
   const [ask, setAsk] = useState({ title: "", body: "", tags: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
+
+  // console.log("ask:", ask, "//", "body", body);
+
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, body: body.problem + "<br>" + body.try }));
+  }, [body.problem, body.try]);
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  console.log("ask:", ask, "//", "body", body);
 
   return (
     <Container>
