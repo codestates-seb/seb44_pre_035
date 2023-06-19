@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 
-function Writer({ name, setAsk }) {
+function Writer({ name, setBody }) {
   const [value, setValue] = useState("");
   const toolbarOptions = [
     ["bold", "italic"],
@@ -15,7 +15,7 @@ function Writer({ name, setAsk }) {
   const module = { toolbar: toolbarOptions };
 
   useEffect(() => {
-    setAsk((prev) => ({ ...prev, [name]: value }));
+    setBody((prev) => ({ ...prev, [name]: value }));
   }, [value]);
 
   return (
