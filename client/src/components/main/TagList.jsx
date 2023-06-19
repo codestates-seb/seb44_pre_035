@@ -1,15 +1,6 @@
 import styled from "styled-components";
 import TagListItem from "./TagListItem";
 
-const Wrapper = styled.div``;
-
-const List = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const ListItem = styled.li``;
-
 export default function TagList({ tags, className }) {
   return (
     <Wrapper className={className}>
@@ -23,3 +14,12 @@ export default function TagList({ tags, className }) {
     </Wrapper>
   );
 }
+
+const Wrapper = styled.div``;
+
+const List = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const ListItem = styled.li``;

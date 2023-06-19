@@ -5,6 +5,45 @@ import { useState } from "react";
 import logo from "../img/logo.svg";
 import search from "../img/search.svg";
 
+export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
+
+  return (
+    <>
+      <HeaderWrapper>
+        <HeaderContent>
+          <Logo to="/">
+            <img src={logo} alt="logo" />
+          </Logo>
+          <Form>
+            <SearchIcon src={search} alt="search" />
+            <SearchInput />
+          </Form>
+          <Buttons>
+            {isLoggedIn ? (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(false)}>
+                  <ButtonLink>Log out</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            ) : (
+              <ButtonList>
+                <ButtonItem onClick={() => setIsLoggedIn(true)}>
+                  <ButtonLink>Log in</ButtonLink>
+                </ButtonItem>
+                <ButtonItem>
+                  <ButtonLink to="/signup">Sign up</ButtonLink>
+                </ButtonItem>
+              </ButtonList>
+            )}
+          </Buttons>
+        </HeaderContent>
+      </HeaderWrapper>
+      <Hidden />
+    </>
+  );
+}
+
 const HeaderWrapper = styled.header`
   width: 100vw;
   height: 56px;
@@ -126,42 +165,3 @@ const ButtonLink = styled(Link)`
     background-color: #0162bf;
   }
 `;
-
-export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
-
-  return (
-    <>
-      <HeaderWrapper>
-        <HeaderContent>
-          <Logo to="/">
-            <img src={logo} alt="logo" />
-          </Logo>
-          <Form>
-            <SearchIcon src={search} alt="search" />
-            <SearchInput />
-          </Form>
-          <Buttons>
-            {isLoggedIn ? (
-              <ButtonList>
-                <ButtonItem onClick={() => setIsLoggedIn(false)}>
-                  <ButtonLink>Log out</ButtonLink>
-                </ButtonItem>
-              </ButtonList>
-            ) : (
-              <ButtonList>
-                <ButtonItem onClick={() => setIsLoggedIn(true)}>
-                  <ButtonLink>Log in</ButtonLink>
-                </ButtonItem>
-                <ButtonItem>
-                  <ButtonLink to="/signup">Sign up</ButtonLink>
-                </ButtonItem>
-              </ButtonList>
-            )}
-          </Buttons>
-        </HeaderContent>
-      </HeaderWrapper>
-      <Hidden />
-    </>
-  );
-}

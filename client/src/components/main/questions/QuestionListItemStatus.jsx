@@ -1,6 +1,29 @@
 import styled from "styled-components";
 import { dummyAnswers } from "../../../dummy/dummyAnswers";
 
+export default function QuestionListItemStatus({ item }) {
+  const numberOfAnswer = dummyAnswers.filter(
+    (answer) => answer.Question_id === item.Question_id,
+  ).length;
+
+  return (
+    <Wrapper>
+      <ListItem>
+        <FirstText>{item.vote}</FirstText>
+        <LastText>{"votes"}</LastText>
+      </ListItem>
+      <ListItem>
+        <FirstText>{numberOfAnswer}</FirstText>
+        <LastText>{"answers"}</LastText>
+      </ListItem>
+      <ListItem>
+        <FirstText>{item.view}</FirstText>
+        <LastText>{"views"}</LastText>
+      </ListItem>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   width: 110px;
   height: 100%;
@@ -28,26 +51,3 @@ const FirstText = styled.span`
 `;
 
 const LastText = styled.span``;
-
-export default function QuestionListItemStatus({ item }) {
-  const numberOfAnswer = dummyAnswers.filter(
-    (answer) => answer.Question_id === item.Question_id,
-  ).length;
-
-  return (
-    <Wrapper>
-      <ListItem>
-        <FirstText>{item.vote}</FirstText>
-        <LastText>{"votes"}</LastText>
-      </ListItem>
-      <ListItem>
-        <FirstText>{numberOfAnswer}</FirstText>
-        <LastText>{"answers"}</LastText>
-      </ListItem>
-      <ListItem>
-        <FirstText>{item.view}</FirstText>
-        <LastText>{"views"}</LastText>
-      </ListItem>
-    </Wrapper>
-  );
-}

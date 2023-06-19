@@ -1,5 +1,17 @@
 import styled from "styled-components";
 
+export default function PostButton() {
+  const handleSubmitAnswer = () => {};
+
+  return (
+    <ButtonWrapper>
+      <Button type="button" onClick={handleSubmitAnswer}>
+        Post Your Answer
+      </Button>
+    </ButtonWrapper>
+  );
+}
+
 const ButtonWrapper = styled.div``;
 
 const Button = styled.button`
@@ -15,15 +27,3 @@ const Button = styled.button`
     background-color: #0162bf;
   }
 `;
-
-export default function PostButton() {
-  const handleSubmitAnswer = () => {};
-
-  return (
-    <ButtonWrapper>
-      <Button type="button" onClick={handleSubmitAnswer}>
-        Post Your Answer
-      </Button>
-    </ButtonWrapper>
-  );
-}

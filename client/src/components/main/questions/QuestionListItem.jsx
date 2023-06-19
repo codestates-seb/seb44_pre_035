@@ -4,6 +4,23 @@ import { Link } from "react-router-dom";
 import QuestionListItemStatus from "./QuestionListItemStatus";
 import TagList from "../TagList";
 
+export default function QuestionListItem({ item }) {
+  return (
+    <Wrapper>
+      <QuestionListItemStatus item={item} />
+      <Content>
+        <ContentTitle>
+          <Link to={`/question/${item.Question_id}`}>{item.title}</Link>
+        </ContentTitle>
+        <ContentExcerpt>
+          <p>{item.content}</p>
+        </ContentExcerpt>
+        <TagList tags={item.tags} />
+      </Content>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   width: 100%;
   height: auto;
@@ -45,20 +62,3 @@ const ContentExcerpt = styled.div`
     overflow: hidden;
   }
 `;
-
-export default function QuestionListItem({ item }) {
-  return (
-    <Wrapper>
-      <QuestionListItemStatus item={item} />
-      <Content>
-        <ContentTitle>
-          <Link to={`/question/${item.Question_id}`}>{item.title}</Link>
-        </ContentTitle>
-        <ContentExcerpt>
-          <p>{item.content}</p>
-        </ContentExcerpt>
-        <TagList tags={item.tags} />
-      </Content>
-    </Wrapper>
-  );
-}

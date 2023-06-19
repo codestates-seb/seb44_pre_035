@@ -3,6 +3,56 @@ import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import QuestionListItem from "./QuestionListItem";
 import { Link, useLocation } from "react-router-dom";
 
+export default function QuestionList() {
+  const { search } = useLocation();
+  const filter = new URLSearchParams(search).get("tab") || "Newest";
+  const page = Number(new URLSearchParams(search).get("page")) || 1;
+
+  return (
+    <Wrapper>
+      <ListHeader>
+        <ListStatus>{dummyQuestions.length} questions</ListStatus>
+        <ListFilter>
+          <ListFilterItem
+            to="/?tab=Newest"
+            $currentFilter={filter === "Newest"}
+          >
+            Newest
+          </ListFilterItem>
+          <ListFilterItem
+            to="/?tab=Unanswered"
+            $currentFilter={filter === "Unanswered"}
+          >
+            Unanswered
+          </ListFilterItem>
+        </ListFilter>
+      </ListHeader>
+      {dummyQuestions.map((question) => (
+        <QuestionListItem key={question.Question_id} item={question} />
+      ))}
+      <Pagination>
+        <PageButton to={`?tab=${filter}&page=${page <= 1 ? 1 : page - 1}`}>
+          Prev
+        </PageButton>
+        {[1, 2, 3, 4, 5].map((num) => (
+          <PageButton
+            key={num}
+            to={`?tab=${filter}&page=${num}`}
+            $currentPage={num === page}
+          >
+            {num}
+          </PageButton>
+        ))}
+        <PageButtonDiv>...</PageButtonDiv>
+        <PageButton to={`?tab=${filter}&page=100`}>100</PageButton>
+        <PageButton to={`?tab=${filter}&page=${page >= 100 ? 100 : page + 1}`}>
+          Next
+        </PageButton>
+      </Pagination>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div``;
 
 const ListHeader = styled.div`
@@ -70,53 +120,3 @@ const PageButton = styled(Link)`
 const PageButtonDiv = styled(PageButton).attrs({ as: "div" })`
   border: none;
 `;
-
-export default function QuestionList() {
-  const { search } = useLocation();
-  const filter = new URLSearchParams(search).get("tab") || "Newest";
-  const page = Number(new URLSearchParams(search).get("page")) || 1;
-
-  return (
-    <Wrapper>
-      <ListHeader>
-        <ListStatus>{dummyQuestions.length} questions</ListStatus>
-        <ListFilter>
-          <ListFilterItem
-            to="/?tab=Newest"
-            $currentFilter={filter === "Newest"}
-          >
-            Newest
-          </ListFilterItem>
-          <ListFilterItem
-            to="/?tab=Unanswered"
-            $currentFilter={filter === "Unanswered"}
-          >
-            Unanswered
-          </ListFilterItem>
-        </ListFilter>
-      </ListHeader>
-      {dummyQuestions.map((question) => (
-        <QuestionListItem key={question.Question_id} item={question} />
-      ))}
-      <Pagination>
-        <PageButton to={`?tab=${filter}&page=${page <= 1 ? 1 : page - 1}`}>
-          Prev
-        </PageButton>
-        {[1, 2, 3, 4, 5].map((num) => (
-          <PageButton
-            key={num}
-            to={`?tab=${filter}&page=${num}`}
-            $currentPage={num === page}
-          >
-            {num}
-          </PageButton>
-        ))}
-        <PageButtonDiv>...</PageButtonDiv>
-        <PageButton to={`?tab=${filter}&page=100`}>100</PageButton>
-        <PageButton to={`?tab=${filter}&page=${page >= 100 ? 100 : page + 1}`}>
-          Next
-        </PageButton>
-      </Pagination>
-    </Wrapper>
-  );
-}

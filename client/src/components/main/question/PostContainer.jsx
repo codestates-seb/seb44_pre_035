@@ -4,6 +4,22 @@ import PostUserInfo from "./PostUserInfo";
 import TagList from "../TagList";
 import PostController from "./PostController";
 
+export default function PostContainer({ post }) {
+  return (
+    <Wrapper>
+      <PostSidebar />
+      <Content>
+        <p>{post.content}</p>
+        {post.tags && <PostTags tags={post.tags} />}
+        <ContentMeta>
+          <PostController />
+          <PostUserInfo userId={post.user_id} />
+        </ContentMeta>
+      </Content>
+    </Wrapper>
+  );
+}
+
 const Wrapper = styled.div`
   display: flex;
   border-bottom: 1px solid #e3e6e8;
@@ -33,19 +49,3 @@ const ContentMeta = styled.div`
   align-items: center;
   margin-bottom: 24px;
 `;
-
-export default function PostContainer({ post }) {
-  return (
-    <Wrapper>
-      <PostSidebar />
-      <Content>
-        <p>{post.content}</p>
-        {post.tags && <PostTags tags={post.tags} />}
-        <ContentMeta>
-          <PostController />
-          <PostUserInfo userId={post.user_id} />
-        </ContentMeta>
-      </Content>
-    </Wrapper>
-  );
-}
