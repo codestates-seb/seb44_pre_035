@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import AskTitle from "./AskTitle";
 import AskHelpMsg from "./AskHelpMsg";
-import AskInput from "./AskInput";
+import AskInputs from "./AskInputs";
 
 const Ask = ({ children }) => {
   return <Container>{children}</Container>;
@@ -14,6 +14,6 @@ const Container = styled.div`
 
 Ask.Title = AskTitle;
 Ask.HelpMsg = AskHelpMsg;
-Ask.Input = AskInput;
+Ask.Input = AskInputs;
 
 export default Ask;

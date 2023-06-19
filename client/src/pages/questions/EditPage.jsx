@@ -7,7 +7,7 @@ export default function EditPage() {
       <Edit>
         <Wrapper>
           <Edit.Title title="Edit a question" />
-          <Edit.Input />
+          <Edit.Inputs />
         </Wrapper>
       </Edit>
     </Container>
