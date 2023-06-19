@@ -1,6 +1,13 @@
 import styled, { css } from "styled-components";
 
-function SubmitInput({ title, comment, htmlFor, placeholder }) {
+function SubmitInput({
+  title,
+  comment,
+  htmlFor,
+  placeholder,
+  name,
+  handleChange,
+}) {
   return (
     <Wrapper SubmitInput="true" direction="column">
       <InputTitle text="title" htmlFor={htmlFor}>
@@ -9,7 +16,12 @@ function SubmitInput({ title, comment, htmlFor, placeholder }) {
       <InputTitle text="sub" htmlFor={htmlFor}>
         {comment}
       </InputTitle>
-      <Input id={htmlFor} placeholder={placeholder} />
+      <Input
+        id={htmlFor}
+        placeholder={placeholder}
+        name={name}
+        onChange={handleChange}
+      />
     </Wrapper>
   );
 }
