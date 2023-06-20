@@ -1,5 +1,7 @@
 package com.example.back.question.controller;
 
+import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.answer.service.AnswerServiceImpl;
 import com.example.back.question.dto.*;
 import com.example.back.question.entity.Question;
 import com.example.back.question.mapper.QuestionMapper;
@@ -42,9 +44,9 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question_id")
                                           @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
-
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),
+                new QAResponseDto<>(mapper.questionToQuestionResponseDto(question),
+                        questionService.findQuestionAnswer(question)),
                 HttpStatus.OK);
     }
 

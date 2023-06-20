@@ -19,8 +19,10 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("/submit/")
-    public ResponseEntity<AnswerResponseDto> createAnswer(@Validated @RequestBody AnswerPostDto answerPostDto) {
-        AnswerResponseDto createdAnswer = answerService.createAnswer(answerPostDto);
+    public ResponseEntity<AnswerResponseDto> createAnswer(@PathVariable("question-id") Long questionId,
+            @Validated @RequestBody AnswerPostDto answerPostDto) {
+        /**/
+        AnswerResponseDto createdAnswer = answerService.createAnswer(questionId, answerPostDto);
         return new ResponseEntity<>(createdAnswer, HttpStatus.CREATED);
     }
 

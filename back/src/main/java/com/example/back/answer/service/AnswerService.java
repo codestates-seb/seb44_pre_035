@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public interface AnswerService {
 
-    AnswerResponseDto createAnswer(AnswerPostDto answerPostDto);
+    AnswerResponseDto createAnswer(Long questionId, AnswerPostDto answerPostDto);
 
     AnswerResponseDto updateAnswer(Long answerId, AnswerPatchDto answerPatchDto);
 

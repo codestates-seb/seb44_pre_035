@@ -6,6 +6,7 @@ import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +21,17 @@ import java.util.stream.Collectors;
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
+    /**/
+    private final QuestionRepository questionRepository;
 
 
+    /**/
     @Override
-    public AnswerResponseDto createAnswer(AnswerPostDto answerPostDto) {
+    public AnswerResponseDto createAnswer(Long questionId, AnswerPostDto answerPostDto) {
         Answer answer = answerMapper.answerPostDtoToAnswer(answerPostDto);
+        // answer에 그... Account 객체를 넣는거는 그대로 하고
+        // 그... Question 객체를 어떻게 넣지?
+        answer.setQuestion(questionRepository.findById(questionId).orElseThrow());
         Answer createdAnswer = answerRepository.save(answer);
         return answerMapper.answerToAnswerResponseDto(createdAnswer);
     }

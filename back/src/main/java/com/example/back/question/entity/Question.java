@@ -23,7 +23,7 @@ import java.util.List;
 public class Question extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long questionId;
+    private long questionId;
 
     @Column(nullable = false)
     private String title;
@@ -38,8 +38,8 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Answer> answerList = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    private List<Answer> answerList;
 
     @Builder
     public Question(String title, String content){

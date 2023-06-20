@@ -21,19 +21,19 @@ public interface QuestionMapper {
                 questionPatchDto.getTitle(), questionPatchDto.getContent());
     };
     QuestionResponseDto questionToQuestionResponseDto(Question question);
+
     default List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions){
         return questions
                 .stream()
                 .map(question -> QuestionResponseDto
                         .builder()
                         .questionId(question.getQuestionId())
-                        .accountId(question.getAccount().getId())
+                        /**///.accountId(question.getAccount().getId())
                         .title(question.getTitle())
                         .content(question.getContent())
                         .views(question.getViews())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())
-                        .answerList((question.getAnswerList()))
                         .build())
                 .collect(Collectors.toList());
     };
