@@ -37,8 +37,9 @@ const Logowrapper = styled.div`
   }
 `;
 const FormWrapper = styled.div`
-  width: 125%;
-  margin-bottom: 24px;
+  width: 132%;
+  height: 160%;
+  margin-bottom: 29px;
   padding: 24px;
   border-radius: 7px;
   background-color: white;
@@ -81,7 +82,7 @@ const RedirectionDiv2 = styled.div`
   }
 `;
 
-const Signin = () => {
+const Login = () => {
   const handleButtonClick = () => {
     console.log("action");
   };
@@ -116,4 +117,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;
