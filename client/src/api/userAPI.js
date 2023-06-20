@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const login = async (data) => {
+export const logIn = async (data) => {
   try {
     const res = await axios({
       method: "post",
