@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import styled from "styled-components";
 import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
@@ -11,6 +12,7 @@ const AskInputs = () => {
   const [ask, setAsk] = useState({ title: "", body: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
+  // eslint-disable-next-line no-unused-vars
   const nav = useNavigate();
 
   console.log("ask:", ask, "//", "body", body);

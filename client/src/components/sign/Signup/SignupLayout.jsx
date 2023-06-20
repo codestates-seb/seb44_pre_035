@@ -2,8 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import SignupButton from "./SignupButton";
 import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
-import axios from "axios";
+import { signUp } from "../../../api/userAPI";
 import Input from "../../../share/Input";
 import AlertWarning from "./AlertWarning";
 import ModalComponent from "../../../share/Modal";
@@ -100,26 +99,24 @@ const SignupLayout = () => {
   const navigate = useNavigate();
 
   const initialValue = {
-    userName: "",
+    nickname: "",
     userEmail: "",
     userPassword: "",
   };
   const methods = useForm(initialValue);
   const error = methods?.formState?.errors;
   const onSubmit = async (data) => {
-    // eslint-disable-next-line no-undef
     signUp(data);
     setModal({
       open: true,
       title: "회원가입을 성공했습니다.",
-      message: `환영합니다 ${data.userName}님!`,
+      message: `환영합니다 ${data.nickname}님!`,
       callback: function () {
         navigate("/login");
       },
     });
   };
-
-  // console.log(watch("userName"));
+  console.log("userName");
 
   const pass =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
@@ -155,12 +152,12 @@ const SignupLayout = () => {
             Display name
           </DisplayNameLabel>
           <Input
-            id="displayName"
-            fieldName="userName"
+            id="nickname"
+            fieldName="nickname"
             validation={nameValidation}
-            error={error?.userName}
+            error={error?.nickname}
           />
-          {error?.userName && <AlertWarning text={error.userName?.message} />}
+          {error?.nickname && <AlertWarning text={error.nickname?.message} />}
         </ContentDiv>
 
         <InputContainer>
