@@ -9,7 +9,6 @@ import { dummyQuestions } from "../../../dummy/dummyQuestions";
 
 export default function EditInputs() {
   const { questionId: questionId } = useParams("questionId");
-  // eslint-disable-next-line no-unused-vars
   const question = dummyQuestions.find(
     (item) => item.Question_id === Number(questionId),
   );
@@ -62,12 +61,18 @@ export default function EditInputs() {
   return (
     <Container>
       <InputsWrapper>
-        <SubmitInput title="Title" name="title" handleChange={handleChange} />
+        <SubmitInput
+          title="Title"
+          name="title"
+          handleChange={handleChange}
+          question={ask.title}
+        />
         <SubmitHTML
           title="Body"
           name="body"
-          body="{body.body}"
+          body={body.body}
           setBody={setBody}
+          question={ask.body}
         />
         <SubmitInput title="Tags" />
       </InputsWrapper>
