@@ -1,12 +1,28 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import logo from "../img/logo.svg";
 import search from "../img/search.svg";
+import { dummyQuestions } from "../dummy/dummyQuestions";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
+  const { register, handleSubmit, setValue } = useForm();
+
+  const handleSubmitForm = (data) => {
+    const keyword = data.search.toLowerCase();
+
+    const searchResult = dummyQuestions.filter(
+      (question) =>
+        question.title.toLowerCase().includes(keyword) |
+        question.content.toLowerCase().includes(keyword),
+    );
+
+    console.log(searchResult);
+    setValue("search", "");
+  };
 
   return (
     <>
@@ -15,9 +31,15 @@ export default function Header() {
           <Logo to="/">
             <img src={logo} alt="logo" />
           </Logo>
-          <Form>
-            <SearchIcon src={search} alt="search" />
-            <SearchInput />
+          <Form onSubmit={handleSubmit(handleSubmitForm)}>
+            <Label htmlFor="search">
+              <SearchIcon src={search} alt="search" />
+            </Label>
+            <SearchInput
+              id="search"
+              placeholder="Search.."
+              {...register("search")}
+            />
           </Form>
           <Buttons>
             {isLoggedIn ? (
@@ -94,11 +116,14 @@ const Form = styled.form`
   flex: 1;
 `;
 
-const SearchIcon = styled.img`
+const Label = styled.label`
   position: absolute;
   top: 50%;
   left: 16px;
   transform: translateY(-50%);
+`;
+
+const SearchIcon = styled.img`
   width: 18px;
   height: 18px;
 
