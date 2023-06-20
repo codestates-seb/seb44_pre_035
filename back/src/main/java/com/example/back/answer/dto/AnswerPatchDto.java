@@ -18,4 +18,6 @@ public class AnswerPatchDto {
 
     @NotBlank(message = "빈내용 ㄴ")
     private String content;
+
+
 }

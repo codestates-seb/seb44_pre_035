@@ -18,9 +18,8 @@ import java.util.List;
 public class AnswerController {
     private final AnswerService answerService;
 
-    @PostMapping("/submit")
-    public ResponseEntity<AnswerResponseDto> createAnswer(@Validated
-                                                              @RequestBody AnswerPostDto answerPostDto) {
+    @PostMapping("/submit/")
+    public ResponseEntity<AnswerResponseDto> createAnswer(@Validated @RequestBody AnswerPostDto answerPostDto) {
         AnswerResponseDto createdAnswer = answerService.createAnswer(answerPostDto);
         return new ResponseEntity<>(createdAnswer, HttpStatus.CREATED);
     }

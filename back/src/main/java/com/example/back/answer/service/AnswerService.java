@@ -14,11 +14,11 @@ public interface AnswerService {
 
     AnswerResponseDto createAnswer(AnswerPostDto answerPostDto);
 
-    AnswerResponseDto updateAnswer(Long id, AnswerPatchDto answerPatchDto);
+    AnswerResponseDto updateAnswer(Long answerId, AnswerPatchDto answerPatchDto);
 
-    AnswerResponseDto getAnswer(Long id);
+    AnswerResponseDto getAnswer(Long answerId);
 
     List<AnswerResponseDto> getAllAnswers();
 
-    void deleteAnswer(Long id);
+    void deleteAnswer(Long answerId);
 }

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,18 +30,19 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public AnswerResponseDto updateAnswer(Long id, AnswerPatchDto answerPatchDto) {
-        Answer answer = answerRepository.findById(id).orElse(null);
+    public AnswerResponseDto updateAnswer(Long answerId, AnswerPatchDto answerPatchDto) {
+        Answer answer = answerRepository.findById(answerId).orElse(null);
         if (answer != null) {
             answer.setContent(answerPatchDto.getContent());
+            answer.setModifiedAt(LocalDateTime.now());
             return answerMapper.answerToAnswerResponseDto(answer);
         }
         return null; // or throw an exception indicating that the answer with the given id was not found
     }
 
     @Override
-    public AnswerResponseDto getAnswer(Long id) {
-        Answer answer = answerRepository.findById(id).orElse(null);
+    public AnswerResponseDto getAnswer(Long answerId) {
+        Answer answer = answerRepository.findById(answerId).orElse(null);
         if (answer != null) {
             return answerMapper.answerToAnswerResponseDto(answer);
         }
@@ -54,8 +56,8 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     @Override
-    public void deleteAnswer(Long id) {
-        answerRepository.deleteById(id);
+    public void deleteAnswer(Long answerId) {
+        answerRepository.deleteById(answerId);
     }
 
 }
