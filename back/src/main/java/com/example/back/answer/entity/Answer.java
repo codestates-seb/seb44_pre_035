@@ -1,12 +1,13 @@
 package com.example.back.answer.entity;
 
 import com.example.back.account.entity.Account;
-import com.example.back.answer.audit.BaseEntity;
+import com.example.back.question.audit.BaseEntity;
 import com.example.back.question.entity.Question;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +20,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "answer")
 public class Answer extends BaseEntity {
     @Id
