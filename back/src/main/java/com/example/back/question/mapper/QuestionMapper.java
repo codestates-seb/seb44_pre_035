@@ -16,8 +16,8 @@ public interface QuestionMapper {
         return new Question(questionPostDto.getTitle(),
                 questionPostDto.getContent());
     };
-    default Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto){
-        return new Question(questionPatchDto.getQuestionId(),
+    default Question questionPatchDtoToQuestion(Long questionId, QuestionPatchDto questionPatchDto){
+        return new Question(questionId,
                 questionPatchDto.getTitle(), questionPatchDto.getContent());
     };
     QuestionResponseDto questionToQuestionResponseDto(Question question);
@@ -27,11 +27,15 @@ public interface QuestionMapper {
                 .map(question -> QuestionResponseDto
                         .builder()
                         .questionId(question.getQuestionId())
+                        .accountId(question.getAccount().getId())
                         .title(question.getTitle())
                         .content(question.getContent())
+                        .views(question.getViews())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())
+                        .answerList((question.getAnswerList()))
                         .build())
                 .collect(Collectors.toList());
     };
+
 }

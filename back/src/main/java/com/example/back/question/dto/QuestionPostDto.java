@@ -1,6 +1,9 @@
 package com.example.back.question.dto;
 
+import com.example.back.question.validator.NotSpace;
 import lombok.Getter;
+
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import com.example.back.account.entity.Account;
@@ -8,10 +11,10 @@ import com.example.back.account.entity.Account;
 @Getter
 public class QuestionPostDto {
 
-    @NotNull
+    @NotSpace
     private String title;
 
-    @NotBlank
+    @NotSpace
     private String content;
 
     /*
