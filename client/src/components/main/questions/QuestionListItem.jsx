@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import QuestionListItemStatus from "./QuestionListItemStatus";
 import TagList from "../TagList";
+import QuestionListItemUserInfo from "./QuestionListItemUserInfo";
 
 export default function QuestionListItem({ item }) {
   return (
@@ -15,7 +16,10 @@ export default function QuestionListItem({ item }) {
         <ContentExcerpt>
           <p>{item.content}</p>
         </ContentExcerpt>
-        <TagList tags={item.tags} />
+        <ContentMeta>
+          <TagList tags={item.tags} />
+          <QuestionListItemUserInfo userId={item.userId} />
+        </ContentMeta>
       </Content>
     </Wrapper>
   );
@@ -61,4 +65,10 @@ const ContentExcerpt = styled.div`
     -webkit-line-clamp: 2;
     overflow: hidden;
   }
+`;
+
+const ContentMeta = styled.div`
+  display: flex;
+  font-size: 12px;
+  align-items: center;
 `;
