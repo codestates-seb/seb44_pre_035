@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-function SubmitButton({ button }) {
+function SubmitButton({ button, handleSubmit }) {
   return (
     <Wrapper>
-      <Button>{button}</Button>
+      <Button onClick={handleSubmit}>{button}</Button>
     </Wrapper>
   );
 }
