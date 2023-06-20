@@ -1,11 +1,14 @@
 import styled, { css } from "styled-components";
 import Writer from "../../share/Writer";
 
-function SubmitHTML({ title, comment, name, setBody }) {
+function SubmitHTML({ title, comment, name, setBody, body }) {
   return (
     <Wrapper SubmitHTML="true" direction="column">
       <InputTitle text="title">{title}</InputTitle>
       <InputTitle text="sub">{comment}</InputTitle>
+      {body.length < 20 && (
+        <InputTitle text="valiation">Minimum 20 characters</InputTitle>
+      )}
       <Writer name={name} setBody={setBody} />
     </Wrapper>
   );
@@ -35,6 +38,14 @@ const InputTitle = styled.label`
     css`
       font-size: 12px;
       font-weight: 400;
+    `}
+
+    ${(props) =>
+    props.text === "valiation" &&
+    css`
+      font-size: 12px;
+      font-weight: 400;
+      color: red;
     `}
 `;
 

@@ -34,6 +34,11 @@ const AskInputs = () => {
   };
 
   const handleSubmit = () => {
+    if (body.problem.length < 20 && body.try.length < 20) {
+      alert(
+        "Make sure that the characters in the problem input and the try input are 20 or more.",
+      );
+    }
     postQuestion(body);
   };
 
@@ -52,15 +57,17 @@ const AskInputs = () => {
         />
         <SubmitHTML
           title="What are the details of your problem?"
-          comment="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
+          comment="Introduce the problem and expand on what you put in the title."
           name="problem"
           setBody={setBody}
+          body={body.problem}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
-          comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
+          comment="Describe what you tried, what you expected to happen, and what actually resulted."
           name="try"
           setBody={setBody}
+          body={body.try}
         />
         <SubmitInput
           title="tags"
