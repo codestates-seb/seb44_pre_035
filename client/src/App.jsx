@@ -8,6 +8,7 @@ import Login from "./pages/users/Login";
 import Signup from "./pages/users/Signup";
 import EditPage from "./pages/questions/EditPage";
 import Layout from "./share/Layout";
+import Search from "./pages/main/Search";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="" element={<Main />} />
+          <Route path="search" element={<Search />} />
           <Route path="ask" element={<AskPage />} />
           <Route path="edit" element={<EditPage />} />
           <Route path="mypage" element={<Mypage />} />
