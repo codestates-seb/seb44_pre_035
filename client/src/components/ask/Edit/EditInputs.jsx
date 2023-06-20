@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const EditInputs = () => {
-  const [ask, setAsk] = useState({ title: "", body: "", tags: "" });
-  const [body, setBody] = useState({ problem: "", try: "" });
+  // eslint-disable-next-line no-unused-vars
+  const [ask, setAsk] = useState({ title: "", body: "" });
+  // eslint-disable-next-line no-unused-vars
+  const [body, setBody] = useState({ body: "" });
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,8 +21,8 @@ const EditInputs = () => {
     <Container>
       <InputsWrapper>
         <SubmitInput title="Title" name="title" handleChange={handleChange} />
-        <SubmitHTML title="Body" name="problem" setBody={setBody} />
-        <SubmitInput title="Tags" name="title" handleChange={handleChange} />
+        <SubmitHTML title="Body" name="body" setBody={setBody} />
+        <SubmitInput title="Tags" />
       </InputsWrapper>
       <ButtonsWrapper>
         <SubmitButton button="Past your question" />

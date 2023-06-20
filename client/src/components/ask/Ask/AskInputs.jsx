@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 
 const AskInputs = () => {
   // eslint-disable-next-line no-unused-vars
-  const [ask, setAsk] = useState({ title: "", body: "", tags: "" });
+  const [ask, setAsk] = useState({ title: "", body: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
-  // console.log("ask:", ask, "//", "body", body);
+  console.log("ask:", ask, "//", "body", body);
 
   useEffect(() => {
     setAsk((prev) => ({ ...prev, body: body.problem + "<br>" + body.try }));
@@ -43,8 +43,6 @@ const AskInputs = () => {
         <SubmitInput
           title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
-          name="tags"
-          handleChange={handleChange}
         />
       </Wrapper>
       <Wrapper>
