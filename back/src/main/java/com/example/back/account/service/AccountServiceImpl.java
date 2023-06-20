@@ -7,10 +7,13 @@ import com.example.back.account.dto.AccountUpdateDto;
 import com.example.back.account.entity.Account;
 import com.example.back.account.repository.AccountRepository;
 import com.example.back.account.util.SecurityUtil;
+import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
+import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.question.dto.QuestionResponseDto;
 import com.example.back.question.entity.Question;
+import com.example.back.question.mapper.QuestionMapper;
 import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +34,8 @@ public class AccountServiceImpl implements AccountService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final QuestionMapper questionMapper;
+    private final AnswerMapper answerMapper;
 
     @Override //회원가입
     public void signUp(AccountSignUpDto accountSignUpDto) throws Exception {
@@ -83,12 +88,13 @@ public class AccountServiceImpl implements AccountService{
         String loginUser = SecurityUtil.getLoginUsername();
         boolean isEditable = loginUser != null && loginUser.equals(account.getEmail());
 
-        List<Question> questionList = questionRepository.findAllById(id);
-        answerRepository.findAllById(id);
+        List<Question> questionList = questionRepository.findAllByAccount(id);
+        List<Answer> answerList = answerRepository.findAllByAccount(id);
 
-        AccountInfoDto accountInfoDto = new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), isEditable);
+        List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
+        List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
-        return accountInfoDto;
+        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable);
     }
 
     @Override //모든 유저 정보 리스트 반환 일단 임시로 대충 작성해놓음 나중에 생성자 변경 예정
