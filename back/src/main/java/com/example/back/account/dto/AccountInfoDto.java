@@ -21,10 +21,12 @@ public class AccountInfoDto {
     private List<AnswerResponseDto> answerList;
     private final boolean isEditable;
 
-    public AccountInfoDto(Long id, String nickname, String email, boolean isEditable) {
-        this.accountId = id;
+    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable) {
+        this.accountId = accountId;
         this.nickname = nickname;
         this.email = email;
+        this.questionList = questionList;
+        this.answerList = answerList;
         this.isEditable = isEditable;
     }
 }
