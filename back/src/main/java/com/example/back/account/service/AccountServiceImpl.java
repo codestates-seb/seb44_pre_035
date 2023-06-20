@@ -7,6 +7,11 @@ import com.example.back.account.dto.AccountUpdateDto;
 import com.example.back.account.entity.Account;
 import com.example.back.account.repository.AccountRepository;
 import com.example.back.account.util.SecurityUtil;
+import com.example.back.answer.entity.Answer;
+import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.question.dto.QuestionResponseDto;
+import com.example.back.question.entity.Question;
+import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,6 +28,8 @@ public class AccountServiceImpl implements AccountService{
 
 
     private final AccountRepository accountRepository;
+    private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override //회원가입
@@ -75,6 +82,9 @@ public class AccountServiceImpl implements AccountService{
 
         String loginUser = SecurityUtil.getLoginUsername();
         boolean isEditable = loginUser != null && loginUser.equals(account.getEmail());
+
+        List<Question> questionList = questionRepository.findAllById(id);
+        answerRepository.findAllById(id);
 
         AccountInfoDto accountInfoDto = new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), isEditable);
 

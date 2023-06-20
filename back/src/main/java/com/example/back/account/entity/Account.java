@@ -1,7 +1,11 @@
 package com.example.back.account.entity;
 
 
+import com.example.back.answer.entity.Answer;
+import com.example.back.question.audit.BaseEntity;
+import com.example.back.question.entity.Question;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -10,10 +14,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Account {
+public class Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,11 +41,11 @@ public class Account {
     @Column(length = 1000)
     private String refreshToken;
 
-//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Question> questionList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Answer> questionList = new ArrayList<>();
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Question> questionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answerList = new ArrayList<>();
 
 
      // oauth 2.0 깃헙 사전설정
@@ -85,7 +91,17 @@ public class Account {
         USER
     }
 
-    public enum SocialType {
-        GOOGLE, GITHUB
+//    public enum SocialType {
+//        GOOGLE, GITHUB
+//    }
+
+    public void addQuestion(Question question) {
+        questionList.add(question);
+        question.setAccount(this);
+    }
+
+    public void removeQuestion(Question question) {
+        questionList.remove(question);
+        question.setAccount(null);
     }
 }
