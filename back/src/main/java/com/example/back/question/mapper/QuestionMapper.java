@@ -5,7 +5,6 @@ import com.example.back.question.dto.QuestionPatchDto;
 import com.example.back.question.dto.QuestionPostDto;
 import com.example.back.question.dto.QuestionResponseDto;
 import com.example.back.question.entity.Question;
-import com.example.back.question.repository.QuestionRepository;
 import org.mapstruct.Mapper;
 
 import java.util.List;

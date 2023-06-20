@@ -52,12 +52,13 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public void updateQuestion(Question question){
+    public Question updateQuestion(Question question){
         Question foundQuestion = findQuestion(question.getQuestionId());
         foundQuestion.setTitle(question.getTitle());
         foundQuestion.setContent(question.getContent());
         foundQuestion.setModifiedAt(question.getModifiedAt());
 
         questionRepository.save(foundQuestion);
+        return foundQuestion;
     }
 }

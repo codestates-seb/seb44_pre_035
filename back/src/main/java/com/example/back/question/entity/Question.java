@@ -1,5 +1,7 @@
 package com.example.back.question.entity;
 
+import com.example.back.account.entity.Account;
+import com.example.back.answer.entity.Answer;
 import com.example.back.question.audit.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -21,16 +23,23 @@ public class Question extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
+
     @Column(nullable = false)
     private String title;
-    @Column(nullable = false)
-    private String content; // String 말고 본문 전체를 커버할 수 있는 거 만들기.
 
-    /*
-    답변
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
-    * */
+    @Column(nullable = false)
+    private String content;
+
+    @Column(nullable = false)
+    private int views;
+
+    @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID")
+    private Account account;
+
+    @OneToMany(mappedBy = "questions")
+    private List<Answer> answers;
+
     @Builder
     public Question(String title, String content){
         this.title = title;

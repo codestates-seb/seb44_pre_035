@@ -1,13 +1,12 @@
 package com.example.back.question.controller;
 
-import com.example.back.question.dto.MultiResponseDto;
-import com.example.back.question.dto.QuestionPatchDto;
-import com.example.back.question.dto.QuestionPostDto;
-import com.example.back.question.dto.SingleResponseDto;
+import com.example.back.answer.entity.Answer;
+import com.example.back.question.dto.*;
 import com.example.back.question.entity.Question;
 import com.example.back.question.mapper.QuestionMapper;
 import com.example.back.question.service.QuestionService;
 import com.example.back.question.utils.UriCreator;
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -36,8 +35,6 @@ public class QuestionController {
         // this.accountService = accountService;
     }
 
-    // Account
-    //private final AccountService accountService;
     @PostMapping("/ask")
     public ResponseEntity postQuestion(
             @Valid @RequestBody QuestionPostDto questionPostDto) {
@@ -52,10 +49,20 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question_id")
                                           @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
+        List<Answer> answer = null;
+        // question Id에 해당하는 answer list를 만드는 service 있으면 그거 추가하면 됨
+        // List<Answer> answers =
+
+
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)),
                 HttpStatus.OK);
+        /*
+        return new ResponseEntity<>(
+                new MultiResponseDto2<>(mapper.questionToQuestionResponseDto(question), answers),
+                HttpStatus.OK);
+         */
     }
 
     @GetMapping
@@ -82,9 +89,10 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto) {
         questionPatchDto.setQuestionId(questionId);
-        questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
+        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
+        URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, question.getQuestionId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.created(location).build();
     }
 
 /*
