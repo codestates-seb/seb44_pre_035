@@ -3,21 +3,29 @@ import SubmitButton from "../SubmitButton";
 import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const EditInputs = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [ask, setAsk] = useState({ title: "", body: "" });
+  // eslint-disable-next-line no-unused-vars
+  const [body, setBody] = useState({ body: "" });
+
+  const handleChange = (e) => {
+    setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  console.log("ask:", ask, "//", "body", body);
+
   return (
     <Container>
       <InputsWrapper>
-        <SubmitInput title="Title" />
-        <SubmitHTML title="Body" />
-        <SubmitHTML
-          title="What did you try and what were you expecting?"
-          comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
-        />
+        <SubmitInput title="Title" name="title" handleChange={handleChange} />
+        <SubmitHTML title="Body" name="body" setBody={setBody} />
         <SubmitInput title="Tags" />
       </InputsWrapper>
       <ButtonsWrapper>
-        <SubmitButton button="Past your question" />
+        <SubmitButton button="Post your question" />
         <CancelButton to="/">Cancel</CancelButton>
       </ButtonsWrapper>
     </Container>
