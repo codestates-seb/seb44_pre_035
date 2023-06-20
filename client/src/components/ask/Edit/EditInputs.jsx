@@ -25,7 +25,7 @@ const EditInputs = () => {
         <SubmitInput title="Tags" />
       </InputsWrapper>
       <ButtonsWrapper>
-        <SubmitButton button="Past your question" />
+        <SubmitButton button="Post your question" />
         <CancelButton to="/">Cancel</CancelButton>
       </ButtonsWrapper>
     </Container>

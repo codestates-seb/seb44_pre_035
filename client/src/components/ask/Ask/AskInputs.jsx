@@ -46,7 +46,7 @@ const AskInputs = () => {
         />
       </Wrapper>
       <Wrapper>
-        <SubmitButton button="Past your question" />
+        <SubmitButton button="Post your question" />
       </Wrapper>
     </Container>
   );
