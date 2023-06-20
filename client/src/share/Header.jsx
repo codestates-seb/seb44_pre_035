@@ -1,28 +1,12 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 import logo from "../img/logo.svg";
-import search from "../img/search.svg";
-import { dummyQuestions } from "../dummy/dummyQuestions";
+import SearchForm from "./SearchForm";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // 임시 로그인
-  const { register, handleSubmit, setValue } = useForm();
-
-  const handleSubmitForm = (data) => {
-    const keyword = data.search.toLowerCase();
-
-    const searchResult = dummyQuestions.filter(
-      (question) =>
-        question.title.toLowerCase().includes(keyword) |
-        question.content.toLowerCase().includes(keyword),
-    );
-
-    console.log(searchResult);
-    setValue("search", "");
-  };
 
   return (
     <>
@@ -31,16 +15,7 @@ export default function Header() {
           <Logo to="/">
             <img src={logo} alt="logo" />
           </Logo>
-          <Form onSubmit={handleSubmit(handleSubmitForm)}>
-            <Label htmlFor="search">
-              <SearchIcon src={search} alt="search" />
-            </Label>
-            <SearchInput
-              id="search"
-              placeholder="Search.."
-              {...register("search")}
-            />
-          </Form>
+          <SearchForm />
           <Buttons>
             {isLoggedIn ? (
               <ButtonList>
@@ -107,42 +82,6 @@ const Logo = styled(Link)`
 
   &:hover {
     background-color: #f1f2f3;
-  }
-`;
-
-const Form = styled.form`
-  padding: 0 8px;
-  position: relative;
-  flex: 1;
-`;
-
-const Label = styled.label`
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-`;
-
-const SearchIcon = styled.img`
-  width: 18px;
-  height: 18px;
-
-  filter: invert(46%) sepia(15%) saturate(303%) hue-rotate(171deg)
-    brightness(92%) contrast(90%);
-`;
-
-const SearchInput = styled.input`
-  display: block;
-  padding: 8px;
-  padding-left: 32px;
-  width: 100%;
-  outline: none;
-  border: 1px solid #babfc4; // --black-200
-  border-radius: 3px;
-
-  &:focus {
-    border-color: #6bbbf7;
-    box-shadow: 0 0 0 4px #ebf4fb;
   }
 `;
 
