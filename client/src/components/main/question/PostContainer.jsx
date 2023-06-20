@@ -12,7 +12,7 @@ export default function PostContainer({ post }) {
         <p>{post.content}</p>
         {post.tags && <PostTags tags={post.tags} />}
         <ContentMeta>
-          <PostController />
+          <PostController post={post} />
           <PostUserInfo userId={post.user_id} />
         </ContentMeta>
       </Content>

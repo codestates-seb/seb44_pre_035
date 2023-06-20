@@ -2,12 +2,22 @@ import styled from "styled-components";
 import SubmitButton from "../SubmitButton";
 import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { dummyQuestions } from "../../../dummy/dummyQuestions";
 
-const EditInputs = () => {
-  const [ask, setAsk] = useState({ title: "", body: "" });
+export default function EditInputs() {
+  const { questionId: questionId } = useParams("questionId");
+  // eslint-disable-next-line no-unused-vars
+  const question = dummyQuestions.find(
+    (item) => item.Question_id === Number(questionId),
+  );
+
+  const [ask, setAsk] = useState({
+    title: "",
+    body: "",
+  });
   const [body, setBody] = useState({ body: "" });
 
   console.log("ask:", ask, "//", "body", body);
@@ -41,6 +51,14 @@ const EditInputs = () => {
     setAsk((prev) => ({ ...prev, body: body.body }));
   }, [body.body]);
 
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, title: question.title }));
+  }, []);
+
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, body: question.content }));
+  }, []);
+
   return (
     <Container>
       <InputsWrapper>
@@ -59,7 +77,7 @@ const EditInputs = () => {
       </ButtonsWrapper>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -99,5 +117,3 @@ const CancelButton = styled(Link)`
     background-color: #0162bf;
   }
 `;
-
-export default EditInputs;
