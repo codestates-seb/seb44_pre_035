@@ -11,13 +11,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @EntityListeners(AuditingEntityListener.class)
-@Entity(name = "QUESTIONS")
+@Entity(name = "QUESTION")
 @EnableJpaAuditing
 public class Question extends BaseEntity {
     @Id
@@ -37,8 +38,8 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "ACCOUNT_ID")
     private Account account;
 
-    @OneToMany(mappedBy = "questions")
-    private List<Answer> answers;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answerList = new ArrayList<>();
 
     @Builder
     public Question(String title, String content){
@@ -52,7 +53,4 @@ public class Question extends BaseEntity {
         this.title = title;
         this.content = content;
     }
-
-
-    //
 }
