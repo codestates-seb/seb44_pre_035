@@ -39,7 +39,7 @@ public class Question extends BaseEntity {
     private Account account;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
-    private List<Answer> answerList;
+    private List<Answer> answerList = new ArrayList<>();
 
     @Builder
     public Question(String title, String content){

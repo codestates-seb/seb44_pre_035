@@ -9,9 +9,9 @@ import java.util.List;
 @Getter
 public class QAResponseDto<T> {
     private T data;
-    private List<Answer> answerList;
+    private T answerList;
 
-    public QAResponseDto(T question, List<Answer> answerList) {
+    public QAResponseDto(T question, T answerList) {
         this.data = question;
         this.answerList = answerList;
     }

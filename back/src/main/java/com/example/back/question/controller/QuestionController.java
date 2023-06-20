@@ -46,7 +46,7 @@ public class QuestionController {
         Question question = questionService.findQuestion(questionId);
         return new ResponseEntity<>(
                 new QAResponseDto<>(mapper.questionToQuestionResponseDto(question),
-                        questionService.findQuestionAnswer(question)),
+                        mapper.AnswerListToAnswerResponseDto(questionService.findQuestionAnswer(question))),
                 HttpStatus.OK);
     }
 
