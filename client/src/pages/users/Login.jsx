@@ -23,7 +23,7 @@ const LoginWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 120%;
+  width: 100%;
   margin-bottom: 16px;
 `;
 const Logowrapper = styled.div`
@@ -37,9 +37,8 @@ const Logowrapper = styled.div`
   }
 `;
 const FormWrapper = styled.div`
-  width: 132%;
-  height: 160%;
-  margin-bottom: 29px;
+  width: 100%;
+  margin-bottom: 24px;
   padding: 24px;
   border-radius: 7px;
   background-color: white;
@@ -82,7 +81,7 @@ const RedirectionDiv2 = styled.div`
   }
 `;
 
-const Login = () => {
+const Signin = () => {
   const handleButtonClick = () => {
     console.log("action");
   };
@@ -117,4 +116,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;

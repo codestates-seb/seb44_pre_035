@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import SignupButton from "../../components/sign/Signup/SignupButton";
 import SignupLayout from "../../components/sign/Signup/SignupLayout";
@@ -9,6 +10,10 @@ import icon_trophy from "../../img/icon_trophy.svg";
 import { Desktop, Tablet, Mobile } from "../../components/sign/Responsive";
 
 const Signup = () => {
+  const [displayName, setDisplayName] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState();
+
   return (
     <SignupPage>
       <SignupContent>
@@ -52,7 +57,14 @@ const Signup = () => {
             <SignupButton type={"facebook"} />
           </SignupButtonBlock>
           <Signdiv>
-            <SignupLayout />
+            <SignupLayout
+              displayName={displayName}
+              setDisplayName={setDisplayName}
+              signupEmail={signupEmail}
+              setSignupEmail={setSignupEmail}
+              signupPassword={signupPassword}
+              setSignupPassword={setSignupPassword}
+            />
           </Signdiv>
           <ContextLogin>
             Already have an account?{" "}

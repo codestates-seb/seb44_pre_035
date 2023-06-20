@@ -20,7 +20,7 @@ function App() {
           <Route path="mypage" element={<Mypage />} />
           <Route path="question/:id" element={<Question />} />
         </Route>
-        <Route path="/Login" element={<Login />} />
+        <Route path="/signin" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </BrowserRouter>
