@@ -7,7 +7,7 @@ const InputElement = styled.input`
   padding: 7px 9px;
   width: 100%;
   text-align: start;
-  font-size: 13px;
+  font-size: 12px;
   line-height: normal;
   letter-spacing: normal;
   font-family: -apple-system, "system-ui", "Segoe UI Adjusted", "Segoe UI",

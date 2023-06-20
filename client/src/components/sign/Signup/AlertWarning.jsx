@@ -12,7 +12,7 @@ const Alert = styled.img`
 export const AlertText = styled.p`
   margin: 2px 0px;
   padding: 2px;
-  font-size: 1rem;
+  font-size: 0.7rem;
   color: red;
   display: block;
 `;

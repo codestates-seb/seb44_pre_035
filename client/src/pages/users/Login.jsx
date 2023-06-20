@@ -37,7 +37,7 @@ const Logowrapper = styled.div`
   }
 `;
 const FormWrapper = styled.div`
-  width: 120%;
+  width: 125%;
   margin-bottom: 24px;
   padding: 24px;
   border-radius: 7px;
