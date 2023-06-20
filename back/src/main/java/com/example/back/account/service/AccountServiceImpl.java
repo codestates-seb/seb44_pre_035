@@ -88,13 +88,13 @@ public class AccountServiceImpl implements AccountService{
         String loginUser = SecurityUtil.getLoginUsername();
         boolean isEditable = loginUser != null && loginUser.equals(account.getEmail());
 
-        List<Question> questionList = questionRepository.findAllByAccount(id);
-        List<Answer> answerList = answerRepository.findAllByAccount(id);
+        List<Question> questionList = questionRepository.findAllByAccount(account);
+        List<Answer> answerList = answerRepository.findAllByAccount(account);
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
-        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable);
+        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt());
     }
 
     @Override //모든 유저 정보 리스트 반환 일단 임시로 대충 작성해놓음 나중에 생성자 변경 예정

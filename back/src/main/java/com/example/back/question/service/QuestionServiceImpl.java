@@ -24,12 +24,13 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public Question createQuestion(Question question){
-        // String userMail = SecurityUtil.getLoginUsername();
-        // Account account = accountRepository.findByEmail(userMail).orElseThrow();
-        // question.setAccount(account);
+         String userEmail = SecurityUtil.getLoginUsername();
+         Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+         question.setAccount(account);
 
         return questionRepository.save(question);
     }

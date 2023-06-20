@@ -1,5 +1,8 @@
 package com.example.back.answer.service;
 
+import com.example.back.account.entity.Account;
+import com.example.back.account.repository.AccountRepository;
+import com.example.back.account.util.SecurityUtil;
 import com.example.back.answer.dto.AnswerPatchDto;
 import com.example.back.answer.dto.AnswerPostDto;
 import com.example.back.answer.dto.AnswerResponseDto;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 public class AnswerServiceImpl implements AnswerService {
     private final AnswerRepository answerRepository;
     private final AnswerMapper answerMapper;
-    /**/
+    private final AccountRepository accountRepository;
     private final QuestionRepository questionRepository;
 
 
@@ -29,8 +32,11 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public AnswerResponseDto createAnswer(Long questionId, AnswerPostDto answerPostDto) {
         Answer answer = answerMapper.answerPostDtoToAnswer(answerPostDto);
-        // answer에 그... Account 객체를 넣는거는 그대로 하고
-        // 그... Question 객체를 어떻게 넣지?
+
+        String userEmail = SecurityUtil.getLoginUsername();
+        Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        answer.setAccount(account);
+
         answer.setQuestion(questionRepository.findById(questionId).orElseThrow());
         Answer createdAnswer = answerRepository.save(answer);
         return answerMapper.answerToAnswerResponseDto(createdAnswer);
