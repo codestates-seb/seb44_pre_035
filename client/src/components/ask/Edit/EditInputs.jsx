@@ -3,29 +3,58 @@ import SubmitButton from "../SubmitButton";
 import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const EditInputs = () => {
-  // eslint-disable-next-line no-unused-vars
   const [ask, setAsk] = useState({ title: "", body: "" });
-  // eslint-disable-next-line no-unused-vars
   const [body, setBody] = useState({ body: "" });
+
+  console.log("ask:", ask, "//", "body", body);
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log("ask:", ask, "//", "body", body);
+  const EditQuestion = async (body) => {
+    await axios
+      .put("/questions/{question-id}", body)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+        alert("Failed to post question.");
+      });
+  };
+
+  const handleSubmit = () => {
+    if (body.body.length < 20) {
+      alert(
+        "Please make sure there is no [Minimum 20 characters] in the input.",
+      );
+    }
+    EditQuestion(ask);
+  };
+
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, body: body.body }));
+  }, [body.body]);
 
   return (
     <Container>
       <InputsWrapper>
         <SubmitInput title="Title" name="title" handleChange={handleChange} />
-        <SubmitHTML title="Body" name="body" setBody={setBody} />
+        <SubmitHTML
+          title="Body"
+          name="body"
+          body="{body.body}"
+          setBody={setBody}
+        />
         <SubmitInput title="Tags" />
       </InputsWrapper>
       <ButtonsWrapper>
-        <SubmitButton button="Post your question" />
+        <SubmitButton button="Edit your question" handleSubmit={handleSubmit} />
         <CancelButton to="/">Cancel</CancelButton>
       </ButtonsWrapper>
     </Container>
