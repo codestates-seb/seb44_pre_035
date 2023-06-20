@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import alert from "../../../img/alert.svg";
+
 const Alert = styled.img`
   width: 18px;
   height: 18px;
@@ -21,10 +23,9 @@ const AlertContainer = styled.div`
 const AlertWarning = ({ text }) => {
   return (
     <AlertContainer>
-      <Alert src={process.env.PUBLIC_URL + "/images/alert.svg"} />
+      <Alert src={alert} />
       <AlertText>{text}</AlertText>
     </AlertContainer>
   );
 };
-
 export default AlertWarning;

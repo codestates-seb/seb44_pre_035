@@ -23,7 +23,7 @@ const LoginWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 120%;
   margin-bottom: 16px;
 `;
 const Logowrapper = styled.div`
@@ -37,7 +37,7 @@ const Logowrapper = styled.div`
   }
 `;
 const FormWrapper = styled.div`
-  width: 100%;
+  width: 120%;
   margin-bottom: 24px;
   padding: 24px;
   border-radius: 7px;
