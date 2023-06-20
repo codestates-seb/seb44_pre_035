@@ -39,7 +39,7 @@ const AskInputs = () => {
         "Make sure that the characters in the problem input and the try input are 20 or more.",
       );
     }
-    postQuestion(body);
+    postQuestion(ask);
   };
 
   useEffect(() => {
