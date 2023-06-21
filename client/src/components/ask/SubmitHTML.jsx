@@ -1,14 +1,12 @@
 import styled, { css } from "styled-components";
 import Writer from "../../share/Writer";
 
-function SubmitHTML({ title, comment, name, setBody, body, question }) {
+function SubmitHTML({ title, comment, name, setBody, question }) {
   return (
     <Wrapper SubmitHTML="true" direction="column">
       <InputTitle text="title">{title}</InputTitle>
       <InputTitle text="sub">{comment}</InputTitle>
-      {body < 20 && (
-        <InputTitle text="valiation">Minimum 20 characters</InputTitle>
-      )}
+      <InputTitle text="valiation">Minimum 20 characters</InputTitle>
       <Writer name={name} setBody={setBody} question={question} />
     </Wrapper>
   );
