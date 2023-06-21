@@ -26,9 +26,9 @@ export default function SearchForm() {
 }
 
 const Form = styled.form`
-  padding: 0 8px;
+  padding: 0 24px;
   position: relative;
-  flex: 1;
+  flex: 0.85;
 `;
 
 const Label = styled.label`
@@ -41,7 +41,7 @@ const Label = styled.label`
 const SearchIcon = styled.img`
   width: 18px;
   height: 18px;
-
+  margin: 0px 0px 0px 15px;
   filter: invert(46%) sepia(15%) saturate(303%) hue-rotate(171deg)
     brightness(92%) contrast(90%);
 `;
@@ -50,7 +50,7 @@ const SearchInput = styled.input`
   display: block;
   padding: 8px;
   padding-left: 32px;
-  width: 100%;
+  width: 86%;
   outline: none;
   border: 1px solid #babfc4; // --black-200
   border-radius: 3px;
