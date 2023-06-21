@@ -4,11 +4,12 @@ import LoginButton from "./LoginButton";
 import Input from "../../../share/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import AlertWarning from "../Signup/AlertWarning";
-// eslint-disable-next-line no-unused-vars
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../app/usersReducer";
 import { useNavigate } from "react-router-dom";
 import ModalComponet from "../../../share/Modal";
+import { Cookies } from "react-cookie";
+import { logIn } from "../../../api/userAPI";
 
 const InputContainer = styled.div`
   margin: 0.6rem 0;
@@ -41,7 +42,7 @@ const LoginFormInput = () => {
   const dispatch = useDispatch();
   const methods = useForm();
   const navigate = useNavigate();
-  // eslint-disable-next-line no-undef
+  const cookie = new Cookies();
   const pass =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
   const [modal, setModal] = useState({
@@ -70,21 +71,20 @@ const LoginFormInput = () => {
   };
   const error = methods?.formState?.errors;
   const onSubmit = async (data) => {
-    // eslint-disable-next-line no-undef
-    const res = await login(data);
+    const res = await logIn(data);
     if (res?.status !== 200) {
       setModal({
         open: true,
         title: "로그인을 실패했습니다.",
         message: `이메일과 비밀번호를 다시 확인해주세요.`,
       });
-      // alert("이메일과 비밀번호를 다시 확인해 주세요.");
       return setIsAuthorized(false);
     } else {
       const { userId } = res.data;
       localStorage.setItem("userId", JSON.stringify(userId));
       const token = res.headers?.authorization.split(" ")[1];
       dispatch(setUser({ token, userId }));
+      cookie.set("token", token);
       navigate("/");
     }
   };
