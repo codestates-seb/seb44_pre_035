@@ -25,13 +25,19 @@ export default function EditInputs() {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (body.body.length < 20) {
       alert(
         "Please make sure there is no [Minimum 20 characters] in the input.",
       );
+      return;
     }
-    EditQuestion(ask);
+    try {
+      await EditQuestion(ask);
+      alert("Edit successful :)");
+    } catch (error) {
+      alert("Edit failed :(");
+    }
   };
 
   useEffect(() => {
