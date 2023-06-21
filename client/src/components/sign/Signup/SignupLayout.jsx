@@ -2,8 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import SignupButton from "./SignupButton";
 import { useNavigate } from "react-router-dom";
-// eslint-disable-next-line no-unused-vars
-import axios from "axios";
+import { signUp } from "../../../api/userAPI";
 import Input from "../../../share/Input";
 import AlertWarning from "./AlertWarning";
 import ModalComponent from "../../../share/Modal";
@@ -93,33 +92,40 @@ const ValidationMessage = styled.p`
 const SignupLayout = () => {
   const [modal, setModal] = useState({
     open: false,
-    title: "",
-    message: "",
-    callback: false,
+    title: "Modal Title",
+    message: "Modal Message",
+    callback: null,
   });
+
+  const handleShowModal = () => {
+    setModal({
+      open: true,
+      title: "Modal Title",
+      message: "Modal Message",
+      callback: null,
+    });
+  };
   const navigate = useNavigate();
 
   const initialValue = {
-    userName: "",
+    nickname: "",
     userEmail: "",
     userPassword: "",
   };
   const methods = useForm(initialValue);
   const error = methods?.formState?.errors;
   const onSubmit = async (data) => {
-    // eslint-disable-next-line no-undef
     signUp(data);
     setModal({
       open: true,
       title: "회원가입을 성공했습니다.",
-      message: `환영합니다 ${data.userName}님!`,
+      message: `환영합니다 ${data.nickname}님!`,
       callback: function () {
         navigate("/login");
       },
     });
   };
-
-  // console.log(watch("userName"));
+  console.log("userName");
 
   const pass =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
@@ -143,6 +149,7 @@ const SignupLayout = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <button onClick={handleShowModal}>Show Modal</button>
         <ModalComponent
           open={modal.open}
           setModal={setModal}
@@ -155,12 +162,12 @@ const SignupLayout = () => {
             Display name
           </DisplayNameLabel>
           <Input
-            id="displayName"
-            fieldName="userName"
+            id="nickname"
+            fieldName="nickname"
             validation={nameValidation}
-            error={error?.userName}
+            error={error?.nickname}
           />
-          {error?.userName && <AlertWarning text={error.userName?.message} />}
+          {error?.nickname && <AlertWarning text={error.nickname?.message} />}
         </ContentDiv>
 
         <InputContainer>
