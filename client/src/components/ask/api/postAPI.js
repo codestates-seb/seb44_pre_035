@@ -1,17 +1,5 @@
 import axios from "axios";
 
-// export const postQuestion = (body) => {
-//   axios
-//     .post("/questions/ask", body)
-//     .then((res) => {
-//       console.log(res.data);
-//       alert("Post successful :)");
-//     })
-//     .catch((err) => {
-//       alert(err.message, "Post failed :(");
-//     });
-// };
-
 export const postQuestion = async (body) => {
   try {
     const res = await axios.post("/questions/ask", body);
