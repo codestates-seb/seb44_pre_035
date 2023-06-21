@@ -10,7 +10,7 @@ function ModalComponet({ open, setModal, message, title, callback }) {
 
   return (
     <>
-      <Modal show={open} onHide={handleClose} style={{ marginTop: "250px" }}>
+      <Modal show={open} onHide={handleClose} style={{ marginTop: "150px" }}>
         <Modal.Header closeButton>
           <Modal.Title>{title}</Modal.Title>
         </Modal.Header>

@@ -4,12 +4,10 @@ import LoginButton from "./LoginButton";
 import Input from "../../../share/Input";
 import { FormProvider, useForm } from "react-hook-form";
 import AlertWarning from "../Signup/AlertWarning";
-// eslint-disable-next-line no-unused-vars
 import { useDispatch } from "react-redux";
 import { setUser } from "../../../app/usersReducer";
 import { useNavigate } from "react-router-dom";
 import ModalComponet from "../../../share/Modal";
-
 const InputContainer = styled.div`
   margin: 0.6rem 0;
 `;

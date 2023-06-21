@@ -17,7 +17,7 @@ export const logIn = async (data) => {
 export const signUp = async (data) => {
   try {
     const res = await axios({
-      url: "https://b123-220-76-183-16.ngrok-free.app/accounts/signup",
+      url: "https://35ee-220-76-183-16.ngrok-free.app/accounts/signup",
       method: "post",
       data: {
         email: data.userEmail,
