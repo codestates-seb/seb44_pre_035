@@ -2,7 +2,6 @@ import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
 import { dummyQuestions } from "../../dummy/dummyQuestions";
-
 export default function Main() {
   return (
     <Container>
