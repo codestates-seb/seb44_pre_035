@@ -8,7 +8,7 @@ import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import { EditQuestion } from "../api/postAPI";
 
 export default function EditInputs() {
-  const { questionId: questionId } = useParams("questionId");
+  const { questionId } = useParams();
   const question = dummyQuestions.find(
     (item) => item.Question_id === Number(questionId),
   );

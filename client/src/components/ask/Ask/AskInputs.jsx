@@ -25,9 +25,15 @@ const AskInputs = () => {
       alert(
         "Make sure the problem input and try input contains more than 20 characters.",
       );
-    } else {
-      postQuestion(ask);
+      return;
+    }
+
+    try {
+      await postQuestion(ask);
+      alert("Post successful :)");
       nav("/");
+    } catch (error) {
+      alert("Post failed :(");
     }
   };
 
