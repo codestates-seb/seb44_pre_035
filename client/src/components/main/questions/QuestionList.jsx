@@ -27,7 +27,7 @@ export default function QuestionList({ questions }) {
         </ListFilter>
       </ListHeader>
       {questions.map((question) => (
-        <QuestionListItem key={question.Question_id} item={question} />
+        <QuestionListItem key={question.questionId} item={question} />
       ))}
       <Pagination>
         <PageButton to={`?tab=${filter}&page=${page <= 1 ? 1 : page - 1}`}>
