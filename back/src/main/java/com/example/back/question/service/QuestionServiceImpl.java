@@ -28,16 +28,20 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public Question createQuestion(Question question){
-         String userEmail = SecurityUtil.getLoginUsername();
-         Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-         question.setAccount(account);
+         //String userEmail = SecurityUtil.getLoginUsername();
+         //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+         //question.setAccount(account);
+        question.setViews(0);
 
         return questionRepository.save(question);
     }
 
     @Override
     public Question findQuestion(long questionId) {
-        return questionRepository.findById(questionId).orElseThrow(NullPointerException::new);
+        Question question = questionRepository.findById(questionId).orElseThrow(NullPointerException::new);
+        question.setViews(question.getViews()+1);
+
+        return question;
     }
 
     @Override
@@ -59,7 +63,7 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question updateQuestion(Question question){
+    public Question updateQuestion(Question question) {
         Question foundQuestion = findQuestion(question.getQuestionId());
         foundQuestion.setTitle(question.getTitle());
         foundQuestion.setContent(question.getContent());
@@ -68,4 +72,5 @@ public class QuestionServiceImpl implements QuestionService{
         questionRepository.save(foundQuestion);
         return foundQuestion;
     }
+
 }
