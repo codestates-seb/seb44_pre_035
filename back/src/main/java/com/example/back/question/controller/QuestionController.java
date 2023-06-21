@@ -63,6 +63,20 @@ public class QuestionController {
                         pageQuestions), HttpStatus.OK);
     }
 
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity searchQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                                       @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
+                                       @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
+                                       @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
+                                       @PathVariable("keyword") String keyword){
+        Page<Question> pageQuestions = questionService.searchQuestions(page-1, size, criteria, sort, keyword);
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),
+                        pageQuestions), HttpStatus.OK);
+    }
+
     @DeleteMapping("/{question_id}")
     public ResponseEntity deleteQuestion(@PathVariable("question_id")
                                          @Positive long questionId) {

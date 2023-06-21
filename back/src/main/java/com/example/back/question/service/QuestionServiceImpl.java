@@ -28,9 +28,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public Question createQuestion(Question question){
-         String userEmail = SecurityUtil.getLoginUsername();
-         Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-         question.setAccount(account);
+         //String userEmail = SecurityUtil.getLoginUsername();
+         //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+         //question.setAccount(account);
         question.setViews(0);
 
         return questionRepository.save(question);
@@ -55,6 +55,14 @@ public class QuestionServiceImpl implements QuestionService{
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
                 : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
         return questionRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Question> searchQuestions(int page, int size, String criteria, String sort, String keyword){
+        Pageable pageable = (sort.equals("ASC")) ?
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
+                : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
+        return questionRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
     }
 
     @Override
