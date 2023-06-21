@@ -4,7 +4,8 @@ import LoginInputForm from "../../components/sign/Login/LoginFormInput";
 import logo_stack from "../../img/logo_stack.svg";
 import copyButton from "../../img/copyButton.svg";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import { Cookies } from "react-cookie";
 const Page = styled.div`
   width: 100vw;
   height: 100vh;
@@ -83,9 +84,17 @@ const RedirectionDiv2 = styled.div`
 `;
 
 const Login = () => {
+  const userId = JSON.parse(localStorage.getItem("userId"));
+  const cookie = new Cookies();
+  const Token = cookie.get("token");
   const handleButtonClick = () => {
     console.log("action");
   };
+  useEffect(() => {
+    if (userId && Token) {
+      window.location.replace("/");
+    }
+  }, []);
 
   return (
     <Page>

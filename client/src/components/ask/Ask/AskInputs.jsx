@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import styled from "styled-components";
 import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";

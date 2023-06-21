@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import QuestionListItem from "./QuestionListItem";
 import { Link, useLocation } from "react-router-dom";
 
-export default function QuestionList() {
+export default function QuestionList({ questions }) {
   const { search } = useLocation();
   const filter = new URLSearchParams(search).get("tab") || "Newest";
   const page = Number(new URLSearchParams(search).get("page")) || 1;
@@ -11,7 +10,7 @@ export default function QuestionList() {
   return (
     <Wrapper>
       <ListHeader>
-        <ListStatus>{dummyQuestions.length} questions</ListStatus>
+        <ListStatus>{questions.length} questions</ListStatus>
         <ListFilter>
           <ListFilterItem
             to="/?tab=Newest"
@@ -27,7 +26,7 @@ export default function QuestionList() {
           </ListFilterItem>
         </ListFilter>
       </ListHeader>
-      {dummyQuestions.map((question) => (
+      {questions.map((question) => (
         <QuestionListItem key={question.Question_id} item={question} />
       ))}
       <Pagination>
