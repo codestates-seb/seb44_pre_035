@@ -78,7 +78,6 @@ const LoginFormInput = () => {
         title: "로그인을 실패했습니다.",
         message: `이메일과 비밀번호를 다시 확인해주세요.`,
       });
-      // alert("이메일과 비밀번호를 다시 확인해 주세요.");
       return setIsAuthorized(false);
     } else {
       const { userId } = res.data;

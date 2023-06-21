@@ -4,12 +4,9 @@ export const logIn = async (data) => {
   try {
     const res = await axios({
       method: "post",
-      data: {
-        email: data.userEmail,
-        password: data.userPassword,
-      },
+      data,
       headers: { Authorization: null },
-      url: "https://c74e-220-76-183-16.ngrok-free.app/login",
+      url: "/login",
     });
 
     return res;
@@ -21,7 +18,7 @@ export const logIn = async (data) => {
 export const signUp = async (data) => {
   try {
     const res = await axios({
-      url: "https://c74e-220-76-183-16.ngrok-free.app/accounts/signup",
+      url: "/accounts/signup",
       method: "post",
       data: {
         email: data.userEmail,
@@ -38,7 +35,7 @@ export const signUp = async (data) => {
 export const getUser = async (Token, userId) => {
   try {
     const res = await axios({
-      url: `${userId}`,
+      url: `https://58ab-220-76-183-16.ngrok-free.app/mypage/${userId}`,
       method: "get",
       headers: { Authorization: `Bearer ${Token}` },
     });

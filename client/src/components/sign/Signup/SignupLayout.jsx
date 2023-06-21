@@ -92,10 +92,19 @@ const ValidationMessage = styled.p`
 const SignupLayout = () => {
   const [modal, setModal] = useState({
     open: false,
-    title: "",
-    message: "",
-    callback: false,
+    title: "Modal Title",
+    message: "Modal Message",
+    callback: null,
   });
+
+  const handleShowModal = () => {
+    setModal({
+      open: true,
+      title: "Modal Title",
+      message: "Modal Message",
+      callback: null,
+    });
+  };
   const navigate = useNavigate();
 
   const initialValue = {
@@ -140,6 +149,7 @@ const SignupLayout = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <button onClick={handleShowModal}>Show Modal</button>
         <ModalComponent
           open={modal.open}
           setModal={setModal}
