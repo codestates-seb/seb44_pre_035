@@ -26,7 +26,9 @@ public class AccountInfoDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
-    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt) {
+    private int reputation;
+
+    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, int reputation) {
         this.accountId = accountId;
         this.nickname = nickname;
         this.email = email;
@@ -34,5 +36,6 @@ public class AccountInfoDto {
         this.answerList = answerList;
         this.isEditable = isEditable;
         this.createdAt = createdAt;
+        this.reputation = reputation;
     }
 }

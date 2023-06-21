@@ -90,11 +90,12 @@ public class AccountServiceImpl implements AccountService{
 
         List<Question> questionList = questionRepository.findAllByAccount(account);
         List<Answer> answerList = answerRepository.findAllByAccount(account);
+        account.setReputation(questionList.size()*3+answerList.size()+1);
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
-        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt());
+        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt(), account.getReputation());
     }
 
     @Override //모든 유저 정보 리스트 반환 일단 임시로 대충 작성해놓음 나중에 생성자 변경 예정

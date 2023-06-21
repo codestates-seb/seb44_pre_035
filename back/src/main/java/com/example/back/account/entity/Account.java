@@ -41,6 +41,8 @@ public class Account extends BaseEntity {
     @Column(length = 1000)
     private String refreshToken;
 
+    private int reputation;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questionList = new ArrayList<>();
 
