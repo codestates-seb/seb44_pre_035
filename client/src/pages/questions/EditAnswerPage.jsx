@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EditAnswer from "../../components/ask/Edit/EditAnswer";
+import EditAnswer from "../../components/ask/Edit/editAnswer/EditAnswer";
 
 export default function EditAnswerPage() {
   return (

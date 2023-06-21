@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import EditTitle from "./EditTitle";
+import EditTitle from "../EditTitle";
 import EditAnswerInputs from "./EditAnswerInputs";
 
 export default function EditAnswer({ children }) {
