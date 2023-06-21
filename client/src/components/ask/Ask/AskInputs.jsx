@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postQuestion } from "../api/postAPI";
 
-const AskInputs = () => {
+export default function AskInputs() {
   const [ask, setAsk] = useState({ title: "", content: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
@@ -72,7 +72,7 @@ const AskInputs = () => {
       </Wrapper>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -89,5 +89,3 @@ const Wrapper = styled.div`
 
   /* border: 1px solid red; */
 `;
-
-export default AskInputs;

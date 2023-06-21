@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PageTitle from "../PageTitle";
 
-const AskTitle = ({ title }) => {
+export default function AskTitle = ({ title }) => {
   return (
     <Wrapper>
       <PageTitle title={title} />
@@ -13,4 +13,3 @@ const Wrapper = styled.div`
   /* border: 1px solid red; */
 `;
 
-export default AskTitle;
