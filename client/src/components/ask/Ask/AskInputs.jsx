@@ -46,14 +46,14 @@ const AskInputs = () => {
           comment="Introduce the problem and expand on what you put in the title."
           name="problem"
           setBody={setBody}
-          body={body.problem}
+          body={body}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
           comment="Describe what you tried, what you expected to happen, and what actually resulted."
           name="try"
           setBody={setBody}
-          body={body.try}
+          body={body}
         />
         <SubmitInput
           title="tags"
