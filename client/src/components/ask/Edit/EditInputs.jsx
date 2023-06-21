@@ -4,8 +4,8 @@ import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { dummyQuestions } from "../../../dummy/dummyQuestions";
+import { EditQuestion } from "../api/postAPI";
 
 export default function EditInputs() {
   const { questionId: questionId } = useParams("questionId");
@@ -23,18 +23,6 @@ export default function EditInputs() {
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const EditQuestion = async (body) => {
-    await axios
-      .put("/questions/{question-id}", body)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.message);
-        alert("Failed to post question.");
-      });
   };
 
   const handleSubmit = () => {

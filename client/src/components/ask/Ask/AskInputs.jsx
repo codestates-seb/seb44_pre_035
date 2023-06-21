@@ -3,12 +3,11 @@ import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { postQuestion } from "../api/postAPI";
 
 const AskInputs = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [ask, setAsk] = useState({ title: "", body: "" });
+  const [ask, setAsk] = useState({ title: "", content: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
   // eslint-disable-next-line no-unused-vars
@@ -20,20 +19,7 @@ const AskInputs = () => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const postQuestion = async (body) => {
-    await axios
-      .post("/questions/ask", body)
-      .then((res) => {
-        console.log(res.data);
-        nav("/");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        alert("Failed to post question.");
-      });
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (body.problem.length < 20 && body.try.length < 20) {
       alert(
         "Make sure that the characters in the problem input and the try input are 20 or more.",
@@ -43,7 +29,7 @@ const AskInputs = () => {
   };
 
   useEffect(() => {
-    setAsk((prev) => ({ ...prev, body: body.problem + "<br>" + body.try }));
+    setAsk((prev) => ({ ...prev, content: body.problem + "<br>" + body.try }));
   }, [body.problem, body.try]);
 
   return (
