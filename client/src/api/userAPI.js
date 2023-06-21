@@ -4,8 +4,12 @@ export const logIn = async (data) => {
   try {
     const res = await axios({
       method: "post",
-      data,
+      data: {
+        email: data.userEmail,
+        password: data.userPassword,
+      },
       headers: { Authorization: null },
+      url: "https://c74e-220-76-183-16.ngrok-free.app/login",
     });
 
     return res;
@@ -17,7 +21,7 @@ export const logIn = async (data) => {
 export const signUp = async (data) => {
   try {
     const res = await axios({
-      url: "https://35ee-220-76-183-16.ngrok-free.app/accounts/signup",
+      url: "https://c74e-220-76-183-16.ngrok-free.app/accounts/signup",
       method: "post",
       data: {
         email: data.userEmail,

@@ -8,6 +8,9 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../app/usersReducer";
 import { useNavigate } from "react-router-dom";
 import ModalComponet from "../../../share/Modal";
+import { Cookies } from "react-cookie";
+import { logIn } from "../../../api/userAPI";
+
 const InputContainer = styled.div`
   margin: 0.6rem 0;
 `;
@@ -39,7 +42,7 @@ const LoginFormInput = () => {
   const dispatch = useDispatch();
   const methods = useForm();
   const navigate = useNavigate();
-  // eslint-disable-next-line no-undef
+  const cookie = new Cookies();
   const pass =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
   const [modal, setModal] = useState({
@@ -68,8 +71,7 @@ const LoginFormInput = () => {
   };
   const error = methods?.formState?.errors;
   const onSubmit = async (data) => {
-    // eslint-disable-next-line no-undef
-    const res = await login(data);
+    const res = await logIn(data);
     if (res?.status !== 200) {
       setModal({
         open: true,
@@ -83,6 +85,7 @@ const LoginFormInput = () => {
       localStorage.setItem("userId", JSON.stringify(userId));
       const token = res.headers?.authorization.split(" ")[1];
       dispatch(setUser({ token, userId }));
+      cookie.set("token", token);
       navigate("/");
     }
   };
