@@ -1,17 +1,25 @@
 import axios from "axios";
 
-const url = "";
+// export const postQuestion = (body) => {
+//   axios
+//     .post("/questions/ask", body)
+//     .then((res) => {
+//       console.log(res.data);
+//       alert("Post successful :)");
+//     })
+//     .catch((err) => {
+//       alert(err.message, "Post failed :(");
+//     });
+// };
 
-export const postQuestion = (body) => {
-  axios
-    .post(`${url}/questions/ask`, body)
-    .then((res) => {
-      console.log(res.data);
-      alert("Post successful :)");
-    })
-    .catch((err) => {
-      alert(err.message, "Post failed :(");
-    });
+export const postQuestion = async (body) => {
+  try {
+    const res = await axios.post("/questions/ask", body);
+    alert("Post successful :)");
+    return res;
+  } catch (error) {
+    alert(error.message, "Post failed :(");
+  }
 };
 
 export const EditQuestion = async (body) => {

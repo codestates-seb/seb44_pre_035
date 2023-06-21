@@ -23,10 +23,12 @@ const AskInputs = () => {
   const handleSubmit = async () => {
     if (body.problem.length < 20 && body.try.length < 20) {
       alert(
-        "Make sure that the characters in the problem input and the try input are 20 or more.",
+        "Make sure the problem input and try input contains more than 20 characters.",
       );
+    } else {
+      postQuestion(ask);
+      nav("/");
     }
-    postQuestion(ask);
   };
 
   useEffect(() => {
