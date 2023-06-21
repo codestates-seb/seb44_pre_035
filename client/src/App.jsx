@@ -9,6 +9,7 @@ import Signup from "./pages/users/Signup";
 import EditPage from "./pages/questions/EditPage";
 import Layout from "./share/Layout";
 import Search from "./pages/main/Search";
+import EditAnswerPage from "./pages/questions/EditAnswerPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="edit/:questionId" element={<EditPage />} />
           <Route path="mypage" element={<Mypage />} />
           <Route path="question/:id" element={<Question />} />
+          <Route path="editAnswer" element={<EditAnswerPage />} />
         </Route>
         <Route path="/Login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
