@@ -3,13 +3,14 @@ import PostSidebar from "./PostSidebar";
 import PostUserInfo from "./PostUserInfo";
 import TagList from "../TagList";
 import PostController from "./PostController";
+import ReactQuill from "react-quill";
 
 export default function PostContainer({ post }) {
   return (
     <Wrapper>
       <PostSidebar />
       <Content>
-        <p>{post.content}</p>
+        <ReactQuill value={post.content} readOnly={true} theme={"bubble"} />
         {post.tags && <PostTags tags={post.tags} />}
         <ContentMeta>
           <PostController post={post} />
@@ -29,14 +30,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   padding-right: 16px;
   font-size: 15px;
-
-  & p {
-    margin-bottom: 16px;
-  }
-
-  & p:last-child {
-    margin-bottom: 24px;
-  }
+  flex-grow: 1;
 `;
 
 const PostTags = styled(TagList)`

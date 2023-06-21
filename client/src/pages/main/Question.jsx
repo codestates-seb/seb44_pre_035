@@ -2,28 +2,30 @@ import styled from "styled-components";
 
 import AskButton from "../../share/AskButton";
 import { useParams } from "react-router-dom";
-import { dummyQuestions } from "../../dummy/dummyQuestions";
-import { dummyAnswers } from "../../dummy/dummyAnswers";
 import Writer from "../../share/Writer";
 import PostContainer from "../../components/main/question/PostContainer";
 import QuestionStatus from "../../components/main/question/QuestionStatus";
 import PostButton from "../../components/main/question/PostButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getQuestion, postAnswer } from "../../api/mainAPI";
 
 export default function Question() {
   const { id: questionId } = useParams("id");
-  const question = dummyQuestions.find(
-    (item) => item.Question_id === Number(questionId),
-  );
-  const answers = dummyAnswers.filter(
-    (item) => item.Question_id === Number(questionId),
-  );
+  const [question, setQuestion] = useState([]);
+  const [answers, setAnswers] = useState([]);
   const [body, setBody] = useState("");
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    console.log(body);
+    postAnswer(questionId, body).then((res) => console.log(res));
   };
+
+  useEffect(() => {
+    getQuestion(questionId).then((res) => {
+      setQuestion(res.data.data);
+      setAnswers(res.data.answerList);
+    });
+  }, []);
 
   return (
     <Container>
