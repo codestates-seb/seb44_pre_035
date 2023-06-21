@@ -4,7 +4,7 @@ const url = "";
 
 export const postQuestion = (body) => {
   axios
-    .post(`/${url}questions/ask`, body)
+    .post(`${url}/questions/ask`, body)
     .then((res) => {
       console.log(res.data);
       alert("Post successful :)");
