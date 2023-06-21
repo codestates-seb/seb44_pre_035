@@ -28,9 +28,9 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public Question createQuestion(Question question){
-         //String userEmail = SecurityUtil.getLoginUsername();
-         //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-         //question.setAccount(account);
+         String userEmail = SecurityUtil.getLoginUsername();
+         Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+         question.setAccount(account);
         question.setViews(0);
 
         return questionRepository.save(question);
