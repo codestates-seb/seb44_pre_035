@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const url = "https://c74e-220-76-183-16.ngrok-free.app";
+const url = "";
 
 export const postQuestion = (body) => {
   axios
-    .post(`${url}questions/ask`, body)
+    .post(`/${url}questions/ask`, body)
     .then((res) => {
       console.log(res.data);
       alert("Post successful :)");
