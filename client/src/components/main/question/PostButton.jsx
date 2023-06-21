@@ -5,9 +5,7 @@ export default function PostButton() {
 
   return (
     <ButtonWrapper>
-      <Button type="button" onClick={handleSubmitAnswer}>
-        Post Your Answer
-      </Button>
+      <Button onClick={handleSubmitAnswer}>Post Your Answer</Button>
     </ButtonWrapper>
   );
 }

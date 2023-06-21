@@ -3,7 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import styled from "styled-components";
 
-function Writer({ name, setBody }) {
+function Writer({ name, setBody, question }) {
   const [value, setValue] = useState("");
   const toolbarOptions = [
     ["bold", "italic"],
@@ -18,11 +18,15 @@ function Writer({ name, setBody }) {
     setBody((prev) => ({ ...prev, [name]: value }));
   }, [value]);
 
+  useEffect(() => {
+    setValue(question);
+  }, []);
+
   return (
     <ReactQuillStyle
       modules={module}
       theme="snow"
-      value={value}
+      value={value || question}
       name={name}
       onChange={setValue}
     />

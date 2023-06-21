@@ -8,6 +8,7 @@ import Writer from "../../share/Writer";
 import PostContainer from "../../components/main/question/PostContainer";
 import QuestionStatus from "../../components/main/question/QuestionStatus";
 import PostButton from "../../components/main/question/PostButton";
+import { useState } from "react";
 
 export default function Question() {
   const { id: questionId } = useParams("id");
@@ -17,6 +18,12 @@ export default function Question() {
   const answers = dummyAnswers.filter(
     (item) => item.Question_id === Number(questionId),
   );
+  const [body, setBody] = useState("");
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    console.log(body);
+  };
 
   return (
     <Container>
@@ -42,8 +49,10 @@ export default function Question() {
         <AnswerHeader>
           <AnswerStatus>Your Answer</AnswerStatus>
         </AnswerHeader>
-        <Writer />
-        <PostButton />
+        <AnswerForm onSubmit={handleSubmitForm}>
+          <Writer name="answer" setBody={setBody} />
+          <PostButton />
+        </AnswerForm>
       </AnswerWriter>
     </Container>
   );
@@ -97,3 +106,5 @@ const AnswerWriter = styled.div`
     margin-top: 24px;
   }
 `;
+
+const AnswerForm = styled.form``;

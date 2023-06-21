@@ -15,7 +15,9 @@ export default function TagList({ tags, className }) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 100%;
+`;
 
 const List = styled.ul`
   display: flex;
