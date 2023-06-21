@@ -58,7 +58,6 @@ export default function EditInputs() {
         <SubmitHTML
           title="Body"
           name="body"
-          body={body.body}
           setBody={setBody}
           question={ask.body}
         />
