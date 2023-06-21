@@ -7,6 +7,7 @@ function SubmitInput({
   placeholder,
   name,
   handleChange,
+  question,
 }) {
   return (
     <Wrapper SubmitInput="true" direction="column">
@@ -21,6 +22,7 @@ function SubmitInput({
         placeholder={placeholder}
         name={name}
         onChange={handleChange}
+        defaultValue={question}
       />
     </Wrapper>
   );

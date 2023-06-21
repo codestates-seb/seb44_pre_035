@@ -3,7 +3,7 @@ import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
 import { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AskInputs = () => {
@@ -11,6 +11,7 @@ const AskInputs = () => {
   const [ask, setAsk] = useState({ title: "", body: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
+  // eslint-disable-next-line no-unused-vars
   const nav = useNavigate();
 
   console.log("ask:", ask, "//", "body", body);
@@ -19,23 +20,27 @@ const AskInputs = () => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // const postQuestion = async (body) => {
-  //   try {
-  //     const response = await axios.post("/questions/ask", body);
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+  const postQuestion = async (body) => {
+    await axios
+      .post("/questions/ask", body)
+      .then((res) => {
+        console.log(res.data);
+        nav("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        alert("Failed to post question.");
+      });
+  };
 
-  // const handleSubmit = async () => {
-  //   const response = await postQuestion(ask);
-
-  //   if (response.status !== 201) {
-  //     alert("Question posting failed");
-  //   }
-  //   nav("/");
-  // };
+  const handleSubmit = () => {
+    if (body.problem.length < 20 && body.try.length < 20) {
+      alert(
+        "Make sure that the characters in the problem input and the try input are 20 or more.",
+      );
+    }
+    postQuestion(ask);
+  };
 
   useEffect(() => {
     setAsk((prev) => ({ ...prev, body: body.problem + "<br>" + body.try }));
@@ -52,15 +57,17 @@ const AskInputs = () => {
         />
         <SubmitHTML
           title="What are the details of your problem?"
-          comment="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
+          comment="Introduce the problem and expand on what you put in the title."
           name="problem"
           setBody={setBody}
+          body={body.problem}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
-          comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
+          comment="Describe what you tried, what you expected to happen, and what actually resulted."
           name="try"
           setBody={setBody}
+          body={body.try}
         />
         <SubmitInput
           title="tags"
