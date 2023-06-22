@@ -1,10 +1,10 @@
 import Header from "../../share/Header";
-function Mypagedelete() {
+function Mypage_profile() {
   return (
     <div>
       <Header />
-      마이페이지_설정
+      마이페이지_프로필
     </div>
   );
 }
-export default Mypagedelete;
+export default Mypage_profile;

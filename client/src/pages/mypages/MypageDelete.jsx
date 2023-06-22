@@ -1,9 +1,10 @@
 import Header from "../../share/Header";
-export default function Mypage() {
+function MypageDelete() {
   return (
     <div>
       <Header />
-      마이페이지_설정
+      마이페이지_삭제
     </div>
   );
 }
+export default MypageDelete;

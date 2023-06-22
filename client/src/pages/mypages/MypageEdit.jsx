@@ -1,9 +1,11 @@
 import Header from "../../share/Header";
-export default function Mypage() {
+function MypageEdit() {
   return (
     <div>
       <Header />
-      마이페이지_설정
+      마이페이지_수정
     </div>
   );
 }
+
+export default MypageEdit;
