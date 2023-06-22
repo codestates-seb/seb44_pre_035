@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getQuestions = async () => {
+export const getQuestions = async ({ page, size, criteria, sort }) => {
   try {
     const res = await axios({
-      url: "/questions",
+      url: `/questions?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
