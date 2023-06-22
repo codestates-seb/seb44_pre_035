@@ -12,7 +12,7 @@ const MainDiv = styled.div`
   width: 100%;
   max-width: 1264px;
 `;
-/**마이페이지 컨텐츠만 감싸는 Div */
+/**마이페이지 컨텐츠 Div */
 const Container = styled.div`
   width: 100%;
 `;
