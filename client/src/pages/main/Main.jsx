@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
-import { useEffect, useState } from "react";
-import { getQuestions } from "../../api/mainAPI";
-
 export default function Main() {
   const [questions, setQuestions] = useState([]);
   // const requestInfo = { page: 1, size: 15, criteria: "", sort: "" };
