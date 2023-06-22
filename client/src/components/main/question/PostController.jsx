@@ -8,7 +8,7 @@ export default function PostController({ post, postType, handleDeletePost }) {
       {postType === POST_TYPE.QUESTION ? (
         <Button to={`/edit/${post.questionId}`}>Edit</Button>
       ) : postType === POST_TYPE.ANSWER ? (
-        <Button to={`/editAnswer`}>Edit</Button>
+        <Button to={`/editAnswer/${post.answerId}`}>Edit</Button>
       ) : null}
       <Button
         as="button"
