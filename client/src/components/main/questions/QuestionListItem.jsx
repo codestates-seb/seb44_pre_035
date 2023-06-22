@@ -18,7 +18,7 @@ export default function QuestionListItem({ item }) {
         </ContentExcerpt>
         <ContentMeta>
           {/* <TagList tags={item.tags} /> */}
-          <QuestionListItemUserInfo userId={item.userId} />
+          <QuestionListItemUserInfo accountId={item.accountId} />
         </ContentMeta>
       </Content>
     </Wrapper>
