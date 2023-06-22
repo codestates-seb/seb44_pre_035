@@ -69,20 +69,20 @@ public class AccountServiceImpl implements AccountService{
 
     @Override  //정보 업데이트
     public void update(AccountUpdateDto accountUpdateDto) throws Exception {
-
-    }
-
-    @Override //패스워드 변경전 변경후
-    public void updatePassword(String checkPassword, String toBePassword) throws Exception {
         Account account = accountRepository.findByEmail(SecurityUtil.getLoginUsername())
                 .orElseThrow(() -> new Exception("회원이 존재하지 않습니다."));
 
-        if(!account.matchPassword(passwordEncoder, checkPassword)) {
-            throw new Exception("비밀번호가 일치하지 않습니다.");
+        if(accountUpdateDto.getNickname() != null) {
+            account.setNickname(accountUpdateDto.getNickname());
         }
 
-        account.updatePassword(passwordEncoder, toBePassword);
-
+        if(accountUpdateDto.getCheckPassword() != null && accountUpdateDto.getToBePassword() != null) {
+            if(!account.matchPassword(passwordEncoder, accountUpdateDto.getCheckPassword())) {
+                throw new Exception("비밀번호가 일치하지 않습니다.");
+            }
+            account.updatePassword(passwordEncoder, accountUpdateDto.getToBePassword());
+        }
+        accountRepository.save(account);
     }
 
     @Override // 회원 탈퇴

@@ -15,8 +15,6 @@ public interface AccountService {
     //업데이트 방식 논의
     void update(AccountUpdateDto accountUpdateDto) throws Exception;
 
-    void updatePassword(String checkPassword, String toBePassword) throws Exception;
-
     void withdraw(String checkPassword) throws Exception;
 
     AccountInfoDto getInfo(Long id) throws Exception;

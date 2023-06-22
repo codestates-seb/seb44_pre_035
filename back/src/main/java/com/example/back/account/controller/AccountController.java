@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @RestController
@@ -29,10 +25,10 @@ public class AccountController {
         accountService.signUp(accountSignUpDto);
     }
 
-    @PatchMapping ("/{account-id}/password")
+    @PatchMapping ("/{account-id}/update")
     @ResponseStatus(HttpStatus.OK)
-    public void updatePassword(@PathVariable("account-id") Long id,@Valid @RequestBody UpdatePasswordDto updatePasswordDto) throws Exception {
-        accountService.updatePassword(updatePasswordDto.getCheckPassword(), updatePasswordDto.getToBePassword());
+    public void updateInfo(@PathVariable("account-id") Long id, @Valid @RequestBody AccountUpdateDto accountUpdateDto) throws Exception {
+        accountService.update(accountUpdateDto);
     }
 
     @DeleteMapping("/delete")
