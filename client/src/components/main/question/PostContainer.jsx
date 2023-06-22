@@ -31,6 +31,11 @@ const Content = styled.div`
   padding-right: 16px;
   font-size: 15px;
   flex-grow: 1;
+
+  .ql-editor {
+    min-height: 100px;
+    padding: 0;
+  }
 `;
 
 const PostTags = styled(TagList)`
