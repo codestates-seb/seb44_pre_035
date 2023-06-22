@@ -120,7 +120,7 @@ public class AccountServiceImpl implements AccountService{
         List<Account> accounts = accountRepository.findAll();
 
         List<AccountAllInfoDto> accountAllInfoDtos = accounts.stream()
-                .map(account -> new AccountAllInfoDto(account.getId(),account.getNickname(),account.getEmail()))
+                .map(account -> new AccountAllInfoDto(account.getId(),account.getNickname(),account.getEmail(),account.getProfileImgPath()))
                 .collect(Collectors.toList());
 
         return accountAllInfoDtos;

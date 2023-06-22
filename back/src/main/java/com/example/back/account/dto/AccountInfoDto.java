@@ -27,6 +27,7 @@ public class AccountInfoDto {
     private LocalDateTime createdAt;
 
     private int reputation;
+
     private String profileImagePath;
 
     public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, int reputation, String profileImagePath) {

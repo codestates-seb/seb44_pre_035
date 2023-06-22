@@ -55,6 +55,7 @@ public class AccountController {
     }
 
     @PatchMapping("/{account-id}/upload")
+    @ResponseStatus(HttpStatus.OK)
     public void uploadImg(@PathVariable("account-id") Long id, @RequestParam("file") MultipartFile file) throws Exception {
         accountService.uploadProfileImage(id, file);
     }
