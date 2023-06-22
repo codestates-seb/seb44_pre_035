@@ -2,8 +2,6 @@ import styled from "styled-components";
 import profileImage from "../../../img/profile_img.png";
 
 export default function QuestionListItemUserInfo({ userId }) {
-  console.log(userId);
-
   return (
     <Wrapper>
       <Image src={profileImage} />
