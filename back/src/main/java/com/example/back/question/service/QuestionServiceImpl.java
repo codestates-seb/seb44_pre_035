@@ -7,7 +7,12 @@ import com.example.back.account.util.SecurityUtil;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.question.entity.Question;
+import com.example.back.question.entity.QuestionTag;
 import com.example.back.question.repository.QuestionRepository;
+//import com.example.back.tag.Service.TagServiceImpl;
+import com.example.back.tag.Service.TagServiceImpl;
+import com.example.back.tag.entity.Tag;
+import com.example.back.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -24,16 +30,18 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
-    private final AccountRepository accountRepository;
+    private final TagRepository tagRepository;
+    private final TagServiceImpl tagService;
 
     @Override
     public Question createQuestion(Question question){
-         //String userEmail = SecurityUtil.getLoginUsername();
-         //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-         //question.setAccount(account);
-        question.setViews(0);
 
-        return questionRepository.save(question);
+        //String userEmail = SecurityUtil.getLoginUsername();
+        //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        //question.setAccount(account);
+        Question savedquestion = questionRepository.save(question);
+
+        return savedquestion;
     }
 
     @Override
@@ -71,8 +79,8 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Question updateQuestion(Question question) {
-        Question foundQuestion = findQuestion(question.getQuestionId());
+    public Question updateQuestion(Long questionId, Question question) {
+        Question foundQuestion = findQuestion(questionId);
         foundQuestion.setTitle(question.getTitle());
         foundQuestion.setContent(question.getContent());
         foundQuestion.setModifiedAt(question.getModifiedAt());

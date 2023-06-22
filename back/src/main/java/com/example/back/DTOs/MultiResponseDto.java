@@ -1,4 +1,4 @@
-package com.example.back.question.dto;
+package com.example.back.DTOs;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;

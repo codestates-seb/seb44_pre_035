@@ -3,10 +3,7 @@ package com.example.back.question.entity;
 import com.example.back.account.entity.Account;
 import com.example.back.answer.entity.Answer;
 import com.example.back.question.audit.BaseEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
@@ -14,11 +11,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Entity(name = "QUESTION")
+@Entity(name = "QUESTIONS")
 @EnableJpaAuditing
 public class Question extends BaseEntity {
     @Id
@@ -35,22 +34,19 @@ public class Question extends BaseEntity {
     private int views;
 
     @ManyToOne
-    @JoinColumn(name = "ACCOUNT_ID")
+    @JoinColumn(name = "account_id")
     private Account account;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.PERSIST)
+    private List<QuestionTag> questionTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList = new ArrayList<>();
 
-    @Builder
-    public Question(String title, String content){
-        this.title = title;
-        this.content = content;
-    }
-
-    @Builder
-    public Question(long questionId, String title, String content){
-        this.questionId = questionId;
-        this.title = title;
-        this.content = content;
+    public void addQuestionTag(QuestionTag questionTag) {
+        this.questionTags.add(questionTag);
+        if (questionTag.getQuestion() != this) {
+            questionTag.addQuestion(this);
+        }
     }
 }

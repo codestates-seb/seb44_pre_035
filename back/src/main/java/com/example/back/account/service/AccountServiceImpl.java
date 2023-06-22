@@ -90,9 +90,9 @@ public class AccountServiceImpl implements AccountService{
 
         List<Question> questionList = questionRepository.findAllByAccount(account);
         List<Answer> answerList = answerRepository.findAllByAccount(account);
-        account.setReputation(questionList.size()*3+answerList.size()+1);
+        account.setReputation(questionList.size()*3 + answerList.size()*1);
 
-        List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
+        List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questionList);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
         return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt(), account.getReputation());

@@ -2,12 +2,10 @@ package com.example.back.question.dto;
 
 
 import com.example.back.account.entity.Account;
-import com.example.back.answer.entity.Answer;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.example.back.tag.entity.Tag;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class QuestionResponseDto {
+public class QuestionsResponseDto {
     private long questionId;
     private long accountId;
     private String nickname;
