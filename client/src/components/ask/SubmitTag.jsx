@@ -3,24 +3,17 @@ import styled, { css } from "styled-components";
 
 const wholeTag = ["css", "javaScript", "java", "react"];
 
-export default function SubmitTag({
-  title,
-  comment,
-  htmlFor,
-  placeholder,
-  name,
-  question,
-}) {
+export default function SubmitTag({ title, comment, question }) {
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
   const [dropDownList, setDropDownList] = useState(wholeTag);
 
-  console.log("tagItem", tagItem);
-  console.log("tagList", tagList);
-  console.log("isHaveTagItem", isHaveTagItem);
-  console.log("dropDownList", dropDownList);
+  // console.log("tagItem", tagItem);
+  // console.log("tagList", tagList);
+  // console.log("isHaveTagItem", isHaveTagItem);
+  // console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -70,17 +63,10 @@ export default function SubmitTag({
           );
         })}
       </TagsWrapper>
-      <Wrapper SubmitInput="true" direction="column">
-        <InputTitle text="title" htmlFor={htmlFor}>
-          {title}
-        </InputTitle>
-        <InputTitle text="sub" htmlFor={htmlFor}>
-          {comment}
-        </InputTitle>
+      <Wrapper>
+        <InputTitle text="title">{title}</InputTitle>
+        <InputTitle text="sub">{comment}</InputTitle>
         <Input
-          id={htmlFor}
-          placeholder={placeholder}
-          name={name}
           value={tagItem}
           onChange={handleChange}
           onKeyUp={onKeyUp}
