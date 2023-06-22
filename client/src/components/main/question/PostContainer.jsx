@@ -4,8 +4,11 @@ import PostUserInfo from "./PostUserInfo";
 import TagList from "../TagList";
 import PostController from "./PostController";
 import ReactQuill from "react-quill";
+import { POST_TYPE } from "../utils";
 
 export default function PostContainer({ post, handleDeletePost }) {
+  const postType = post.answerId ? POST_TYPE.ANSWER : POST_TYPE.QUESTION;
+
   return (
     <Wrapper>
       <PostSidebar />
@@ -13,7 +16,19 @@ export default function PostContainer({ post, handleDeletePost }) {
         <ReactQuill value={post.content} readOnly={true} theme={"bubble"} />
         {post.tags && <PostTags tags={post.tags} />}
         <ContentMeta>
-          <PostController post={post} handleDeletePost={handleDeletePost} />
+          <ContentMetaPart>
+            {postType === POST_TYPE.ANSWER && (
+              <AnswerStatus>
+                <FirstText>answered</FirstText>
+                <LastText>{post.modifiedAt?.slice(0, 16)}</LastText>
+              </AnswerStatus>
+            )}
+            <PostController
+              post={post}
+              postType={postType}
+              handleDeletePost={handleDeletePost}
+            />
+          </ContentMetaPart>
           <PostUserInfo userId={post.user_id} />
         </ContentMeta>
       </Content>
@@ -40,6 +55,26 @@ const Content = styled.div`
 
 const PostTags = styled(TagList)`
   margin-bottom: 24px;
+`;
+
+const ContentMetaPart = styled.div`
+  display: flex;
+  align-items: flex-end;
+`;
+
+const AnswerStatus = styled.div`
+  font-size: 13px;
+  display: flex;
+  gap: 5px;
+  margin-right: 10px;
+`;
+
+const FirstText = styled.span`
+  color: #6a737c;
+`;
+
+const LastText = styled.span`
+  width: max-content;
 `;
 
 const ContentMeta = styled.div`

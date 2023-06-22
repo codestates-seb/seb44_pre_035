@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { POST_TYPE } from "../utils";
 
-export default function PostController({ post, handleDeletePost }) {
-  const postType = post.answerId ? POST_TYPE.ANSWER : POST_TYPE.QUESTION;
-
+export default function PostController({ post, postType, handleDeletePost }) {
   return (
     <Wrapper>
       {postType === POST_TYPE.QUESTION ? (
