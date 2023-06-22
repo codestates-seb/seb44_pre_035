@@ -105,14 +105,16 @@ public class AccountServiceImpl implements AccountService{
 
         List<Question> questionList = questionRepository.findAllByAccount(account);
         List<Answer> answerList = answerRepository.findAllByAccount(account);
-        account.setReputation(questionList.size()*3+answerList.size()+1);
+        account.setReputation(questionList.size()*3L + answerList.size()+1L);
+        Long questionSize = (long) questionList.size();
+        Long answerSize = (long) answerList.size();
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
-        String profileImagePath = account.getProfileImgPath() + "/" + account.getProfileImgName();
-
-        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(), questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt(), account.getReputation(), profileImagePath);
+        return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(),
+                questionResponseDtos, answerResponseDtos, isEditable, account.getCreatedAt(),
+                account.getReputation(),questionSize,answerSize, account.profileImagePath());
     }
 
     @Override //모든 유저 정보 리스트 반환 일단 임시로 대충 작성해놓음 나중에 생성자 변경 예정
@@ -120,7 +122,7 @@ public class AccountServiceImpl implements AccountService{
         List<Account> accounts = accountRepository.findAll();
 
         List<AccountAllInfoDto> accountAllInfoDtos = accounts.stream()
-                .map(account -> new AccountAllInfoDto(account.getId(),account.getNickname(),account.getEmail(),account.getProfileImgPath()))
+                .map(account -> new AccountAllInfoDto(account.getId(),account.getNickname(),account.getEmail(),account.profileImagePath()))
                 .collect(Collectors.toList());
 
         return accountAllInfoDtos;

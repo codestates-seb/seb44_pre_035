@@ -41,7 +41,7 @@ public class Account extends BaseEntity {
     @Column(length = 1000)
     private String refreshToken;
 
-    private int reputation;
+    private Long reputation;
 
     private String profileImgName;
 
@@ -54,7 +54,7 @@ public class Account extends BaseEntity {
     private List<Answer> answerList = new ArrayList<>();
 
 
-     // oauth 2.0 깃헙 사전설정
+    // oauth 2.0 깃헙 사전설정
 //    @Enumerated(EnumType.STRING)
 //    private SocialType socialType;
 //
@@ -62,16 +62,16 @@ public class Account extends BaseEntity {
 
 
     //정보 수정
-    public void updatePassword(PasswordEncoder passwordEncoder, String password){
+    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
         this.password = passwordEncoder.encode(password);
     }
 
-    public void updateNickName(String nickname){
+    public void updateNickName(String nickname) {
         this.nickname = nickname;
     }
 
     //패스워드 암호화
-    public void encodePassword(PasswordEncoder passwordEncoder){
+    public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
 
@@ -81,10 +81,11 @@ public class Account extends BaseEntity {
     }
 
     //token 관련
-    public void updateRefreshToken(String refreshToken){
+    public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
-    public void destroyRefreshToken(){
+
+    public void destroyRefreshToken() {
         this.refreshToken = null;
     }
 
@@ -109,5 +110,10 @@ public class Account extends BaseEntity {
     public void removeQuestion(Question question) {
         questionList.remove(question);
         question.setAccount(null);
+    }
+
+    //프로필 이미 경로
+    public String profileImagePath() {
+        return this.getProfileImgPath() + "/" + this.getProfileImgName();
     }
 }
