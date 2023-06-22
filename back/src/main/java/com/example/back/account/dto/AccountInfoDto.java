@@ -27,8 +27,9 @@ public class AccountInfoDto {
     private LocalDateTime createdAt;
 
     private int reputation;
+    private String profileImagePath;
 
-    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, int reputation) {
+    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, int reputation, String profileImagePath) {
         this.accountId = accountId;
         this.nickname = nickname;
         this.email = email;
@@ -37,5 +38,6 @@ public class AccountInfoDto {
         this.isEditable = isEditable;
         this.createdAt = createdAt;
         this.reputation = reputation;
+        this.profileImagePath = profileImagePath;
     }
 }

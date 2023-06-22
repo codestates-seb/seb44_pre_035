@@ -43,6 +43,10 @@ public class Account extends BaseEntity {
 
     private int reputation;
 
+    private String profileImgName;
+
+    private String profileImgPath;
+
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Question> questionList = new ArrayList<>();
 
