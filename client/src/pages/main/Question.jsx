@@ -44,7 +44,7 @@ export default function Question() {
       </AnswerHeader>
       <AnswerContent>
         {answers.map((answer) => (
-          <PostContainer key={answer.Answer_id} post={answer} />
+          <PostContainer key={answer.answerId} post={answer} />
         ))}
       </AnswerContent>
       <AnswerWriter>
