@@ -10,7 +10,7 @@ export default function PostController({ post }) {
       {postType === "question" ? (
         <Button to={`/edit/${post.questionId}`}>Edit</Button>
       ) : postType === "answer" ? (
-        <Button to={`/editAnswer`}>Edit</Button>
+        <Button to={`/editAnswer/${post.answerId}`}>Edit</Button>
       ) : null}
       <Button as="button" type="button" onClick={handleDeletePost}>
         Delete

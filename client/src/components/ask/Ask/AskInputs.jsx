@@ -5,7 +5,7 @@ import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postQuestion } from "../api/postAPI";
+import { postQuestion } from "../../../api/postAPI";
 
 export default function AskInputs() {
   const [ask, setAsk] = useState({ title: "", content: "" });
