@@ -5,15 +5,15 @@ export default function QuestionStatus({ question }) {
     <Wrapper>
       <ListItem>
         <FirstText>{"Asked"}</FirstText>
-        <LastText>{question.createdAt}</LastText>
+        <LastText>{question.createdAt?.slice(0, 16)}</LastText>
       </ListItem>
       <ListItem>
         <FirstText>{"Modified"}</FirstText>
-        <LastText>{question.modifiedAt}</LastText>
+        <LastText>{question.modifiedAt?.slice(0, 16)}</LastText>
       </ListItem>
       <ListItem>
         <FirstText>{"Viewed"}</FirstText>
-        <LastText>{`${question.view} times`}</LastText>
+        <LastText>{`${question.views} times`}</LastText>
       </ListItem>
     </Wrapper>
   );
