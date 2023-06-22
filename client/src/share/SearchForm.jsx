@@ -28,7 +28,7 @@ export default function SearchForm() {
 const Form = styled.form`
   padding: 0 24px;
   position: relative;
-  flex: 0.85;
+  flex: 1;
 `;
 
 const Label = styled.label`

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import HeaderLayout from "../share/HeaderLayout";
 import logo from "../img/logo.svg";
 import SearchForm from "./SearchForm";
-
+import koongya from "../img/koongya.svg";
 export default function Header() {
   const [clickedMenu, setClickedMenu] = useState(false); // 임시 로그인
   const handleClickMenu = (menu) => {
@@ -48,7 +48,7 @@ export default function Header() {
               <SearchForm></SearchForm>
               <RightContainer>
                 <ProfileImgContain>
-                  <Link to="/users/:id">
+                  <Link to="/mypage">
                     <ProfileImg />
                   </Link>
                 </ProfileImgContain>
@@ -309,13 +309,13 @@ const HeaderTopbarContainer = styled.div`
 `;
 
 const ProfileImg = styled.div`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 3px;
-  border: 1px solid orange;
-  background-color: orange;
+  background-image: url(${koongya});
+  background-size: cover; /* Adjust the background size as needed */
   cursor: pointer;
-  margin-top: 11px;
+  margin-top: 18px;
   margin-left: 12px;
 `;
 const HeadBtnContainer = styled.div`
@@ -388,10 +388,9 @@ const RightContainer = styled.div`
 const ProfileImgContain = styled.div`
   display: flex;
   width: 82.3px;
-  padding 5px;
   cursor: pointer;
   &:hover {
-    transform: scale(0.9); 
+    transform: scale(0.9);
   }
 `;
 
@@ -491,7 +490,6 @@ const Button = styled.div`
   width: 4rem;
   cursor: pointer;
   &:hover {
-    transform: scale(0.9);
   }
 `;
 
@@ -533,7 +531,6 @@ const DropdownSubContent = styled.div`
   .loginout {
     color: #0074cc;
     &:hover {
-      transform: scale(0.9);
       color: hsl(206, 100%, 52%);
     }
   }
@@ -561,7 +558,6 @@ const Communitues = styled.div`
   .loginout {
     color: #0074cc;
     &:hover {
-      transform: scale(0.9);
       color: hsl(206, 100%, 52%);
     }
   }
