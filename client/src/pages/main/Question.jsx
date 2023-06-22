@@ -15,16 +15,23 @@ export default function Question() {
   const [answers, setAnswers] = useState([]);
   const [body, setBody] = useState("");
 
-  const handleSubmitForm = (event) => {
-    event.preventDefault();
-    postAnswer(questionId, body).then((res) => console.log(res));
-  };
-
-  useEffect(() => {
+  const requestGetQuestion = () => {
     getQuestion(questionId).then((res) => {
       setQuestion(res.data.data);
       setAnswers(res.data.answerList);
     });
+  };
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    postAnswer(questionId, body).then((res) => {
+      console.log(res);
+      requestGetQuestion();
+    });
+  };
+
+  useEffect(() => {
+    requestGetQuestion();
   }, []);
 
   return (
