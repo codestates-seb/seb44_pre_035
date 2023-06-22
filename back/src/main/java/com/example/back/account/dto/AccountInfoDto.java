@@ -26,9 +26,13 @@ public class AccountInfoDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
-    private int reputation;
+    private Long reputation;
+    private Long questionCount;
+    private Long answerCount;
 
-    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, int reputation) {
+    private String profileImagePath;
+
+    public AccountInfoDto(Long accountId, String nickname, String email, List<QuestionResponseDto> questionList, List<AnswerResponseDto> answerList, boolean isEditable, LocalDateTime createdAt, Long reputation, Long questionCount, Long answerCount, String profileImagePath) {
         this.accountId = accountId;
         this.nickname = nickname;
         this.email = email;
@@ -37,5 +41,8 @@ public class AccountInfoDto {
         this.isEditable = isEditable;
         this.createdAt = createdAt;
         this.reputation = reputation;
+        this.questionCount = questionCount;
+        this.answerCount = answerCount;
+        this.profileImagePath = profileImagePath;
     }
 }

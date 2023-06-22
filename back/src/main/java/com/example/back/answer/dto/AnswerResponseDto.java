@@ -15,6 +15,8 @@ public class AnswerResponseDto {
     private long accountId;
     private long questionId;
     private String content;
+    private String nickname;
+    private String profileImagePath;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
