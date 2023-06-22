@@ -102,6 +102,13 @@ const PageTitleBox = styled.div`
 const PageTitle = styled.h1`
   font-size: 27px;
   margin-bottom: 8px;
+
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  padding-right: 20px;
 `;
 
 const PageContent = styled.div``;
