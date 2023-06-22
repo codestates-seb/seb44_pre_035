@@ -4,7 +4,6 @@ export const postQuestion = async (body) => {
   await axios.post("/questions/ask", body);
 };
 
-export const EditQuestion = async (body) => {
-  const res = await axios.patch("/questions/{question-id}", body);
-  return res;
+export const EditQuestion = async (questionId, body) => {
+  await axios.patch(`/questions/${questionId}`, body);
 };

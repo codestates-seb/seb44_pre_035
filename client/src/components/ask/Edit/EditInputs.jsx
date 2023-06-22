@@ -2,54 +2,47 @@ import styled from "styled-components";
 import SubmitButton from "../SubmitButton";
 import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import { EditQuestion } from "../api/postAPI";
+import { getQuestion } from "../../../api/mainAPI";
 
 export default function EditInputs() {
-  const { questionId } = useParams();
-  const question = dummyQuestions.find(
-    (item) => item.Question_id === Number(questionId),
-  );
-
+  const { questionId } = useParams("questionId");
+  const nav = useNavigate();
   const [ask, setAsk] = useState({
     title: "",
-    body: "",
+    content: "",
   });
-  const [body, setBody] = useState({ body: "" });
+
+  const [body, setBody] = useState({ content: "" });
 
   console.log("ask:", ask, "//", "body", body);
+  console.log(typeof questionId);
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async () => {
-    if (body.body.length < 20) {
-      alert(
-        "Please make sure there is no [Minimum 20 characters] in the input.",
-      );
-      return;
-    }
     try {
-      await EditQuestion(ask);
+      await EditQuestion(questionId, ask);
       alert("Edit successful :)");
+      nav(`/question/${questionId}`);
     } catch (error) {
       alert("Edit failed :(");
     }
   };
 
   useEffect(() => {
-    setAsk((prev) => ({ ...prev, body: body.body }));
-  }, [body.body]);
+    setAsk((prev) => ({ ...prev, content: body.content }));
+  }, [body.content]);
 
   useEffect(() => {
-    setAsk((prev) => ({ ...prev, title: question.title }));
-  }, []);
-
-  useEffect(() => {
-    setAsk((prev) => ({ ...prev, body: question.content }));
+    getQuestion(questionId).then((res) => {
+      setAsk((prev) => ({ ...prev, title: res.data.data.title }));
+      setAsk((prev) => ({ ...prev, content: res.data.data.content }));
+    });
   }, []);
 
   return (
@@ -63,9 +56,9 @@ export default function EditInputs() {
         />
         <SubmitHTML
           title="Body"
-          name="body"
+          name="content"
           setBody={setBody}
-          question={ask.body}
+          question={ask.content}
         />
         <SubmitInput title="Tags" />
       </InputsWrapper>

@@ -2,19 +2,20 @@ import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
 import { useLocation } from "react-router-dom";
-import { dummyQuestions } from "../../dummy/dummyQuestions";
+import { useState, useEffect } from "react";
+import { searchQuestion } from "../../api/mainAPI";
+// import axios from "axios";
 
 export default function Search() {
   const { search } = useLocation();
   const keyword = new URLSearchParams(search).get("keyword");
+  const [searchResult, setSearchResult] = useState([]);
 
-  const searchResult = dummyQuestions.filter(
-    (question) =>
-      question.title.toLowerCase().includes(keyword) |
-      question.content.toLowerCase().includes(keyword),
-  );
+  useEffect(() => {
+    searchQuestion(keyword).then((res) => setSearchResult(res.data.data));
+  }, [keyword]);
 
-  console.log(searchResult); // redux에 searchResult 저장하기
+  // redux에 searchResult 저장하기
   // redux에서 searchResult 가져와서 렌더링
 
   return (

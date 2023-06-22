@@ -3,10 +3,15 @@ import styled from "styled-components";
 
 export default function PostController({ post }) {
   const handleDeletePost = () => {};
+  const postType = post.answerId ? "answer" : "question";
 
   return (
     <Wrapper>
-      <Button to={`/edit/${post.Question_id}`}>Edit</Button>
+      {postType === "question" ? (
+        <Button to={`/edit/${post.questionId}`}>Edit</Button>
+      ) : postType === "answer" ? (
+        <Button to={`/editAnswer/${post.answerId}`}>Edit</Button>
+      ) : null}
       <Button as="button" type="button" onClick={handleDeletePost}>
         Delete
       </Button>

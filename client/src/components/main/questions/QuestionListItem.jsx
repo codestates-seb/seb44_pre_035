@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import QuestionListItemStatus from "./QuestionListItemStatus";
-import TagList from "../TagList";
+// import TagList from "../TagList";
 import QuestionListItemUserInfo from "./QuestionListItemUserInfo";
 
 export default function QuestionListItem({ item }) {
@@ -11,13 +11,13 @@ export default function QuestionListItem({ item }) {
       <QuestionListItemStatus item={item} />
       <Content>
         <ContentTitle>
-          <Link to={`/question/${item.Question_id}`}>{item.title}</Link>
+          <Link to={`/question/${item.questionId}`}>{item.title}</Link>
         </ContentTitle>
         <ContentExcerpt>
-          <p>{item.content}</p>
+          {item.content.replace(/(<([^>]+)>)/gi, "")}
         </ContentExcerpt>
         <ContentMeta>
-          <TagList tags={item.tags} />
+          {/* <TagList tags={item.tags} /> */}
           <QuestionListItemUserInfo userId={item.userId} />
         </ContentMeta>
       </Content>
@@ -36,6 +36,7 @@ const Wrapper = styled.div`
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 
   & > div:not(:last-child) {
     margin-bottom: 5px;
