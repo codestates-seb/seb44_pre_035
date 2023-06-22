@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import MyPage_header from "../../components/mypage/MyPage_header";
 import MyPage_menu from "../../components/mypage/MyPage_menu";
+import MyPage_profile from "../../components/mypage/MyPage_profile";
+
 /**마이페이지 Nav와 컨텐츠(좌,우) 감싸는 Div */
 const MainDiv = styled.div`
   margin: 0 auto;
@@ -40,7 +42,10 @@ export default function Mypage() {
             <MyPage_header />
             <MyPage_menu />
             <MainContent>
-              <Section></Section>
+              <Section>
+                {" "}
+                <MyPage_profile />
+              </Section>
             </MainContent>
           </Content>
         </Container>

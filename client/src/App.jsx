@@ -23,7 +23,7 @@ function App() {
           <Route path="search" element={<Search />} />
           <Route path="ask" element={<AskPage />} />
           <Route path="edit/:questionId" element={<EditPage />} />
-          <Route path="mypage" element={<Mypage />} />
+          <Route path="/mypage" element={<Mypage />} />
           <Route path="/mypage/profile" element={<Mypage />} />
           <Route path="/mypage/setting" element={<MypageSetting />} />
           <Route path="/mypage/userdelete" element={<MypageDelete />} />
