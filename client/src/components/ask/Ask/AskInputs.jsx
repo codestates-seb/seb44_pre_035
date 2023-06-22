@@ -4,12 +4,11 @@ import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { postQuestion } from "../api/postAPI";
 
-const AskInputs = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [ask, setAsk] = useState({ title: "", body: "" });
+export default function AskInputs() {
+  const [ask, setAsk] = useState({ title: "", content: "" });
   const [body, setBody] = useState({ problem: "", try: "" });
 
   // eslint-disable-next-line no-unused-vars
@@ -21,30 +20,25 @@ const AskInputs = () => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const postQuestion = async (body) => {
-    await axios
-      .post("/questions/ask", body)
-      .then((res) => {
-        console.log(res.data);
-        nav("/");
-      })
-      .catch((err) => {
-        console.log(err.message);
-        alert("Failed to post question.");
-      });
-  };
-
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (body.problem.length < 20 && body.try.length < 20) {
       alert(
-        "Make sure that the characters in the problem input and the try input are 20 or more.",
+        "Make sure the problem input and try input contains more than 20 characters.",
       );
+      return;
     }
-    postQuestion(ask);
+
+    try {
+      await postQuestion(ask);
+      alert("Post successful :)");
+      nav("/");
+    } catch (error) {
+      alert("Post failed :(");
+    }
   };
 
   useEffect(() => {
-    setAsk((prev) => ({ ...prev, body: body.problem + "<br>" + body.try }));
+    setAsk((prev) => ({ ...prev, content: body.problem + "<br>" + body.try }));
   }, [body.problem, body.try]);
 
   return (
@@ -61,14 +55,12 @@ const AskInputs = () => {
           comment="Introduce the problem and expand on what you put in the title."
           name="problem"
           setBody={setBody}
-          body={body.problem}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
           comment="Describe what you tried, what you expected to happen, and what actually resulted."
           name="try"
           setBody={setBody}
-          body={body.try}
         />
         <SubmitInput
           title="tags"
@@ -80,7 +72,7 @@ const AskInputs = () => {
       </Wrapper>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -97,5 +89,3 @@ const Wrapper = styled.div`
 
   /* border: 1px solid red; */
 `;
-
-export default AskInputs;

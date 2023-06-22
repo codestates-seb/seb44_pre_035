@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const AskHelpMsg = () => {
+export default function AskHelpMsg() {
   return (
     <Container>
       <Wrapper>
@@ -28,7 +28,7 @@ const AskHelpMsg = () => {
       </Wrapper>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -80,5 +80,3 @@ const Li = styled.li`
 
   list-style: circle;
 `;
-
-export default AskHelpMsg;

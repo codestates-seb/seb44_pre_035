@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
-import { dummyQuestions } from "../../dummy/dummyQuestions";
 export default function Main() {
+  const [questions, setQuestions] = useState([]);
+  // const requestInfo = { page: 1, size: 15, criteria: "", sort: "" };
+
+  useEffect(() => {
+    getQuestions().then((res) => setQuestions(res.data.data));
+  }, []);
+
   return (
     <Container>
       <PageHeader>
         <PageTitle>All Questions</PageTitle>
         <AskButton />
       </PageHeader>
-      <QuestionList questions={dummyQuestions} />
+      <QuestionList questions={questions} />
     </Container>
   );
 }
