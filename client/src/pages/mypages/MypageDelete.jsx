@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteData } from "../../features/mypage/userDataSlice";
 import { logout } from "../../features/mypage/logSlice";
-import axios from "axios";
+import { url } from "../../url";
 
 /**  전체영역(메인 Nav + 컨텐츠) 컴포넌트  */
 const MainDiv = styled.div`
@@ -137,46 +137,66 @@ const PlsLoginDiv = styled.div`
 const MypageDelete = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [boxChecked, setBoxChecked] = useState(false);
   const userDataState = useSelector((state) => state.userData);
   const state = useSelector((state) => state.log);
-  const [boxChecked, setBoxChecked] = useState(false);
   let deleteQuery = window.location.search;
+
+  if (
+    !(
+      state.value === 1 ||
+      state.value === "1" ||
+      state.value === 0 ||
+      state.value === "0"
+    )
+  ) {
+    window.location.reload();
+  }
+
   useEffect(() => {
     if (deleteQuery === "?delete-agree=on") {
       alert("회원정보를 삭제하고 로그아웃하였습니다.");
       navigate("/", { replace: true });
     }
   }, [deleteQuery, navigate]);
+
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };
 
   const deleteHandler = () => {
-    const accessToken = localStorage.getItem("Authorization");
-    // const refreshToken = localStorage.getItem('Refresh');
+    if (userDataState.memberId !== "1") {
+      const accessToken = localStorage.getItem("Authorization");
+      // const refreshToken = localStorage.getItem('Refresh');
 
-    axios
-      .delete(`http://localhost:4000/users/${userDataState.memberId}`, {
-        withCredentials: true,
+      fetch(`${url}/accounts/${userDataState.memberId}/delete`, {
+        credentials: "include",
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: accessToken,
           // Refresh: refreshToken,
         },
       })
-      .then((res) => {
-        if (!res.ok) {
-          alert("Failed to delete member information");
-        } else {
-          let data = res.data;
-          console.log(data);
-          localStorage.removeItem("Authorization");
-          // localStorage.removeItem('Refresh');
-          dispatch(deleteData());
-          dispatch(logout(state));
-        }
-      })
-      .catch(() => alert("An error occurred"));
+        .then((res) => {
+          // 확인하기 : 삭제 후 쿼리 GET 요청이 자동으로 이루어지며 페이지가 해당 주소로 이동됨; 왜?
+          if (!res.ok) {
+            alert("회원정보 삭제 실패");
+          } else {
+            let data = res.json();
+            console.log(data);
+            localStorage.removeItem("Authorization");
+            // localStorage.removeItem('Refresh');
+            dispatch(deleteData());
+            dispatch(logout(state));
+          }
+        })
+        .catch(() => alert("에러 발생"));
+    } else {
+      alert(
+        "테스트용 계정  삭제하실 수 없습니다. 회원가입을 하신 후 계정 삭제 해주세요.",
+      );
+    }
   };
   return (
     <React.Fragment>

@@ -84,17 +84,23 @@ const RedirectionDiv2 = styled.div`
 `;
 
 const Login = () => {
-  const userId = JSON.parse(localStorage.getItem("userId"));
+  const userId = localStorage.getItem("userId")
+    ? JSON.parse(localStorage.getItem("userId"))
+    : null;
   const cookie = new Cookies();
   const Token = cookie.get("token");
   const handleButtonClick = () => {
     console.log("action");
   };
   useEffect(() => {
-    if (userId && Token) {
+    if (userId !== null && Token) {
       window.location.replace("/");
     }
-  }, []);
+  }, [userId, Token]);
+
+  if (userId === undefined) {
+    return null; // 또는 오류 대체 컴포넌트를 반환할 수 있습니다.
+  }
 
   return (
     <Page>
