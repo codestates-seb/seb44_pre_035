@@ -123,6 +123,16 @@ const DeleteBtn = styled.button`
     text-decoration: none;
   }
 `;
+
+const PlsLoginDiv = styled.div`
+  padding: 24px;
+  height: calc(100vh - 23.4rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+`;
+
 /**  마이페이지 Delete Profile  */
 const MypageDelete = () => {
   const navigate = useNavigate();
@@ -174,72 +184,78 @@ const MypageDelete = () => {
         <Container>
           <MyPage_header />
           <MyPage_menu />
-          <Content>
-            <MainContainer>
-              <Mypage_setNav />
-              <Main>
-                <Title>
-                  <H1>Delete Profile</H1>
-                </Title>
-                <div className="main_Txt">
-                  <P>
-                    Before confirming that you would like your profile deleted,
-                    we'd like to take a moment to explain the implications of
-                    deletion:
-                  </P>
-                  <UL>
-                    <li>
-                      Deletion is irreversible, and you will have no way to
-                      regain any of your original content, should this deletion
-                      be carried out and you change your mind later on.
-                    </li>
-                    <li>
-                      Your questions and answers will remain on the site, but
-                      will be disassociated and anonymized (the author will be
-                      listed as "email") and will not indicate your authorship
-                      even if you later return to the site.
-                    </li>
-                  </UL>
-                  <P>
-                    Confirming deletion will only delete your profile on Stack
-                    Overflow - it will not affect any of your other profiles on
-                    the Stack Exchange network. If you want to delete multiple
-                    profiles, you'll need to visit each site separately and
-                    request deletion of those individual profiles.
-                  </P>
-                </div>
-                <Form>
-                  <Fieldset>
-                    <CheckDiv>
-                      <label>
-                        <div>
-                          <input
-                            type="checkbox"
-                            name="delete-agree"
-                            checked={boxChecked}
-                            onChange={CheckedHandler}
-                          />
-                        </div>
-                        <div>
-                          I have read the information stated above and
-                          understand the implications of having my profile
-                          deleted. I wish to proceed with the deletion of my
-                          profile.
-                        </div>
-                      </label>
-                    </CheckDiv>
-                  </Fieldset>
-                  {boxChecked ? (
-                    <DeleteBtn onClick={deleteHandler}>
-                      Delete Profile
-                    </DeleteBtn>
-                  ) : (
-                    <DeleteBtn className="disabled">Delete Profile</DeleteBtn>
-                  )}
-                </Form>
-              </Main>
-            </MainContainer>
-          </Content>
+          {state.value === 1 || state.value === "1" ? (
+            <Content>
+              <MainContainer>
+                <Mypage_setNav />
+                <Main>
+                  <Title>
+                    <H1>Delete Profile</H1>
+                  </Title>
+                  <div className="main_Txt">
+                    <P>
+                      Before confirming that you would like your profile
+                      deleted, we'd like to take a moment to explain the
+                      implications of deletion:
+                    </P>
+                    <UL>
+                      <li>
+                        Deletion is irreversible, and you will have no way to
+                        regain any of your original content, should this
+                        deletion be carried out and you change your mind later
+                        on.
+                      </li>
+                      <li>
+                        Your questions and answers will remain on the site, but
+                        will be disassociated and anonymized (the author will be
+                        listed as "email") and will not indicate your authorship
+                        even if you later return to the site.
+                      </li>
+                    </UL>
+                    <P>
+                      Confirming deletion will only delete your profile on Stack
+                      Overflow - it will not affect any of your other profiles
+                      on the Stack Exchange network. If you want to delete
+                      multiple profiles, you'll need to visit each site
+                      separately and request deletion of those individual
+                      profiles.
+                    </P>
+                  </div>
+                  <Form>
+                    <Fieldset>
+                      <CheckDiv>
+                        <label>
+                          <div>
+                            <input
+                              type="checkbox"
+                              name="delete-agree"
+                              checked={boxChecked}
+                              onChange={CheckedHandler}
+                            />
+                          </div>
+                          <div>
+                            I have read the information stated above and
+                            understand the implications of having my profile
+                            deleted. I wish to proceed with the deletion of my
+                            profile.
+                          </div>
+                        </label>
+                      </CheckDiv>
+                    </Fieldset>
+                    {boxChecked ? (
+                      <DeleteBtn onClick={deleteHandler}>
+                        Delete Profile
+                      </DeleteBtn>
+                    ) : (
+                      <DeleteBtn className="disabled">Delete Profile</DeleteBtn>
+                    )}
+                  </Form>
+                </Main>
+              </MainContainer>
+            </Content>
+          ) : (
+            <PlsLoginDiv>로그인이 필요한 페이지입니다.</PlsLoginDiv>
+          )}
         </Container>
       </MainDiv>
     </React.Fragment>
