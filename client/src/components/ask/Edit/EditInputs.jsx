@@ -4,7 +4,7 @@ import SubmitHTML from "../SubmitHTML";
 import SubmitInput from "../SubmitInput";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { EditQuestion } from "../api/postAPI";
+import { EditQuestion } from "../../../api/postAPI";
 import { getQuestion } from "../../../api/mainAPI";
 
 export default function EditInputs() {
