@@ -65,3 +65,16 @@ export const postAnswer = async (questionId, body) => {
     console.log(err);
   }
 };
+
+export const deletePost = async (postType, postId) => {
+  try {
+    const res = await axios({
+      url: `/${postType}s/${postId}`,
+      method: "delete",
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};

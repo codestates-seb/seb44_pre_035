@@ -5,7 +5,7 @@ import TagList from "../TagList";
 import PostController from "./PostController";
 import ReactQuill from "react-quill";
 
-export default function PostContainer({ post }) {
+export default function PostContainer({ post, handleDeletePost }) {
   return (
     <Wrapper>
       <PostSidebar />
@@ -13,7 +13,7 @@ export default function PostContainer({ post }) {
         <ReactQuill value={post.content} readOnly={true} theme={"bubble"} />
         {post.tags && <PostTags tags={post.tags} />}
         <ContentMeta>
-          <PostController post={post} />
+          <PostController post={post} handleDeletePost={handleDeletePost} />
           <PostUserInfo userId={post.user_id} />
         </ContentMeta>
       </Content>
