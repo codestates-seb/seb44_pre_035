@@ -13,7 +13,7 @@ export default function QuestionStatus({ question }) {
       </ListItem>
       <ListItem>
         <FirstText>{"Viewed"}</FirstText>
-        <LastText>{`${question.view} times`}</LastText>
+        <LastText>{`${question.views} times`}</LastText>
       </ListItem>
     </Wrapper>
   );
