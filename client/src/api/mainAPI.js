@@ -34,10 +34,13 @@ export const getQuestion = async (questionId) => {
   }
 };
 
-export const searchQuestion = async (keyword) => {
+export const searchQuestion = async (
+  keyword,
+  { page, size, criteria, sort },
+) => {
   try {
     const res = await axios({
-      url: `/questions/search/${keyword}`,
+      url: `/questions/search/${keyword}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,

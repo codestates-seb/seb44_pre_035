@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import QuestionListItem from "./QuestionListItem";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { LIST_TYPE } from "../utils";
 
 export default function QuestionList({
+  listType,
   totalQuestionsInfo,
   questions,
   sort,
   page,
 }) {
+  const { search } = useLocation();
+  const keyword = new URLSearchParams(search).get("keyword");
+
   const NUMBER_OF_PAGE_BUTTON = 5; // 설정 페이지 버튼 수
   const pageNumbers =
     // 총 페이지 수가 설정 페이지 버튼 수보다 작으면 총 페이지 수만큼만 생성
@@ -63,13 +68,19 @@ export default function QuestionList({
         <QuestionListItem key={question.questionId} item={question} />
       ))}
       <Pagination>
-        <PageButton to={`?tab=${sort}&page=${page <= 1 ? 1 : page - 1}`}>
+        <PageButton
+          to={`?${
+            listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
+          }tab=${sort}&page=${page <= 1 ? 1 : page - 1}`}
+        >
           Prev
         </PageButton>
         {pageNumbers.map((num) => (
           <PageButton
             key={num}
-            to={`?tab=${sort}&page=${num}`}
+            to={`?${
+              listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
+            }tab=${sort}&page=${num}`}
             $currentPage={num === page}
           >
             {num}
@@ -79,7 +90,9 @@ export default function QuestionList({
           <>
             <PageButtonDiv>...</PageButtonDiv>
             <PageButton
-              to={`?tab=${sort}&page=${totalQuestionsInfo.totalPages}`}
+              to={`?${
+                listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
+              }tab=${sort}&page=${totalQuestionsInfo.totalPages}`}
             >
               {totalQuestionsInfo.totalPages}
             </PageButton>
@@ -87,7 +100,9 @@ export default function QuestionList({
         )}
 
         <PageButton
-          to={`?tab=${sort}&page=${
+          to={`?${
+            listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
+          }tab=${sort}&page=${
             page >= totalQuestionsInfo.totalPages
               ? totalQuestionsInfo.totalPages
               : page + 1
