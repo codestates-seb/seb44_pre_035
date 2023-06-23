@@ -18,6 +18,7 @@ const Image = styled.img`
   width: 32px;
   height: 32px;
   margin-right: 5px;
+  border-radius: 3px;
 `;
 
 const Content = styled.div`

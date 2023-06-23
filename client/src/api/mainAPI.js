@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const getQuestions = async () => {
+export const getQuestions = async ({ page, size, criteria, sort }) => {
   try {
     const res = await axios({
-      url: "/questions",
+      url: `/questions?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -56,11 +56,25 @@ export const postAnswer = async (questionId, body) => {
     const res = await axios({
       url: `/questions/${questionId}/answers/submit`,
       method: "post",
-      data: body,
+      data: body.answer,
+      headers: { "Content-Type": "application/json" },
     });
     console.log(res);
     return res;
   } catch (err) {
     console.log(err);
   }
-}; // postAnswer API 400 에러뜸
+};
+
+export const deletePost = async (postType, postId) => {
+  try {
+    const res = await axios({
+      url: `/${postType}s/${postId}`,
+      method: "delete",
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};

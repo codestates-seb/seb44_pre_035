@@ -18,7 +18,7 @@ export default function QuestionListItem({ item }) {
         </ContentExcerpt>
         <ContentMeta>
           {/* <TagList tags={item.tags} /> */}
-          <QuestionListItemUserInfo userId={item.userId} />
+          <QuestionListItemUserInfo accountId={item.accountId} />
         </ContentMeta>
       </Content>
     </Wrapper>
@@ -49,6 +49,13 @@ const ContentTitle = styled.div`
     font-weight: 500;
     color: #0074cc; // --powder-700;
 
+    word-break: break-word;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    padding-right: 20px;
+
     &:hover {
       color: #0a95ff;
     }
@@ -58,14 +65,13 @@ const ContentTitle = styled.div`
 const ContentExcerpt = styled.div`
   font-size: 13px;
 
-  p {
-    line-height: 17px;
-    word-break: break-word;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
+  line-height: 17px;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  padding-right: 20px;
 `;
 
 const ContentMeta = styled.div`
