@@ -3,7 +3,9 @@ import AskButton from "../../share/AskButton";
 import QuestionList from "../../components/main/questions/QuestionList";
 import { useState, useEffect } from "react";
 import { getQuestions } from "../../api/mainAPI";
+
 import { useLocation } from "react-router-dom";
+
 
 export default function Main() {
   const [questions, setQuestions] = useState([]);

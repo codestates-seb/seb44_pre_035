@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import styled from "styled-components";
 import LoginButton from "../../components/sign/Login/LoginButton";
 import LoginInputForm from "../../components/sign/Login/LoginFormInput";
@@ -6,6 +8,8 @@ import copyButton from "../../img/copyButton.svg";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Cookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { saveData } from "../../features/mypage/userDataSlice";
 const Page = styled.div`
   width: 100vw;
   height: 100vh;
@@ -84,14 +88,17 @@ const RedirectionDiv2 = styled.div`
 `;
 
 const Login = () => {
-  const userId = JSON.parse(localStorage.getItem("userId"));
+  const userId = localStorage.getItem("memberId")
+    ? JSON.parse(localStorage.getItem("memberId"))
+    : null;
   const cookie = new Cookies();
   const Token = cookie.get("token");
+
   const handleButtonClick = () => {
     console.log("action");
   };
   useEffect(() => {
-    if (userId && Token) {
+    if (userId !== null && Token) {
       window.location.replace("/");
     }
   }, []);
