@@ -78,16 +78,26 @@ public class QuestionServiceImpl implements QuestionService{
         questionRepository.delete(findQuestion(questionId));
     }
 
+
+
     @Override
     public Question updateQuestion(Long questionId, Question question) {
-        Question foundQuestion = findQuestion(questionId);
+        Question foundQuestion = questionRepository.findById(questionId).orElseThrow();
+
         foundQuestion.setTitle(question.getTitle());
         foundQuestion.setContent(question.getContent());
-        foundQuestion.setQuestionTags(question.getQuestionTags());
 
-        //1. Tag가 가진 questionTag에서 question을 빼야한다
-        //2. Tag가 가진
-
+        //foundQuestion.resetQuestionTags();
+        List<QuestionTag> questionTags = (question.getQuestionTags().stream()
+                .map(questionTag ->{
+                    Tag tag = tagRepository.findById(questionTag.getPatchTagId());
+                    tag.resetQuestionTags();
+                    return QuestionTag.builder()
+                            .tag(tag)
+                            .question(foundQuestion)
+                            .build();
+                }).collect(Collectors.toList()));
+        foundQuestion.setQuestionTags(questionTags);
 
         questionRepository.save(foundQuestion);
         return foundQuestion;

@@ -38,18 +38,11 @@ public interface QuestionMapper {
 
     default Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto) {
         Question question =  new Question();
-        question.setQuestionId(questionPatchDto.getQuestionId());
-
-        List<QuestionTag> questionTags = questionPatchDto.getQuestionTags().stream()
-                .map(questionTagDto -> {
-                    QuestionTag questionTag = new QuestionTag();
-                    Tag tag = new Tag();
-                    tag.setTagId(questionTagDto.getTagId());
-                    questionTag.addQuestion(question);
-                    questionTag.addTag(tag);
-                    return questionTag;
-                }).collect(Collectors.toList());
-        question.setQuestionTags(questionTags);
+        question.setQuestionTags(questionPatchDto.getQuestionTags().stream()
+                .map(QuestionTagDto -> QuestionTag.builder()
+                        .patchTagId(QuestionTagDto.getTagId())
+                        .build())
+                .collect(Collectors.toList()));
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
 

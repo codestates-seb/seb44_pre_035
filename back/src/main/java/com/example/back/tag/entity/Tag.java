@@ -23,7 +23,7 @@ public class Tag {
     @Column(nullable = false)
     private String tagContent;
 
-    @OneToMany(mappedBy = "tag", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
     public void addQuestionTag(QuestionTag questionTag){
@@ -31,5 +31,9 @@ public class Tag {
         if(questionTag.getTag() != this){
             questionTag.addTag(this);
         }
+    }
+
+    public void resetQuestionTags(){
+        this.questionTags = new ArrayList<>();
     }
 }

@@ -16,6 +16,9 @@ public class QuestionTag extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionTagId;
+
+    private long patchTagId;
+
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
