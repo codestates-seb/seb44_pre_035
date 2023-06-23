@@ -37,7 +37,7 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
