@@ -43,11 +43,13 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
+  width: calc(100% - 56px);
   padding-right: 16px;
   font-size: 15px;
   flex-grow: 1;
 
   .ql-editor {
+    width: 100%;
     min-height: 100px;
     padding: 0;
   }
