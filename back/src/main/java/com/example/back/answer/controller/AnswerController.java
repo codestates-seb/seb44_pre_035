@@ -14,38 +14,41 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/answers")
+@RequestMapping()
 public class AnswerController {
     private final AnswerService answerService;
 
-    @PostMapping
-    public ResponseEntity<AnswerResponseDto> createAnswer(@Validated
-                                                              @RequestBody AnswerPostDto answerPostDto) {
-        AnswerResponseDto createdAnswer = answerService.createAnswer(answerPostDto);
+    @PostMapping("questions/{question-id}/answers/submit")
+    public ResponseEntity<AnswerResponseDto> createAnswer(@PathVariable("question-id") Long questionId,
+            @Validated @RequestBody AnswerPostDto answerPostDto) {
+        /**/
+        AnswerResponseDto createdAnswer = answerService.createAnswer(questionId, answerPostDto);
         return new ResponseEntity<>(createdAnswer, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<AnswerResponseDto> updateAnswer(@PathVariable("id") Long id,
+    @PatchMapping("questions/{question-id}/answers/{answer-id}")
+    public ResponseEntity<AnswerResponseDto> updateAnswer(@PathVariable("answer-id") Long id,
                                                           @Validated @RequestBody AnswerPatchDto answerPatchDto) {
         AnswerResponseDto updatedAnswer = answerService.updateAnswer(id, answerPatchDto);
         return new ResponseEntity<>(updatedAnswer, HttpStatus.OK);
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<AnswerResponseDto> getAnswer(@PathVariable("id") Long id) {
+    /*
+    @GetMapping("answers/{answer-id}")
+    public ResponseEntity<AnswerResponseDto> getAnswer(@PathVariable("answer-id") Long id) {
         AnswerResponseDto answer = answerService.getAnswer(id);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
-
-    @GetMapping
+    */
+    /*
+    @GetMapping("answers/{account-id}")
     public ResponseEntity<List<AnswerResponseDto>> getAllAnswers() {
         List<AnswerResponseDto> answers = answerService.getAllAnswers();
         return new ResponseEntity<>(answers, HttpStatus.OK);
     }
+    */
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAnswer(@PathVariable("id") Long id) {
+    @DeleteMapping("answers/{answer-id}")
+    public ResponseEntity<Void> deleteAnswer(@PathVariable("answer-id") Long id) {
         answerService.deleteAnswer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

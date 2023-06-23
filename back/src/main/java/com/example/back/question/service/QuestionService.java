@@ -1,63 +1,25 @@
 package com.example.back.question.service;
 
-
+import com.example.back.answer.entity.Answer;
 import com.example.back.question.entity.Question;
-import com.example.back.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.Optional;
+import java.util.List;
 
-@Transactional
 @Service
-public class QuestionService {
-    private final QuestionRepository questionRepository;
+public interface QuestionService {
+    Question createQuestion(Question question);
 
-    public QuestionService(QuestionRepository questionRepository){
-        this.questionRepository = questionRepository;
-    }
+    Question findQuestion(long questionId);
 
-    public Question createQuestion(Question question){
-        Question savedQuestion = saveQuestion(question);
+    List<Answer> findQuestionAnswer(Question question);
 
-        return savedQuestion;
-    }
+    Page<Question> findQuestions(int page, int size, String criteria, String sort);
 
-    /*
-    구현을 고려해야 할 부분
-    조회수 계산
-    조회수 업데이트
-     */
-    public Question findQuestion(long questionId) {
-        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        return optionalQuestion.orElseThrow(NullPointerException::new);
-    }
+    Page<Question> searchQuestions(int page, int size, String criteria, String sort, String keyword);
 
-    public Page<Question> findQuestions(int page, int size, String criteria, String sort){
-        Pageable pageable = (sort.equals("ASC")) ?
-                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
-                : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
-        return questionRepository.findAll(pageable);
-    }
+    void deleteQuestion(Long questionId);
 
-    public void deleteQuestion(long questionId){
-        questionRepository.delete(findQuestion(questionId));
-    }
-
-    private Question saveQuestion(Question question){
-        return questionRepository.save(question);
-    }
-
-    public void updateQuestion(Question question){
-        Question foundQuestion = findQuestion(question.getQuestionId());
-        foundQuestion.setTitle(question.getTitle());
-        foundQuestion.setContent(question.getContent());
-        foundQuestion.setModifiedAt(question.getModifiedAt());
-
-        questionRepository.save(foundQuestion);
-    }
+    Question updateQuestion(Question question);
 }

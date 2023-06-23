@@ -1,7 +1,11 @@
 package com.example.back.account.entity;
 
 
+import com.example.back.answer.entity.Answer;
+import com.example.back.question.audit.BaseEntity;
+import com.example.back.question.entity.Question;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -10,10 +14,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
-public class Account {
+public class Account extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,14 +41,20 @@ public class Account {
     @Column(length = 1000)
     private String refreshToken;
 
-//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Question> questionList = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Answer> questionList = new ArrayList<>();
+    private Long reputation;
+
+    private String profileImgName;
+
+    private String profileImgPath;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Question> questionList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Answer> answerList = new ArrayList<>();
 
 
-     // oauth 2.0 깃헙 사전설정
+    // oauth 2.0 깃헙 사전설정
 //    @Enumerated(EnumType.STRING)
 //    private SocialType socialType;
 //
@@ -50,16 +62,16 @@ public class Account {
 
 
     //정보 수정
-    public void updatePassword(PasswordEncoder passwordEncoder, String password){
+    public void updatePassword(PasswordEncoder passwordEncoder, String password) {
         this.password = passwordEncoder.encode(password);
     }
 
-    public void updateNickName(String nickname){
+    public void updateNickName(String nickname) {
         this.nickname = nickname;
     }
 
     //패스워드 암호화
-    public void encodePassword(PasswordEncoder passwordEncoder){
+    public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
 
@@ -69,10 +81,11 @@ public class Account {
     }
 
     //token 관련
-    public void updateRefreshToken(String refreshToken){
+    public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
-    public void destroyRefreshToken(){
+
+    public void destroyRefreshToken() {
         this.refreshToken = null;
     }
 
@@ -85,7 +98,22 @@ public class Account {
         USER
     }
 
-    public enum SocialType {
-        GOOGLE, GITHUB
+//    public enum SocialType {
+//        GOOGLE, GITHUB
+//    }
+
+    public void addQuestion(Question question) {
+        questionList.add(question);
+        question.setAccount(this);
+    }
+
+    public void removeQuestion(Question question) {
+        questionList.remove(question);
+        question.setAccount(null);
+    }
+
+    //프로필 이미 경로
+    public String profileImagePath() {
+        return this.getProfileImgPath() + "/" + this.getProfileImgName();
     }
 }
