@@ -60,7 +60,7 @@ public class AccountServiceImpl implements AccountService{
         String selectedImage = defaultProfileImages[selectedIndex];
 
         account.setProfileImgName(selectedImage);
-        account.setProfileImgPath("C:\\Users\\hyun\\IdeaProjects\\profile\\default");
+        account.setProfileImgPath("/home/ubuntu/profile/default");
         //여기까지 주석처리 하고 테스트
 
         accountRepository.save(account);
@@ -133,7 +133,7 @@ public class AccountServiceImpl implements AccountService{
     public void uploadProfileImage(Long id, MultipartFile file) throws Exception {
 
         Account account = accountRepository.findById(id).orElseThrow(() -> new Exception("해당 유저를 찾을수 없습니다."));
-        String filePath = "C:\\Users\\hyun\\IdeaProjects\\profile\\";
+        String filePath = "/home/ubuntu/profile/";
 
         String fileName = id + "_profile.jpg";
 
