@@ -10,6 +10,7 @@ import com.example.back.question.entity.Question;
 import com.example.back.question.entity.QuestionTag;
 import com.example.back.question.repository.QuestionRepository;
 //import com.example.back.tag.Service.TagServiceImpl;
+import com.example.back.question.repository.QuestionTagRepository;
 import com.example.back.tag.Service.TagServiceImpl;
 import com.example.back.tag.entity.Tag;
 import com.example.back.tag.repository.TagRepository;
@@ -31,6 +32,7 @@ public class QuestionServiceImpl implements QuestionService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private final TagRepository tagRepository;
+    private final QuestionTagRepository questionTagRepository;
     private final TagServiceImpl tagService;
 
     @Override
@@ -71,6 +73,16 @@ public class QuestionServiceImpl implements QuestionService{
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
                 : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
         return questionRepository.findByTitleContainingOrContentContaining(keyword, keyword, pageable);
+    }
+
+    @Override
+    public Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String YorN){
+        Pageable pageable = (sort.equals("ASC")) ?
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
+                : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
+        return (YorN.equals("N")) ?
+                questionRepository.findByAnswersEquals(0, pageable)
+                : questionRepository.findByAnswersGreaterThan(0, pageable);
     }
 
     @Override

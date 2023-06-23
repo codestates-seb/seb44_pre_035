@@ -23,7 +23,7 @@ public class Tag {
     @Column(nullable = false)
     private String tagContent;
 
-    @OneToMany(mappedBy = "tag", cascade = {})
+    @OneToMany(mappedBy = "tag", cascade = {CascadeType.ALL})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
     public void addQuestionTag(QuestionTag questionTag){

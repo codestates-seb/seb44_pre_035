@@ -51,16 +51,17 @@ public interface QuestionMapper {
 
     default QuestionResponseDto questionToQuestionResponseDto(Question question){
         return QuestionResponseDto.builder()
-            .questionId(question.getQuestionId())
+                .questionId(question.getQuestionId())
             //.accountId(question.getAccount().getId())
             //.nickname(question.getAccount().getNickname())
-            .title(question.getTitle())
-            .content(question.getContent())
-            .views(question.getViews())
-            .tags(questionTagToQuestionTagResponseDtos(question.getQuestionTags()))
-            .createdAt(question.getCreatedAt())
-            .modifiedAt(question.getModifiedAt())
-            .build();
+                .title(question.getTitle())
+                .content(question.getContent())
+                .views(question.getViews())
+                .answers(question.getAnswers())
+                .tags(questionTagToQuestionTagResponseDtos(question.getQuestionTags()))
+                .createdAt(question.getCreatedAt())
+                .modifiedAt(question.getModifiedAt())
+                .build();
     }
 
     default List<QuestionResponseDto> questionsToQuestionsResponseDtos(List<Question> questions) {
@@ -74,6 +75,7 @@ public interface QuestionMapper {
                         .title(question.getTitle())
                         .content(question.getContent())
                         .views(question.getViews())
+                        .answers(question.getAnswers())
                         .tags(questionTagToQuestionTagResponseDtos(question.getQuestionTags()))
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())

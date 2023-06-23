@@ -19,6 +19,8 @@ public interface QuestionService {
 
     Page<Question> searchQuestions(int page, int size, String criteria, String sort, String keyword);
 
+    Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String YorN);
+
     void deleteQuestion(Long questionId);
 
     Question updateQuestion(Long questionId, Question question);

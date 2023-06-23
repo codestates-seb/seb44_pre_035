@@ -1,6 +1,7 @@
 package com.example.back.question.controller;
 
 import com.example.back.DTOs.MultiResponseDto;
+import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.question.dto.*;
 import com.example.back.question.entity.Question;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,9 +49,11 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question_id")
                                           @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
+        List<Answer> answerList = questionService.findQuestionAnswer(question);
+        question.setAnswers(answerList.size());
         return new ResponseEntity<>(
                 new QAResponseDto<>(questionMapper.questionToQuestionResponseDto(question),
-                        answerMapper.answersToAnswerResponseDtos(questionService.findQuestionAnswer(question))),
+                        answerMapper.answersToAnswerResponseDtos(answerList)),
                 HttpStatus.OK);
     }
 
@@ -57,7 +61,7 @@ public class QuestionController {
     public ResponseEntity getQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
                                        @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
                                        @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
-                                       @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort) {
+                                       @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort){
         Page<Question> pageQuestions = questionService.findQuestions(page-1, size, criteria, sort);
         List<Question> questions = pageQuestions.getContent();
 
@@ -73,12 +77,33 @@ public class QuestionController {
                                        @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
                                        @PathVariable("keyword") String keyword){
         Page<Question> pageQuestions = questionService.searchQuestions(page-1, size, criteria, sort, keyword);
-        List<Question> questions = pageQuestions.getContent();
+        List<Question> questions = pageQuestions.getContent().stream().map(Q -> {
+            Q.setAnswers(Q.getAnswerList().size());
+            return Q;
+        }).collect(Collectors.toList());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions),
                         pageQuestions), HttpStatus.OK);
     }
+
+    @GetMapping("/search/isAnswered/{YorN}")
+    public ResponseEntity searchAnsweredQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                                          @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
+                                          @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
+                                          @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
+                                          @PathVariable("YorN") String YorN){
+        Page<Question> pageQuestions = questionService.searchAnsweredQuestions(page-1, size, criteria, sort, YorN);
+        List<Question> questions = pageQuestions.getContent().stream().map(Q -> {
+            Q.setAnswers(Q.getAnswerList().size());
+            return Q;
+        }).collect(Collectors.toList());
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions),
+                        pageQuestions), HttpStatus.OK);
+    }
+
 
     @GetMapping("/ask")
     public ResponseEntity getTags(){

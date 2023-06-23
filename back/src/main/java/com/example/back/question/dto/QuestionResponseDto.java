@@ -22,6 +22,7 @@ public class QuestionResponseDto {
     private String title;
     private String content;
     private int views;
+    private int answers;
     private List<QuestionTagResponseDto> tags;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")

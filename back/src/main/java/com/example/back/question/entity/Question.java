@@ -33,6 +33,9 @@ public class Question extends BaseEntity {
     @Column(nullable = false)
     private int views;
 
+    @Column
+    private int answers;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;

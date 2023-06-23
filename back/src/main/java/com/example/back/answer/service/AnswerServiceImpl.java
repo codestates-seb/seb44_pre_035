@@ -9,6 +9,7 @@ import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.question.entity.Question;
 import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,10 @@ public class AnswerServiceImpl implements AnswerService {
         //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
         //answer.setAccount(account);
 
-        answer.setQuestion(questionRepository.findById(questionId).orElseThrow());
+        Question question = questionRepository.findById(questionId).orElseThrow();
+        question.setAnswers(question.getAnswers()+1);
+
+        answer.setQuestion(question);
         Answer createdAnswer = answerRepository.save(answer);
         return answerMapper.answerToAnswerResponseDto(createdAnswer);
     }
