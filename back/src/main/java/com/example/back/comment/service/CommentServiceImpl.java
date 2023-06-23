@@ -26,13 +26,28 @@ public class CommentServiceImpl implements CommentService {
     private final QuestionRepository questionRepository;
     private  final AnswerRepository answerRepository;
 
+    //    @Override
+//    public Comment createComment(Long answerId, CommentPostDto commentPostDto) {
+//        Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
+//        comment.setAnswerId(answerId);
+//        Comment savedComment = commentRepository.save(comment);
+//        return savedComment;
+//    }
+//@Override
+//public CommentResponseDto createComment(Long answerId, CommentPostDto commentPostDto) {
+//    Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
+//    comment.setAnswer(answerRepository.findById(answerId).orElseThrow());
+//    Comment createdComment = commentRepository.save(comment);
+//    return commentMapper.commentToCommentResponseDto(createdComment);
+//}
     @Override
     public Comment createComment(Long answerId, CommentPostDto commentPostDto) {
         Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
-        comment.setAnswerId(answerId);
-        Comment savedComment = commentRepository.save(comment);
-        return savedComment;
+        comment.setAnswer(answerRepository.findById(answerId).orElseThrow());
+        Comment createdComment = commentRepository.save(comment);
+        return createdComment;
     }
+
 
     @Override
     public Comment updateComment(Long commentId, CommentPatchDto commentPatchDto) {

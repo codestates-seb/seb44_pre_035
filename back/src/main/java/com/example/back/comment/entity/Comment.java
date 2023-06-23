@@ -25,13 +25,10 @@ public class Comment extends BaseEntity {
     @Column(name = "comment_id", nullable = false)
     private Long commentId;
 
-    @Setter
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answer_id", nullable = false, insertable = false, updatable = false)
-    private Long answerId;
-
-
-
+//    @Setter
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "answer_id", nullable = false)
+//    private Long answerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id")

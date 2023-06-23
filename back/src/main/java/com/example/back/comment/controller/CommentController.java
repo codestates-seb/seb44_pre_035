@@ -24,7 +24,7 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public ResponseEntity<CommentResponseDto> createComment(@PathVariable("answerId") Long answerId,
+    public ResponseEntity<CommentResponseDto> createComment(@PathVariable("answer-id") Long answerId,
                                                             @Validated @RequestBody CommentPostDto commentPostDto) {
         Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
         CommentResponseDto createdComment = commentMapper.commentToCommentResponseDto(commentService.createComment(answerId, commentPostDto));
