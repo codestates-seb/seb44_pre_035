@@ -34,9 +34,9 @@ public class AnswerServiceImpl implements AnswerService {
     public AnswerResponseDto createAnswer(Long questionId, AnswerPostDto answerPostDto) {
         Answer answer = answerMapper.answerPostDtoToAnswer(answerPostDto);
 
-        //String userEmail = SecurityUtil.getLoginUsername();
-        //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-        //answer.setAccount(account);
+        String userEmail = SecurityUtil.getLoginUsername();
+        Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        answer.setAccount(account);
 
         Question question = questionRepository.findById(questionId).orElseThrow();
         question.setAnswers(question.getAnswers()+1);

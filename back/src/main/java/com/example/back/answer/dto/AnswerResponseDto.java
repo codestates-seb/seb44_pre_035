@@ -1,5 +1,6 @@
 package com.example.back.answer.dto;
 
+import com.example.back.account.entity.Account;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -23,4 +24,10 @@ public class AnswerResponseDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime modifiedAt;
+
+    public void setAccount(Account account) {
+        this.accountId = account.getId();
+        this.nickname = account.getNickname();
+        this.profileImagePath = account.profileImagePath();
+    }
 }

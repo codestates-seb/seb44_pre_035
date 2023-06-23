@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,4 +24,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findByAnswersLessThanAndTitleContainingOrContentContaining(int answers, String title, String content, Pageable pageable);
 
     Page<Question> findByAnswersGreaterThanAndTitleContainingOrContentContaining(int answers, String title, String content, Pageable pageable);
+
+    @Query("SELECT q.account.id FROM QUESTIONS q WHERE q.questionId = :questionId")
+    Long findAccountIdByQuestionId(@Param("questionId") Long questionId);
 }

@@ -51,17 +51,17 @@ public class AccountServiceImpl implements AccountService{
             throw new Exception("이미 가입된 이메일입니다.");
         }
 
-//        //여기부터
-//        String[] defaultProfileImages = {
-//                "a.jpg", "b.jpg", "c.jpg", "d.jpg", "e.jpg", "f.jpg"
-//        };
-//        Random random = new Random();
-//        int selectedIndex = random.nextInt(defaultProfileImages.length);
-//        String selectedImage = defaultProfileImages[selectedIndex];
-//
-//        account.setProfileImgName(selectedImage);
-//        account.setProfileImgPath("C:\\Users\\hyun\\IdeaProjects\\profile\\default");
-//        //여기까지 주석처리 하고 테스트
+        //여기부터
+        String[] defaultProfileImages = {
+                "a.jpg", "b.jpg", "c.jpg", "d.jpg", "e.jpg", "f.jpg"
+        };
+        Random random = new Random();
+        int selectedIndex = random.nextInt(defaultProfileImages.length);
+        String selectedImage = defaultProfileImages[selectedIndex];
+
+        account.setProfileImgName(selectedImage);
+        account.setProfileImgPath("C:\\Users\\hyun\\IdeaProjects\\profile\\default");
+        //여기까지 주석처리 하고 테스트
 
         accountRepository.save(account);
 

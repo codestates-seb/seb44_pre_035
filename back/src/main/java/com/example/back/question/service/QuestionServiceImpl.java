@@ -34,13 +34,14 @@ public class QuestionServiceImpl implements QuestionService{
     private final TagRepository tagRepository;
     private final QuestionTagRepository questionTagRepository;
     private final TagServiceImpl tagService;
+    private final AccountRepository accountRepository;
 
     @Override
     public Question createQuestion(Question question){
 
-        //String userEmail = SecurityUtil.getLoginUsername();
-        //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-        //question.setAccount(account);
+        String userEmail = SecurityUtil.getLoginUsername();
+        Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        question.setAccount(account);
         Question savedquestion = questionRepository.save(question);
 
         return savedquestion;
