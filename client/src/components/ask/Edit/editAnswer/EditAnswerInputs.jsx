@@ -16,7 +16,7 @@ export default function EditAnswerInputs() {
     body: "",
   });
 
-  console.log("body", body);
+  // console.log("body", body);
 
   const handleSubmit = () => {
     if (body.body.length < 20) {

@@ -10,9 +10,10 @@ const wholeTag = [
 ];
 
 export default function SubmitTag({ title, comment, question }) {
+  // eslint-disable-next-line no-unused-vars
   const [getTagList, setGetTagList] = useState([]);
 
-  console.log("------getTagList", getTagList);
+  // console.log("------getTagList", getTagList);
 
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
@@ -21,10 +22,10 @@ export default function SubmitTag({ title, comment, question }) {
   // 서버 열려있는 경우, wholeTag >> getTagList
   const [dropDownList, setDropDownList] = useState(wholeTag);
 
-  console.log("tagItem", tagItem);
-  console.log("tagList", tagList);
-  console.log("isHaveTagItem", isHaveTagItem);
-  console.log("dropDownList", dropDownList);
+  // console.log("tagItem", tagItem);
+  // console.log("tagList", tagList);
+  // console.log("isHaveTagItem", isHaveTagItem);
+  // console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
