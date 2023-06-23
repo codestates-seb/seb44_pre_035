@@ -3,7 +3,7 @@ import Writer from "../../share/Writer";
 
 function SubmitHTML({ title, comment, name, setBody, question }) {
   return (
-    <Wrapper SubmitHTML="true" direction="column">
+    <Wrapper>
       <InputTitle text="title">{title}</InputTitle>
       <InputTitle text="sub">{comment}</InputTitle>
       <InputTitle text="valiation">Minimum 20 characters</InputTitle>

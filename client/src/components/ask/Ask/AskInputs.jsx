@@ -6,15 +6,19 @@ import SubmitButton from "../SubmitButton";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postQuestion } from "../../../api/postAPI";
+import SubmitTag from "../SubmitTag";
 
 export default function AskInputs() {
-  const [ask, setAsk] = useState({ title: "", content: "" });
+  const [ask, setAsk] = useState({ title: "", content: "", tags: [] });
   const [body, setBody] = useState({ problem: "", try: "" });
 
-  // eslint-disable-next-line no-unused-vars
   const nav = useNavigate();
 
-  console.log("ask:", ask, "//", "body", body);
+  // const handleAddTag = (e) => {
+  //   if (e.target.value.length !== 0 && e.key === "Enter") {
+  //     setTags((prev) => [...prev, e.target.value]);
+  //   }
+  // };
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -62,7 +66,7 @@ export default function AskInputs() {
           name="try"
           setBody={setBody}
         />
-        <SubmitInput
+        <SubmitTag
           title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
         />
