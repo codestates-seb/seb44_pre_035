@@ -45,3 +45,20 @@ export const getUser = async (Token, userId) => {
     console.log(error);
   }
 };
+
+export const getUsers = async () => {
+  try {
+    const res = await axios({
+      url: `/accounts`,
+      method: "get",
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
+    console.log("users", res);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
