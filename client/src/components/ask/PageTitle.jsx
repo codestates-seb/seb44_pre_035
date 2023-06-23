@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const PageTitle = ({ title }) => {
+export default function PageTitle({ title }) {
   return (
     <Wrapper>
       <Title>{title}</Title>
     </Wrapper>
   );
-};
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,5 +21,3 @@ const Title = styled.div`
 
   /* border: 1px solid red; */
 `;
-
-export default PageTitle;

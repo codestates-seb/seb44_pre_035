@@ -1,13 +1,9 @@
 import styled from "styled-components";
 
 export default function PostButton() {
-  const handleSubmitAnswer = () => {};
-
   return (
     <ButtonWrapper>
-      <Button type="button" onClick={handleSubmitAnswer}>
-        Post Your Answer
-      </Button>
+      <Button>Post Your Answer</Button>
     </ButtonWrapper>
   );
 }

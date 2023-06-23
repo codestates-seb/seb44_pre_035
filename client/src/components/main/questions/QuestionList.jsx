@@ -1,51 +1,98 @@
 import styled from "styled-components";
-import { dummyQuestions } from "../../../dummy/dummyQuestions";
 import QuestionListItem from "./QuestionListItem";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function QuestionList() {
-  const { search } = useLocation();
-  const filter = new URLSearchParams(search).get("tab") || "Newest";
-  const page = Number(new URLSearchParams(search).get("page")) || 1;
+export default function QuestionList({
+  totalQuestionsInfo,
+  questions,
+  sort,
+  page,
+}) {
+  const NUMBER_OF_PAGE_BUTTON = 5; // 설정 페이지 버튼 수
+  const pageNumbers =
+    // 총 페이지 수가 설정 페이지 버튼 수보다 작으면 총 페이지 수만큼만 생성
+    totalQuestionsInfo.totalPages < NUMBER_OF_PAGE_BUTTON
+      ? Array.from(
+          {
+            length:
+              totalQuestionsInfo.totalPages < 1
+                ? 1
+                : totalQuestionsInfo.totalPages,
+          },
+          (value, index) => index + 1,
+        )
+      : // 현재 페이지 버튼이 가운데 오도록 생성
+      page > Math.floor(NUMBER_OF_PAGE_BUTTON / 2) &&
+        page <=
+          totalQuestionsInfo.totalPages - Math.floor(NUMBER_OF_PAGE_BUTTON / 2)
+      ? Array.from(
+          { length: NUMBER_OF_PAGE_BUTTON },
+          (value = page - Math.floor(NUMBER_OF_PAGE_BUTTON / 2), index) =>
+            value + index,
+        )
+      : // 마지막 페이지 버튼이 나오면 버튼 목록 고정
+      page >
+        totalQuestionsInfo.totalPages - Math.floor(NUMBER_OF_PAGE_BUTTON / 2)
+      ? Array.from(
+          { length: NUMBER_OF_PAGE_BUTTON },
+          (
+            value = totalQuestionsInfo.totalPages - NUMBER_OF_PAGE_BUTTON,
+            index,
+          ) => value + index + 1,
+        )
+      : // 현재 페이지가 앞 페이지일 때 설정 페이지 버튼 수만큼 생성
+        Array.from(
+          { length: NUMBER_OF_PAGE_BUTTON },
+          (value, index) => index + 1,
+        );
 
   return (
     <Wrapper>
       <ListHeader>
-        <ListStatus>{dummyQuestions.length} questions</ListStatus>
+        <ListStatus>{totalQuestionsInfo.totalElements} questions</ListStatus>
         <ListFilter>
-          <ListFilterItem
-            to="/?tab=Newest"
-            $currentFilter={filter === "Newest"}
-          >
+          <ListFilterItem to="/?tab=DESC" $currentSort={sort === "DESC"}>
             Newest
           </ListFilterItem>
-          <ListFilterItem
-            to="/?tab=Unanswered"
-            $currentFilter={filter === "Unanswered"}
-          >
-            Unanswered
+          <ListFilterItem to="/?tab=ASC" $currentSort={sort === "ASC"}>
+            Oldest
           </ListFilterItem>
         </ListFilter>
       </ListHeader>
-      {dummyQuestions.map((question) => (
-        <QuestionListItem key={question.Question_id} item={question} />
+      {questions.map((question) => (
+        <QuestionListItem key={question.questionId} item={question} />
       ))}
       <Pagination>
-        <PageButton to={`?tab=${filter}&page=${page <= 1 ? 1 : page - 1}`}>
+        <PageButton to={`?tab=${sort}&page=${page <= 1 ? 1 : page - 1}`}>
           Prev
         </PageButton>
-        {[1, 2, 3, 4, 5].map((num) => (
+        {pageNumbers.map((num) => (
           <PageButton
             key={num}
-            to={`?tab=${filter}&page=${num}`}
+            to={`?tab=${sort}&page=${num}`}
             $currentPage={num === page}
           >
             {num}
           </PageButton>
         ))}
-        <PageButtonDiv>...</PageButtonDiv>
-        <PageButton to={`?tab=${filter}&page=100`}>100</PageButton>
-        <PageButton to={`?tab=${filter}&page=${page >= 100 ? 100 : page + 1}`}>
+        {totalQuestionsInfo.totalPages > NUMBER_OF_PAGE_BUTTON && (
+          <>
+            <PageButtonDiv>...</PageButtonDiv>
+            <PageButton
+              to={`?tab=${sort}&page=${totalQuestionsInfo.totalPages}`}
+            >
+              {totalQuestionsInfo.totalPages}
+            </PageButton>
+          </>
+        )}
+
+        <PageButton
+          to={`?tab=${sort}&page=${
+            page >= totalQuestionsInfo.totalPages
+              ? totalQuestionsInfo.totalPages
+              : page + 1
+          }`}
+        >
           Next
         </PageButton>
       </Pagination>
@@ -77,7 +124,7 @@ const ListFilterItem = styled(Link)`
   padding: 9.6px;
   border: 1px solid #838c95;
   background-color: ${(props) =>
-    props.$currentFilter ? "#e3e6e8" : "transparent"};
+    props.$currentSort ? "#e3e6e8" : "transparent"};
 
   &:first-child {
     border-top-left-radius: 3px;

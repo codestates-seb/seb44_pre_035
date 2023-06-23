@@ -2,8 +2,6 @@ import styled from "styled-components";
 import profileImage from "../../../img/profile_img.png";
 
 export default function PostUserInfo({ userId }) {
-  console.log(userId);
-
   return (
     <Wrapper>
       <Image src={profileImage} />
@@ -20,6 +18,7 @@ const Image = styled.img`
   width: 32px;
   height: 32px;
   margin-right: 5px;
+  border-radius: 3px;
 `;
 
 const Content = styled.div`

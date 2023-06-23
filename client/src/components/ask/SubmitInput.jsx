@@ -1,27 +1,11 @@
 import styled, { css } from "styled-components";
 
-function SubmitInput({
-  title,
-  comment,
-  htmlFor,
-  placeholder,
-  name,
-  handleChange,
-}) {
+function SubmitInput({ title, comment, name, handleChange, question }) {
   return (
     <Wrapper SubmitInput="true" direction="column">
-      <InputTitle text="title" htmlFor={htmlFor}>
-        {title}
-      </InputTitle>
-      <InputTitle text="sub" htmlFor={htmlFor}>
-        {comment}
-      </InputTitle>
-      <Input
-        id={htmlFor}
-        placeholder={placeholder}
-        name={name}
-        onChange={handleChange}
-      />
+      <InputTitle text="title">{title}</InputTitle>
+      <InputTitle text="sub">{comment}</InputTitle>
+      <Input name={name} onChange={handleChange} defaultValue={question} />
     </Wrapper>
   );
 }

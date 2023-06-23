@@ -1,13 +1,20 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { POST_TYPE } from "../utils";
 
-export default function PostController() {
-  const handleDeletePost = () => {};
-
+export default function PostController({ post, postType, handleDeletePost }) {
   return (
     <Wrapper>
-      <Button to="/edit">Edit</Button>
-      <Button as="button" type="button" onClick={handleDeletePost}>
+      {postType === POST_TYPE.QUESTION ? (
+        <Button to={`/edit/${post.questionId}`}>Edit</Button>
+      ) : postType === POST_TYPE.ANSWER ? (
+        <Button to={`/editAnswer/${post.answerId}`}>Edit</Button>
+      ) : null}
+      <Button
+        as="button"
+        type="button"
+        onClick={() => handleDeletePost(postType, post[`${postType}Id`])}
+      >
         Delete
       </Button>
     </Wrapper>

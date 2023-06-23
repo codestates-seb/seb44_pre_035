@@ -1,17 +1,49 @@
+/* eslint-disable no-undef */
 import styled from "styled-components";
 import SubmitInput from "../SubmitInput";
 import SubmitHTML from "../SubmitHTML";
 import SubmitButton from "../SubmitButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { postQuestion } from "../../../api/postAPI";
+import SubmitTag from "../SubmitTag";
 
-const AskInputs = () => {
-  const [ask, setAsk] = useState({ title: "", problem: "", try: "", tags: "" });
+export default function AskInputs() {
+  const [ask, setAsk] = useState({ title: "", content: "", tags: [] });
+  const [body, setBody] = useState({ problem: "", try: "" });
+
+  const nav = useNavigate();
+
+  // const handleAddTag = (e) => {
+  //   if (e.target.value.length !== 0 && e.key === "Enter") {
+  //     setTags((prev) => [...prev, e.target.value]);
+  //   }
+  // };
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  console.log(ask);
+  const handleSubmit = async () => {
+    if (body.problem.length < 20 && body.try.length < 20) {
+      alert(
+        "Make sure the problem input and try input contains more than 20 characters.",
+      );
+      return;
+    }
+
+    try {
+      await postQuestion(ask);
+      alert("Post successful :)");
+      nav("/");
+    } catch (error) {
+      alert("Post failed :(");
+    }
+  };
+
+  useEffect(() => {
+    setAsk((prev) => ({ ...prev, content: body.problem + "<br>" + body.try }));
+  }, [body.problem, body.try]);
 
   return (
     <Container>
@@ -24,25 +56,27 @@ const AskInputs = () => {
         />
         <SubmitHTML
           title="What are the details of your problem?"
-          comment="Introduce the problem and expand on what you put in the title. Minimum 20 characters."
+          comment="Introduce the problem and expand on what you put in the title."
+          name="problem"
+          setBody={setBody}
         />
         <SubmitHTML
           title="What did you try and what were you expecting?"
-          comment="Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters."
+          comment="Describe what you tried, what you expected to happen, and what actually resulted."
+          name="try"
+          setBody={setBody}
         />
-        <SubmitInput
+        <SubmitTag
           title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
-          name="tags"
-          handleChange={handleChange}
         />
       </Wrapper>
       <Wrapper>
-        <SubmitButton button="Past your question" />
+        <SubmitButton button="Post your question" handleSubmit={handleSubmit} />
       </Wrapper>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   display: flex;
@@ -59,5 +93,3 @@ const Wrapper = styled.div`
 
   /* border: 1px solid red; */
 `;
-
-export default AskInputs;

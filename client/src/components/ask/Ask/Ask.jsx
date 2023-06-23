@@ -3,9 +3,9 @@ import AskTitle from "./AskTitle";
 import AskHelpMsg from "./AskHelpMsg";
 import AskInputs from "./AskInputs";
 
-const Ask = ({ children }) => {
+export default function Ask({ children }) {
   return <Container>{children}</Container>;
-};
+}
 
 const Container = styled.div`
   height: 100%;
@@ -15,5 +15,3 @@ const Container = styled.div`
 Ask.Title = AskTitle;
 Ask.HelpMsg = AskHelpMsg;
 Ask.Inputs = AskInputs;
-
-export default Ask;

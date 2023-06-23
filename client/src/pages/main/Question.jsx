@@ -1,22 +1,48 @@
 import styled from "styled-components";
 
 import AskButton from "../../share/AskButton";
-import { useParams } from "react-router-dom";
-import { dummyQuestions } from "../../dummy/dummyQuestions";
-import { dummyAnswers } from "../../dummy/dummyAnswers";
+import { useNavigate, useParams } from "react-router-dom";
 import Writer from "../../share/Writer";
 import PostContainer from "../../components/main/question/PostContainer";
 import QuestionStatus from "../../components/main/question/QuestionStatus";
 import PostButton from "../../components/main/question/PostButton";
+import { useState, useEffect } from "react";
+import { deletePost, getQuestion, postAnswer } from "../../api/mainAPI";
+import { POST_TYPE } from "../../components/main/utils";
 
 export default function Question() {
   const { id: questionId } = useParams("id");
-  const question = dummyQuestions.find(
-    (item) => item.Question_id === Number(questionId),
-  );
-  const answers = dummyAnswers.filter(
-    (item) => item.Question_id === Number(questionId),
-  );
+  const [question, setQuestion] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [body, setBody] = useState("");
+  const navigate = useNavigate();
+
+  const requestGetQuestion = () => {
+    getQuestion(questionId).then((res) => {
+      setQuestion(res.data.data);
+      setAnswers(res.data.answerList);
+    });
+  };
+
+  const handleDeletePost = (postType, postId) => {
+    deletePost(postType, postId).then((res) => {
+      console.log(res);
+      if (postType === POST_TYPE.QUESTION) navigate("/");
+      else if (postType === POST_TYPE.ANSWER) requestGetQuestion();
+    });
+  };
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    postAnswer(questionId, body).then((res) => {
+      console.log(res);
+      requestGetQuestion();
+    });
+  };
+
+  useEffect(() => {
+    requestGetQuestion();
+  }, []);
 
   return (
     <Container>
@@ -28,22 +54,28 @@ export default function Question() {
         <AskButton />
       </PageHeader>
       <PageContent>
-        <PostContainer post={question} />
+        <PostContainer post={question} handleDeletePost={handleDeletePost} />
       </PageContent>
       <AnswerHeader>
         <AnswerStatus>{answers.length} Answers</AnswerStatus>
       </AnswerHeader>
       <AnswerContent>
         {answers.map((answer) => (
-          <PostContainer key={answer.Answer_id} post={answer} />
+          <PostContainer
+            key={answer.answerId}
+            post={answer}
+            handleDeletePost={handleDeletePost}
+          />
         ))}
       </AnswerContent>
       <AnswerWriter>
         <AnswerHeader>
           <AnswerStatus>Your Answer</AnswerStatus>
         </AnswerHeader>
-        <Writer />
-        <PostButton />
+        <AnswerForm onSubmit={handleSubmitForm}>
+          <Writer name="answer" setBody={setBody} />
+          <PostButton />
+        </AnswerForm>
       </AnswerWriter>
     </Container>
   );
@@ -70,6 +102,13 @@ const PageTitleBox = styled.div`
 const PageTitle = styled.h1`
   font-size: 27px;
   margin-bottom: 8px;
+
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  padding-right: 20px;
 `;
 
 const PageContent = styled.div``;
@@ -97,3 +136,5 @@ const AnswerWriter = styled.div`
     margin-top: 24px;
   }
 `;
+
+const AnswerForm = styled.form``;

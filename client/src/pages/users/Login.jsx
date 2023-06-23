@@ -1,10 +1,15 @@
+/* eslint-disable no-unused-vars */
+
 import styled from "styled-components";
 import LoginButton from "../../components/sign/Login/LoginButton";
 import LoginInputForm from "../../components/sign/Login/LoginFormInput";
 import logo_stack from "../../img/logo_stack.svg";
 import copyButton from "../../img/copyButton.svg";
 import { Link } from "react-router-dom";
-
+import { useEffect } from "react";
+import { Cookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { saveData } from "../../features/mypage/userDataSlice";
 const Page = styled.div`
   width: 100vw;
   height: 100vh;
@@ -23,7 +28,7 @@ const LoginWrapper = styled.div`
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 120%;
   margin-bottom: 16px;
 `;
 const Logowrapper = styled.div`
@@ -37,8 +42,9 @@ const Logowrapper = styled.div`
   }
 `;
 const FormWrapper = styled.div`
-  width: 100%;
-  margin-bottom: 24px;
+  width: 132%;
+  height: 160%;
+  margin-bottom: 29px;
   padding: 24px;
   border-radius: 7px;
   background-color: white;
@@ -81,10 +87,21 @@ const RedirectionDiv2 = styled.div`
   }
 `;
 
-const Signin = () => {
+const Login = () => {
+  const userId = localStorage.getItem("memberId")
+    ? JSON.parse(localStorage.getItem("memberId"))
+    : null;
+  const cookie = new Cookies();
+  const Token = cookie.get("token");
+
   const handleButtonClick = () => {
     console.log("action");
   };
+  useEffect(() => {
+    if (userId !== null && Token) {
+      window.location.replace("/");
+    }
+  }, []);
 
   return (
     <Page>
@@ -116,4 +133,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Login;
