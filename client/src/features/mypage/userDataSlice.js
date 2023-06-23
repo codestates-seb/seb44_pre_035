@@ -3,10 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userDataSlice = createSlice({
   name: "userData",
   initialState: {
-    memberId: sessionStorage.getItem("memberId"),
+    memberId: sessionStorage.getItem("memberId")
+      ? Number(sessionStorage.getItem("memberId"))
+      : 0,
     displayName: sessionStorage.getItem("displayName"),
     email: sessionStorage.getItem("email"),
-    createdAt: sessionStorage.getItem("createdAt"),
+    createdAt: sessionStorage.getItem("createdAt")
+      ? Number(sessionStorage.getItem("createdAt"))
+      : 0,
   },
   reducers: {
     saveData: (state, action) => {

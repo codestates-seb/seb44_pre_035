@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import MyPage_header from "../../components/mypage/MyPage_header";
 import MyPage_menu from "../../components/mypage/MyPage_menu";
 import MyPage_profile from "../../components/mypage/MyPage_profile";
@@ -24,14 +23,7 @@ const Content = styled.div`
   padding: 24px;
   font-size: 0.8rem;
 `;
-const PlsLoginDiv = styled.div`
-  padding: 24px;
-  height: calc(100vh - 23.4rem);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-`;
+
 /**마이페이지 MainContent */
 const MainContent = styled.div`
   display: flex;
@@ -42,35 +34,20 @@ const Section = styled.div`
 `;
 /**Mypage 컴포넌트 */
 export default function Mypage() {
-  const state = useSelector((state) => state.log);
-  if (
-    !(
-      state.value === 1 ||
-      state.value === "1" ||
-      state.value === 0 ||
-      state.value === "0"
-    )
-  ) {
-    window.location.reload();
-  }
   return (
     <React.Fragment>
       <MainDiv>
         <Container>
-          {state.value === 1 || state.value === "1" ? (
-            <Content>
-              <MyPage_header />
-              <MyPage_menu />
-              <MainContent>
-                <Section>
-                  {" "}
-                  <MyPage_profile />
-                </Section>
-              </MainContent>
-            </Content>
-          ) : (
-            <PlsLoginDiv>로그인이 필요한 페이지입니다.</PlsLoginDiv>
-          )}
+          <Content>
+            <MyPage_header />
+            <MyPage_menu />
+            <MainContent>
+              <Section>
+                {" "}
+                <MyPage_profile />
+              </Section>
+            </MainContent>
+          </Content>
         </Container>
       </MainDiv>
     </React.Fragment>

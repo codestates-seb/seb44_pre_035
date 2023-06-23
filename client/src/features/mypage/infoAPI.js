@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const InfoAPI = async (memberId, token) => {
+export const InfoAPI = async (userId, token) => {
   const URL = process.env.REACT_APP_URL;
   const response = await axios
-    .get(URL + `/members/user/${memberId}`, {
+    .get(URL + `/accounts/${userId}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `${token}`,
