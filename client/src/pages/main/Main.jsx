@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { getQuestions } from "../../api/mainAPI";
 
 import { useLocation } from "react-router-dom";
+import { LIST_TYPE } from "../../components/main/utils";
 
 export default function Main() {
   const [questions, setQuestions] = useState([]);
@@ -24,7 +25,6 @@ export default function Main() {
 
   useEffect(() => {
     getQuestions(requestInfo).then((res) => {
-      console.log(res);
       setQuestions(res.data.data);
       setTotalQuestionsInfo(res.data.pageInfo);
     });
@@ -37,6 +37,7 @@ export default function Main() {
         <AskButton />
       </PageHeader>
       <QuestionList
+        listType={LIST_TYPE.QUESTION}
         totalQuestionsInfo={totalQuestionsInfo}
         questions={questions}
         sort={requestInfo.sort}
