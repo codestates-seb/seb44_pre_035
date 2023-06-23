@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+// import { getTags } from "../../api/postAPI";
 
-const wholeTag = ["css", "javaScript", "java", "react"];
+// 서버 닫혀 있을 경우에 사용할 dummy 데이터
+const wholeTag = [
+  { tagId: 1, tagName: "js", tagContent: "" },
+  { tagId: 2, tagName: "java", tagContent: "" },
+  { tagId: 3, tagName: "Python", tagContent: "" },
+];
 
 export default function SubmitTag({ title, comment, question }) {
+  const [getTagList, setGetTagList] = useState([]);
+
+  console.log("------getTagList", getTagList);
+
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
+  // 서버 열려있는 경우, wholeTag >> getTagList
   const [dropDownList, setDropDownList] = useState(wholeTag);
 
-  // console.log("tagItem", tagItem);
-  // console.log("tagList", tagList);
-  // console.log("isHaveTagItem", isHaveTagItem);
-  // console.log("dropDownList", dropDownList);
+  console.log("tagItem", tagItem);
+  console.log("tagList", tagList);
+  console.log("isHaveTagItem", isHaveTagItem);
+  console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -26,16 +37,22 @@ export default function SubmitTag({ title, comment, question }) {
     }
   };
 
-  // const handleDelete = (id) => {
-  //   setTagList(tagList.filter((tag) => tag.id !== id));
-  // };
+  const handleDelete = (id) => {
+    const deleteTag = tagList.filter((tag) => {
+      return tag.tagId !== id;
+    });
+    setTagList(deleteTag);
+  };
 
+  // 서버 열려있는 경우, wholeTag >> getTagList
   const handleDropDownList = () => {
     if (tagItem === "") {
       setIsHaveTagItem(false);
       setDropDownList([]);
     } else {
-      const IncludedTag = wholeTag.filter((tag) => tag.includes(tagItem));
+      const IncludedTag = wholeTag.filter((tag) =>
+        tag.tagName.includes(tagItem),
+      );
       setDropDownList(IncludedTag);
     }
   };
@@ -44,6 +61,22 @@ export default function SubmitTag({ title, comment, question }) {
     setTagItem(e);
     setIsHaveTagItem(false);
   };
+
+  // 서버 닫혀 있을 경우에 사용할 태그 Get 요청
+  useEffect(() => {
+    setGetTagList(wholeTag);
+  }, []);
+
+  // useEffect(() => {
+  //   const response = async () => {
+  //     try {
+  //       await getTags();
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   setGetTagList(response.data);
+  // }, []);
 
   useEffect(() => {
     setTagItem("");
@@ -58,7 +91,13 @@ export default function SubmitTag({ title, comment, question }) {
           return (
             <TagItem key={index}>
               <Text>{tag}</Text>
-              <Button>X</Button>
+              <Button
+                onClick={() => {
+                  handleDelete(tag.tagId);
+                }}
+              >
+                X
+              </Button>
             </TagItem>
           );
         })}
@@ -77,15 +116,15 @@ export default function SubmitTag({ title, comment, question }) {
             {dropDownList.length === 0 && (
               <DropDownItem>No corresponding tags found</DropDownItem>
             )}
-            {dropDownList.map((dropDownItem, idex) => {
+            {dropDownList.map((dropDownItem) => {
               return (
                 <DropDownItem
-                  key={idex}
+                  key={dropDownItem.tagId}
                   onClick={() => {
-                    handleClickDropDownTag(dropDownItem);
+                    handleClickDropDownTag(dropDownItem.tagName);
                   }}
                 >
-                  {dropDownItem}
+                  {dropDownItem.tagName}
                 </DropDownItem>
               );
             })}
