@@ -50,7 +50,8 @@ public class QuestionController {
                                           @Positive long questionId) {
         Question question = questionService.findQuestion(questionId);
         List<Answer> answerList = questionService.findQuestionAnswer(question);
-        question.setAnswers(answerList.size());
+        //Question
+
         return new ResponseEntity<>(
                 new QAResponseDto<>(questionMapper.questionToQuestionResponseDto(question),
                         answerMapper.answersToAnswerResponseDtos(answerList)),
@@ -70,37 +71,52 @@ public class QuestionController {
                         pageQuestions), HttpStatus.OK);
     }
 
-    @GetMapping("/search/{keyword}")
-    public ResponseEntity searchQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
-                                       @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
-                                       @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
-                                       @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
-                                       @PathVariable("keyword") String keyword){
-        Page<Question> pageQuestions = questionService.searchQuestions(page-1, size, criteria, sort, keyword);
-        List<Question> questions = pageQuestions.getContent().stream().map(Q -> {
-            Q.setAnswers(Q.getAnswerList().size());
-            return Q;
-        }).collect(Collectors.toList());
+    @GetMapping("/isAnswered/{YorN}")
+    public ResponseEntity getAnsweredQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                                               @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
+                                               @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
+                                               @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
+                                               @PathVariable("YorN") String YorN){
+        Page<Question> pageQuestions = questionService.findAnsweredQuestions(page-1, size, criteria, sort, YorN);
+        List<Question> questions = pageQuestions.getContent();
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions),
                         pageQuestions), HttpStatus.OK);
     }
 
-    @GetMapping("/search/isAnswered/{YorN}")
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity searchAnsweredQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
+                                                  @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
+                                                  @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
+                                                  @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
+                                                  @PathVariable("keyword") String keyword){
+        Page<Question> pageQuestions = questionService.searchQuestions(page-1, size, criteria, sort, keyword);
+        List<Question> questions = pageQuestions.getContent();
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions),
+                        pageQuestions), HttpStatus.OK);
+    }
+
+    @GetMapping("/search/{keyword}/isAnswered/{YorN}")
     public ResponseEntity searchAnsweredQuestions(@Positive @RequestParam(required = false, defaultValue = "1", value = "page") int page,
                                           @Positive @RequestParam(required = false, defaultValue = "5", value = "size") int size,
                                           @RequestParam(required = false, defaultValue = "modifiedAt", value = "criteria") String criteria,
                                           @RequestParam(required = false, defaultValue = "DESC", value = "sort") String sort,
+                                          @PathVariable("keyword") String keyword,
                                           @PathVariable("YorN") String YorN){
-        Page<Question> pageQuestions = questionService.searchAnsweredQuestions(page-1, size, criteria, sort, YorN);
-        List<Question> questions = pageQuestions.getContent().stream().map(Q -> {
-            Q.setAnswers(Q.getAnswerList().size());
-            return Q;
-        }).collect(Collectors.toList());
+        Page<Question> pageQuestions = questionService.searchQuestions(page-1, size, criteria, sort, keyword);
+        List<Question> questions = pageQuestions.getContent();
+
+        List<Question> answeredQuestions = (YorN.equals("N")) ?
+                questions.stream().filter(Question -> Question.getAnswers() == 0).collect(Collectors.toList())
+                : questions.stream().filter(Question -> Question.getAnswers() != 0).collect(Collectors.toList());
+
+
 
         return new ResponseEntity<>(
-                new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(questions),
+                new MultiResponseDto<>(questionMapper.questionsToQuestionsResponseDtos(answeredQuestions),
                         pageQuestions), HttpStatus.OK);
     }
 

@@ -68,6 +68,16 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
+    public Page<Question> findAnsweredQuestions(int page, int size, String criteria, String sort, String YorN){
+        Pageable pageable = (sort.equals("ASC")) ?
+                PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
+                : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
+        return (YorN.equals("N")) ? questionRepository.findByAnswersLessThan(1, pageable)
+        : questionRepository.findByAnswersGreaterThan(0, pageable);
+    }
+
+
+    @Override
     public Page<Question> searchQuestions(int page, int size, String criteria, String sort, String keyword){
         Pageable pageable = (sort.equals("ASC")) ?
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
@@ -76,13 +86,13 @@ public class QuestionServiceImpl implements QuestionService{
     }
 
     @Override
-    public Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String YorN){
+    public Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String keyword, String YorN){
         Pageable pageable = (sort.equals("ASC")) ?
                 PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, criteria))
                 : PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, criteria));
         return (YorN.equals("N")) ?
-                questionRepository.findByAnswersEquals(0, pageable)
-                : questionRepository.findByAnswersGreaterThan(0, pageable);
+                questionRepository.findByAnswersLessThanAndTitleContainingOrContentContaining(1, keyword,keyword, pageable)
+                : questionRepository.findByAnswersGreaterThanAndTitleContainingOrContentContaining(0, keyword,keyword, pageable);
     }
 
     @Override

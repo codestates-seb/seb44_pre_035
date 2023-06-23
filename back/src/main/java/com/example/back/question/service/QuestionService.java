@@ -17,9 +17,11 @@ public interface QuestionService {
 
     Page<Question> findQuestions(int page, int size, String criteria, String sort);
 
+    Page<Question> findAnsweredQuestions(int page, int size, String criteria, String sort, String YorN    );
+
     Page<Question> searchQuestions(int page, int size, String criteria, String sort, String keyword);
 
-    Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String YorN);
+    Page<Question> searchAnsweredQuestions(int page, int size, String criteria, String sort, String keyword, String YorN);
 
     void deleteQuestion(Long questionId);
 

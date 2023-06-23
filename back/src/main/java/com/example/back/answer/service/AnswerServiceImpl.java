@@ -40,6 +40,7 @@ public class AnswerServiceImpl implements AnswerService {
 
         Question question = questionRepository.findById(questionId).orElseThrow();
         question.setAnswers(question.getAnswers()+1);
+        questionRepository.saveAndFlush(question);
 
         answer.setQuestion(question);
         Answer createdAnswer = answerRepository.save(answer);
