@@ -13,7 +13,12 @@ export default function QuestionList({
     // 총 페이지 수가 설정 페이지 버튼 수보다 작으면 총 페이지 수만큼만 생성
     totalQuestionsInfo.totalPages < NUMBER_OF_PAGE_BUTTON
       ? Array.from(
-          { length: totalQuestionsInfo.totalPages },
+          {
+            length:
+              totalQuestionsInfo.totalPages < 1
+                ? 1
+                : totalQuestionsInfo.totalPages,
+          },
           (value, index) => index + 1,
         )
       : // 현재 페이지 버튼이 가운데 오도록 생성
