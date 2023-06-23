@@ -12,6 +12,8 @@ import java.util.List;
 @Getter
 public class QuestionPatchDto {
 
+    private long questionId;
+
     //private long accountId;
 
     @NotSpace

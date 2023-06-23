@@ -38,6 +38,7 @@ public interface QuestionMapper {
 
     default Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto) {
         Question question =  new Question();
+        question.setQuestionId(questionPatchDto.getQuestionId());
 
         List<QuestionTag> questionTags = questionPatchDto.getQuestionTags().stream()
                 .map(questionTagDto -> {
@@ -51,7 +52,6 @@ public interface QuestionMapper {
         question.setQuestionTags(questionTags);
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
-        question.setViews(0);
 
         return question;
     }

@@ -83,7 +83,11 @@ public class QuestionServiceImpl implements QuestionService{
         Question foundQuestion = findQuestion(questionId);
         foundQuestion.setTitle(question.getTitle());
         foundQuestion.setContent(question.getContent());
-        foundQuestion.setModifiedAt(question.getModifiedAt());
+        foundQuestion.setQuestionTags(question.getQuestionTags());
+
+        //1. Tag가 가진 questionTag에서 question을 빼야한다
+        //2. Tag가 가진
+
 
         questionRepository.save(foundQuestion);
         return foundQuestion;
