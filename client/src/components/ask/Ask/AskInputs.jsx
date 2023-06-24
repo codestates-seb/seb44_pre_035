@@ -12,6 +12,8 @@ export default function AskInputs() {
   const [ask, setAsk] = useState({ title: "", content: "", tags: [] });
   const [body, setBody] = useState({ problem: "", try: "" });
 
+  console.log("*******ask", ask);
+
   const nav = useNavigate();
 
   // const handleAddTag = (e) => {
@@ -69,6 +71,7 @@ export default function AskInputs() {
         <SubmitTag
           title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
+          setAsk={setAsk}
         />
       </Wrapper>
       <Wrapper>

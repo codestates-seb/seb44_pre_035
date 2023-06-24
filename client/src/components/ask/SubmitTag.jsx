@@ -9,11 +9,12 @@ const wholeTag = [
   { tagId: 3, tagName: "Python", tagContent: "" },
 ];
 
-export default function SubmitTag({ title, comment, question }) {
+// eslint-disable-next-line no-unused-vars
+export default function SubmitTag({ title, comment, question, setAsk }) {
   // eslint-disable-next-line no-unused-vars
   const [getTagList, setGetTagList] = useState([]);
 
-  // console.log("------getTagList", getTagList);
+  console.log("------getTagList", getTagList);
 
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
@@ -22,10 +23,10 @@ export default function SubmitTag({ title, comment, question }) {
   // 서버 열려있는 경우, wholeTag >> getTagList
   const [dropDownList, setDropDownList] = useState(wholeTag);
 
-  // console.log("tagItem", tagItem);
-  // console.log("tagList", tagList);
-  // console.log("isHaveTagItem", isHaveTagItem);
-  // console.log("dropDownList", dropDownList);
+  console.log("tagItem", tagItem);
+  console.log("tagList", tagList);
+  console.log("isHaveTagItem", isHaveTagItem);
+  console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -80,7 +81,16 @@ export default function SubmitTag({ title, comment, question }) {
   // }, []);
 
   useEffect(() => {
-    setTagItem("");
+    if (tagList.length !== 0) {
+      const filterTag = getTagList.filter((tag) => {
+        return tag.tagName === tagList[tagList.length - 1];
+      });
+
+      const addTag = filterTag[0].tagId;
+
+      setAsk((prev) => ({ ...prev, tags: [...prev.tags, { tagId: addTag }] }));
+      setTagItem("");
+    }
   }, [tagList]);
 
   useEffect(handleDropDownList, [tagItem]);
