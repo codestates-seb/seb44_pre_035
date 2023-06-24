@@ -6,6 +6,7 @@ import com.example.back.account.repository.AccountRepository;
 import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
+import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.question.dto.*;
 import com.example.back.question.entity.Question;
 import com.example.back.question.mapper.QuestionMapper;
@@ -41,7 +42,7 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final AnswerMapper answerMapper;
     private final QuestionRepository questionRepository;
-    private final AccountRepository accountRepository;
+    private final AnswerRepository answerRepository;
 
     @PostMapping("/ask")
     public ResponseEntity postQuestion(
@@ -59,12 +60,13 @@ public class QuestionController {
         List<Answer> answerList = questionService.findQuestionAnswer(question);
         //Question
         QuestionResponseDto questionResponseDto = questionMapper.questionToQuestionResponseDto(question);
-        Long accountID = questionRepository.findAccountIdByQuestionId(questionResponseDto.getQuestionId());
-        Account account = accountRepository.findById(accountID).orElseThrow();
-        questionResponseDto.setAccount(account);
+        Account questionAccount = question.getAccount();
+        questionResponseDto.setAccount(questionAccount);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
         for (AnswerResponseDto answerResponseDto : answerResponseDtos) {
-            answerResponseDto.setAccount(account);
+            Answer answer = answerRepository.findById(answerResponseDto.getAnswerId()).orElseThrow();
+            Account answerAccount = answer.getAccount();
+            answerResponseDto.setAccount(answerAccount);
         }
 
         return new ResponseEntity<>(
@@ -82,8 +84,8 @@ public class QuestionController {
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
-            Long accountID = questionRepository.findAccountIdByQuestionId(questionResponseDto.getQuestionId());
-            Account account = accountRepository.findById(accountID).orElseThrow();
+            Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
+            Account account = question.getAccount();
             questionResponseDto.setAccount(account);
         }
 
@@ -103,8 +105,8 @@ public class QuestionController {
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
-            Long accountID = questionRepository.findAccountIdByQuestionId(questionResponseDto.getQuestionId());
-            Account account = accountRepository.findById(accountID).orElseThrow();
+            Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
+            Account account = question.getAccount();
             questionResponseDto.setAccount(account);
         }
 
@@ -123,8 +125,8 @@ public class QuestionController {
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
-            Long accountID = questionRepository.findAccountIdByQuestionId(questionResponseDto.getQuestionId());
-            Account account = accountRepository.findById(accountID).orElseThrow();
+            Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
+            Account account = question.getAccount();
             questionResponseDto.setAccount(account);
         }
 
@@ -148,8 +150,8 @@ public class QuestionController {
 
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(answeredQuestions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
-            Long accountID = questionRepository.findAccountIdByQuestionId(questionResponseDto.getQuestionId());
-            Account account = accountRepository.findById(accountID).orElseThrow();
+            Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
+            Account account = question.getAccount();
             questionResponseDto.setAccount(account);
         }
 

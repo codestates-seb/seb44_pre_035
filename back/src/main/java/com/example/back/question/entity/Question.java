@@ -22,7 +22,7 @@ import java.util.List;
 public class Question extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long questionId;
+    private Long questionId;
 
     @Column(nullable = false)
     private String title;
