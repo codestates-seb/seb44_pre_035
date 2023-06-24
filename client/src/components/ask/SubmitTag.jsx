@@ -39,10 +39,11 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
     }
   };
 
-  const handleDelete = (id) => {
-    const deleteTag = tagList.filter((tag) => {
-      return tag.tagId !== id;
+  const handleDelete = (tag) => {
+    const deleteTag = tagList.filter((item) => {
+      return item !== tag;
     });
+
     setTagList(deleteTag);
   };
 
@@ -104,7 +105,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
               <Text>{tag}</Text>
               <Button
                 onClick={() => {
-                  handleDelete(tag.tagId);
+                  handleDelete(tag);
                 }}
               >
                 X
