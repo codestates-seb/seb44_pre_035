@@ -6,7 +6,7 @@ export default function TagList({ tags, className }) {
     <Wrapper className={className}>
       <List>
         {tags.map((tag) => (
-          <ListItem key={tag}>
+          <ListItem key={tag.tagId}>
             <TagListItem tag={tag} />
           </ListItem>
         ))}

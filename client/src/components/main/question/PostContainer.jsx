@@ -29,7 +29,10 @@ export default function PostContainer({ post, handleDeletePost }) {
               handleDeletePost={handleDeletePost}
             />
           </ContentMetaPart>
-          <PostUserInfo userId={post.user_id} />
+          <PostUserInfo
+            nickname={post.nickname}
+            profileImagePath={post.profileImagePath}
+          />
         </ContentMeta>
       </Content>
     </Wrapper>

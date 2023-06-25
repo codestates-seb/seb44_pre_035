@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import profileImage from "../../../img/profile_img.png";
 
-export default function QuestionListItemUserInfo({ accountId }) {
+export default function QuestionListItemUserInfo({
+  nickname,
+  profileImagePath,
+}) {
   return (
     <Wrapper>
-      <Image src={profileImage} />
-      <Content>{accountId} hahagarden</Content>
+      <Image src={profileImagePath} />
+      <Content>{nickname}</Content>
     </Wrapper>
   );
 }

@@ -1,11 +1,6 @@
 import styled from "styled-components";
-import { dummyAnswers } from "../../../dummy/dummyAnswers";
 
 export default function QuestionListItemStatus({ item }) {
-  const numberOfAnswer = dummyAnswers.filter(
-    (answer) => answer.Question_id === item.Question_id,
-  ).length;
-
   return (
     <Wrapper>
       <ListItem>
@@ -13,11 +8,11 @@ export default function QuestionListItemStatus({ item }) {
         <LastText>{"votes"}</LastText>
       </ListItem>
       <ListItem>
-        <FirstText>{numberOfAnswer}</FirstText>
+        <FirstText>{item.answers}</FirstText>
         <LastText>{"answers"}</LastText>
       </ListItem>
       <ListItem>
-        <FirstText>{item.view}</FirstText>
+        <FirstText>{item.views}</FirstText>
         <LastText>{"views"}</LastText>
       </ListItem>
     </Wrapper>
