@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import QuestionListItemStatus from "./QuestionListItemStatus";
 // import TagList from "../TagList";
 import QuestionListItemUserInfo from "./QuestionListItemUserInfo";
+import TagList from "../TagList";
 
 export default function QuestionListItem({ item }) {
   return (
@@ -17,8 +18,11 @@ export default function QuestionListItem({ item }) {
           {item.content.replace(/(<([^>]+)>)/gi, "")}
         </ContentExcerpt>
         <ContentMeta>
-          {/* <TagList tags={item.tags} /> */}
-          <QuestionListItemUserInfo accountId={item.accountId} />
+          {item.tags && <TagList tags={item.tags} />}
+          <QuestionListItemUserInfo
+            nickname={item.nickname}
+            profileImagePath={item.profileImagePath}
+          />
         </ContentMeta>
       </Content>
     </Wrapper>

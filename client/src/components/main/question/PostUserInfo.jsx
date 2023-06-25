@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import profileImage from "../../../img/profile_img.png";
 
-export default function PostUserInfo({ userId }) {
+export default function PostUserInfo({ nickname, profileImagePath }) {
   return (
     <Wrapper>
-      <Image src={profileImage} />
-      <Content>{userId} hahagarden</Content>
+      <Image src={profileImagePath} />
+      <Content>{nickname} </Content>
     </Wrapper>
   );
 }
