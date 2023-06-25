@@ -17,25 +17,18 @@ export default function Main() {
   });
   const { search } = useLocation();
   const tab = new URLSearchParams(search).get("tab") || TAB_TYPE.ALL;
+  const sort = new URLSearchParams(search).get("sort") || SORT_TYPE.NEWEST;
   const requestInfo = {
     page: Number(new URLSearchParams(search).get("page")) || 1,
     size: 2,
-    criteria: [SORT_TYPE.NEWEST, SORT_TYPE.OLDEST].includes(
-      new URLSearchParams(search).get("sort"),
-    )
+    criteria: [SORT_TYPE.NEWEST, SORT_TYPE.OLDEST].includes(sort)
       ? "modifiedAt"
-      : [SORT_TYPE.HIGHVIEWS, SORT_TYPE.LOWVIEWS].includes(
-          new URLSearchParams(search).get("sort"),
-        )
+      : [SORT_TYPE.HIGHVIEWS, SORT_TYPE.LOWVIEWS].includes(sort)
       ? "views"
       : "modifiedAt",
-    sort: [SORT_TYPE.NEWEST, SORT_TYPE.HIGHVIEWS].includes(
-      new URLSearchParams(search).get("sort"),
-    )
+    sort: [SORT_TYPE.NEWEST, SORT_TYPE.HIGHVIEWS].includes(sort)
       ? "DESC"
-      : [SORT_TYPE.OLDEST, SORT_TYPE.LOWVIEWS].includes(
-          new URLSearchParams(search).get("sort"),
-        )
+      : [SORT_TYPE.OLDEST, SORT_TYPE.LOWVIEWS].includes(sort)
       ? "ASC"
       : "DESC",
   };
@@ -74,7 +67,7 @@ export default function Main() {
         totalQuestionsInfo={totalQuestionsInfo}
         questions={questions}
         tab={tab}
-        sort={requestInfo.sort}
+        sort={sort}
         page={requestInfo.page}
       />
     </Container>
