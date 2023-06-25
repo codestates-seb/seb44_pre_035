@@ -52,8 +52,8 @@ public interface QuestionMapper {
     default QuestionResponseDto questionToQuestionResponseDto(Question question){
         return QuestionResponseDto.builder()
                 .questionId(question.getQuestionId())
-            //.accountId(question.getAccount().getId())
-            //.nickname(question.getAccount().getNickname())
+                .accountId(question.getAccount().getId())
+                .nickname(question.getAccount().getNickname())
                 .title(question.getTitle())
                 .content(question.getContent())
                 .views(question.getViews())
@@ -70,8 +70,8 @@ public interface QuestionMapper {
                 .map(question -> QuestionResponseDto
                         .builder()
                         .questionId(question.getQuestionId())
-                        //.accountId(question.getAccount().getId())
-                        //.nickname(question.getAccount().getNickname())
+                        .accountId(question.getAccount().getId())
+                        .nickname(question.getAccount().getNickname())
                         .title(question.getTitle())
                         .content(question.getContent())
                         .views(question.getViews())
@@ -89,7 +89,8 @@ public interface QuestionMapper {
                         .builder()
                         .answerId(answer.getAnswerId())
                         .questionId(answer.getQuestion().getQuestionId())
-                        //accountId(answer.getAccountId())
+                        .nickname(answer.getAccount().getNickname())
+                        .accountId(answer.getAccount().getId())
                         .content(answer.getContent())
                         .build())
                 .collect(Collectors.toList());

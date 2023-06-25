@@ -23,6 +23,7 @@ public class AnswerController {
             @Validated @RequestBody AnswerPostDto answerPostDto) {
         /**/
         AnswerResponseDto createdAnswer = answerService.createAnswer(questionId, answerPostDto);
+        createdAnswer.setQuestionId(questionId);
         return new ResponseEntity<>(createdAnswer, HttpStatus.CREATED);
     }
 

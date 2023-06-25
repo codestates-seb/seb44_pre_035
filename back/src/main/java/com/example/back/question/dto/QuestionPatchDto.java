@@ -16,10 +16,10 @@ public class QuestionPatchDto {
 
     //private long accountId;
 
-    @NotSpace
+    @NotSpace(message = "제목이 비었습니다.")
     private String title;
 
-    @NotSpace
+    @NotSpace(message = "내용이 비었습니다.")
     private String content;
 
     private List<QuestionTagDto> questionTags;

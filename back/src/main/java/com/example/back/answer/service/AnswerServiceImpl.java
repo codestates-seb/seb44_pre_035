@@ -29,7 +29,6 @@ public class AnswerServiceImpl implements AnswerService {
     private final AnswerMapper answerMapper;
     private final AccountRepository accountRepository;
     private final QuestionRepository questionRepository;
-
     private final CommentRepository commentRepository;
 
 
@@ -66,7 +65,8 @@ public class AnswerServiceImpl implements AnswerService {
     public AnswerResponseDto getAnswer(Long answerId) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
         if (answer != null) {
-            return answerMapper.answerToAnswerResponseDto(answer);
+            AnswerResponseDto answerResponse = answerMapper.answerToAnswerResponseDto(answer);
+            return answerResponse;
         }
         return null; // or throw an exception indicating that the answer with the given id was not found
     }

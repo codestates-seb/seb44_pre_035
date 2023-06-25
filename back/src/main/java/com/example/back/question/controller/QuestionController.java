@@ -7,6 +7,10 @@ import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.comment.dto.CommentResponseDto;
+import com.example.back.comment.entity.Comment;
+import com.example.back.comment.mapper.CommentMapper;
+import com.example.back.comment.repository.CommentRepository;
 import com.example.back.question.dto.*;
 import com.example.back.question.entity.Question;
 import com.example.back.question.mapper.QuestionMapper;
@@ -41,8 +45,10 @@ public class QuestionController {
     private final TagServiceImpl tagService;
     private final QuestionMapper questionMapper;
     private final AnswerMapper answerMapper;
+    private final CommentMapper commentMapper;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private final CommentRepository commentRepository;
 
     @PostMapping("/ask")
     public ResponseEntity postQuestion(
@@ -60,13 +66,25 @@ public class QuestionController {
         List<Answer> answerList = questionService.findQuestionAnswer(question);
         //Question
         QuestionResponseDto questionResponseDto = questionMapper.questionToQuestionResponseDto(question);
-        Account questionAccount = question.getAccount();
-        questionResponseDto.setAccount(questionAccount);
+        //Account questionAccount = question.getAccount();
+        //questionResponseDto.setAccount(questionAccount);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
         for (AnswerResponseDto answerResponseDto : answerResponseDtos) {
             Answer answer = answerRepository.findById(answerResponseDto.getAnswerId()).orElseThrow();
-            Account answerAccount = answer.getAccount();
-            answerResponseDto.setAccount(answerAccount);
+            //Account answerAccount = answer.getAccount();
+            //answerResponseDto.setAccount(answerAccount);
+            answerResponseDto.setQuestionId(answer.getQuestion().getQuestionId());
+
+            List<Comment> commentList = commentRepository.findAllByAnswer(answer);
+            List<CommentResponseDto> commentResponseDtos = commentMapper.commentsToCommentResponseDtos(commentList);
+            for (CommentResponseDto commentResponseDto : commentResponseDtos){
+                Comment comment = commentRepository.findById(commentResponseDto.getCommentId()).orElseThrow();
+                //Account commentAccount = comment.getAccount();
+                //commentResponseDto.setAccountId(commentAccount.getId());
+                commentResponseDto.setAnswerId(comment.getAnswer().getAnswerId());
+            }
+
+            answerResponseDto.setCommentList(commentResponseDtos);
         }
 
         return new ResponseEntity<>(
@@ -85,8 +103,8 @@ public class QuestionController {
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
             Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
-            Account account = question.getAccount();
-            questionResponseDto.setAccount(account);
+            //Account account = question.getAccount();
+            //questionResponseDto.setAccount(account);
         }
 
 
@@ -106,8 +124,8 @@ public class QuestionController {
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
             Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
-            Account account = question.getAccount();
-            questionResponseDto.setAccount(account);
+            //Account account = question.getAccount();
+            //questionResponseDto.setAccount(account);
         }
 
         return new ResponseEntity<>(
@@ -126,8 +144,8 @@ public class QuestionController {
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
             Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
-            Account account = question.getAccount();
-            questionResponseDto.setAccount(account);
+            //Account account = question.getAccount();
+            //questionResponseDto.setAccount(account);
         }
 
         return new ResponseEntity<>(
@@ -151,8 +169,8 @@ public class QuestionController {
         List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(answeredQuestions);
         for (QuestionResponseDto questionResponseDto : questionResponseDtos) {
             Question question = questionRepository.findById(questionResponseDto.getQuestionId()).orElseThrow();
-            Account account = question.getAccount();
-            questionResponseDto.setAccount(account);
+            //Account account = question.getAccount();
+            //questionResponseDto.setAccount(account);
         }
 
         return new ResponseEntity<>(

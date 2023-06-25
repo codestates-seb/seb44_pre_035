@@ -28,6 +28,7 @@ public class CommentController {
                                                             @Validated @RequestBody CommentPostDto commentPostDto) {
         Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
         CommentResponseDto createdComment = commentMapper.commentToCommentResponseDto(commentService.createComment(answerId, commentPostDto));
+        createdComment.setAnswerId(answerId);
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
     }
 

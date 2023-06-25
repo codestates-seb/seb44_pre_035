@@ -1,11 +1,13 @@
 package com.example.back.answer.dto;
 
 import com.example.back.account.entity.Account;
+import com.example.back.comment.dto.CommentResponseDto;
 import com.example.back.comment.entity.Comment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -20,6 +22,8 @@ public class AnswerResponseDto {
     private String content;
     private String nickname;
     private String profileImagePath;
+
+    private List<CommentResponseDto> commentList = new ArrayList<>();
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
