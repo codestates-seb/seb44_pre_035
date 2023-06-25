@@ -34,6 +34,27 @@ export const getQuestion = async (questionId) => {
   }
 };
 
+// 답변 유무에 따라 질문들 가져오기
+export const getQuestionsAnswered = async (
+  { page, size, criteria, sort },
+  yOrN,
+) => {
+  try {
+    const res = await axios({
+      url: `/questions/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      method: "get",
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const searchQuestion = async (
   keyword,
   { page, size, criteria, sort },
@@ -41,6 +62,28 @@ export const searchQuestion = async (
   try {
     const res = await axios({
       url: `/questions/search/${keyword}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      method: "get",
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// 검색 후 답변 유무에 따라 질문들 가져오기
+export const searchQuestionsAnswered = async (
+  keyword,
+  { page, size, criteria, sort },
+  yOrN,
+) => {
+  try {
+    const res = await axios({
+      url: `/questions/search/${keyword}/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,

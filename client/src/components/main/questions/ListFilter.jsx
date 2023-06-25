@@ -1,25 +1,33 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { LIST_TYPE } from "../utils";
+import { LIST_TYPE, TAB_TYPE } from "../utils";
 
-export default function ListFilter({ listType, sort, keyword }) {
+export default function ListFilter({ listType, tab, sort, keyword }) {
   return (
     <Wrapper>
       <ListFilterItem
         to={`?${
           listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-        }tab=DESC`}
-        $currentSort={sort === "DESC"}
+        }tab=${TAB_TYPE.ALL}&sort=${sort}`}
+        $currentTab={tab === TAB_TYPE.ALL}
       >
-        Newest
+        All
       </ListFilterItem>
       <ListFilterItem
         to={`?${
           listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-        }tab=ASC`}
-        $currentSort={sort === "ASC"}
+        }tab=${TAB_TYPE.ANSWERED}&sort=${sort}`}
+        $currentTab={tab === TAB_TYPE.ANSWERED}
       >
-        Oldest
+        Answered
+      </ListFilterItem>
+      <ListFilterItem
+        to={`?${
+          listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
+        }tab=${TAB_TYPE.UNANSWERED}&sort=${sort}`}
+        $currentTab={tab === TAB_TYPE.UNANSWERED}
+      >
+        Unanswered
       </ListFilterItem>
     </Wrapper>
   );
@@ -34,7 +42,7 @@ const ListFilterItem = styled(Link)`
   padding: 9.6px;
   border: 1px solid #838c95;
   background-color: ${(props) =>
-    props.$currentSort ? "#e3e6e8" : "transparent"};
+    props.$currentTab ? "#e3e6e8" : "transparent"};
 
   &:first-child {
     border-top-left-radius: 3px;

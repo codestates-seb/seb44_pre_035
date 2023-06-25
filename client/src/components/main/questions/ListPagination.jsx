@@ -5,6 +5,7 @@ import { LIST_TYPE } from "../utils";
 export default function ListPagination({
   listType,
   totalQuestionsInfo,
+  tab,
   sort,
   page,
   keyword,
@@ -52,7 +53,7 @@ export default function ListPagination({
       <PageButton
         to={`?${
           listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-        }tab=${sort}&page=${page <= 1 ? 1 : page - 1}`}
+        }tab=${tab}&sort=${sort}&page=${page <= 1 ? 1 : page - 1}`}
       >
         Prev
       </PageButton>
@@ -61,7 +62,7 @@ export default function ListPagination({
           key={num}
           to={`?${
             listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-          }tab=${sort}&page=${num}`}
+          }tab=${tab}&sort=${sort}&page=${num}`}
           $currentPage={num === page}
         >
           {num}
@@ -73,7 +74,7 @@ export default function ListPagination({
           <PageButton
             to={`?${
               listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-            }tab=${sort}&page=${totalQuestionsInfo.totalPages}`}
+            }tab=${tab}&sort=${sort}&page=${totalQuestionsInfo.totalPages}`}
           >
             {totalQuestionsInfo.totalPages}
           </PageButton>
@@ -83,7 +84,7 @@ export default function ListPagination({
       <PageButton
         to={`?${
           listType === LIST_TYPE.SEARCH ? `keyword=${keyword}&` : ""
-        }tab=${sort}&page=${
+        }tab=${tab}&sort=${sort}&page=${
           page >= totalQuestionsInfo.totalPages
             ? totalQuestionsInfo.totalPages
             : page + 1
