@@ -1,10 +1,12 @@
 package com.example.back.answer.dto;
 
 import com.example.back.account.entity.Account;
+import com.example.back.comment.entity.Comment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter

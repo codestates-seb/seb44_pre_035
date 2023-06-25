@@ -9,6 +9,8 @@ import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
 import com.example.back.answer.repository.AnswerRepository;
+import com.example.back.comment.entity.Comment;
+import com.example.back.comment.repository.CommentRepository;
 import com.example.back.question.entity.Question;
 import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class AnswerServiceImpl implements AnswerService {
     private final AnswerMapper answerMapper;
     private final AccountRepository accountRepository;
     private final QuestionRepository questionRepository;
+
+    private final CommentRepository commentRepository;
 
 
     /**/
@@ -76,6 +80,11 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public void deleteAnswer(Long answerId) {
         answerRepository.deleteById(answerId);
+    }
+
+    @Override
+    public List<Comment> findAnswerComment(Answer answer){
+        return commentRepository.findAllByAnswer(answer);
     }
 
 }

@@ -30,7 +30,7 @@ public class Question extends BaseEntity {
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
+    @Column
     private int views;
 
     @Column
