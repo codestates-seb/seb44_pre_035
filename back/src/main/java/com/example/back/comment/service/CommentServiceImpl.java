@@ -1,6 +1,10 @@
 package com.example.back.comment.service;
 
 import com.example.back.account.repository.AccountRepository;
+import com.example.back.account.util.SecurityUtil;
+import com.example.back.answer.dto.AnswerPatchDto;
+import com.example.back.answer.dto.AnswerResponseDto;
+import com.example.back.answer.entity.Answer;
 import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.comment.dto.CommentPatchDto;
 import com.example.back.comment.dto.CommentPostDto;
@@ -10,10 +14,13 @@ import com.example.back.comment.mapper.CommentMapper;
 import com.example.back.comment.repository.CommentRepository;
 import com.example.back.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -43,6 +50,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment createComment(Long answerId, CommentPostDto commentPostDto) {
         Comment comment = commentMapper.commentPostDtoToComment(commentPostDto);
+        //String userEmail = SecurityUtil.getLoginUsername();
+        //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        //comment.setAccount(account);
         comment.setAnswer(answerRepository.findById(answerId).orElseThrow());
         Comment createdComment = commentRepository.save(comment);
         return createdComment;
@@ -54,11 +64,18 @@ public class CommentServiceImpl implements CommentService {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if (optionalComment.isPresent()) {
             Comment comment = optionalComment.get();
-            comment.setContent(commentPatchDto.getContent());
-            Comment updatedComment = commentRepository.save(comment);
-            return updatedComment;
+            String loggedInUserEmail = SecurityUtil.getLoginUsername();
+            if (comment.getAccount().getEmail().equals(loggedInUserEmail)) {
+                comment.setContent(commentPatchDto.getContent());
+                comment.setModifiedAt(LocalDateTime.now());
+                Comment updatedComment = commentRepository.save(comment);
+                return updatedComment;
+            } else {
+                throw new AccessDeniedException("본인이 작성한 댓글만 수정 가능합니다.");
+            }
+        } else {
+            throw new NoSuchElementException("해당 id 값으로 조회되는 댓글이 존재하지 않습니다.");
         }
-        return null;
     }
 
     @Override
@@ -75,6 +92,15 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteComment(Long commentId) {
-        commentRepository.deleteById(commentId);
+        Optional<Comment> optionalComment = commentRepository.findById(commentId);
+        if(optionalComment.isPresent()) {
+            Comment comment = optionalComment.get();
+            String loggedInUserEmail = SecurityUtil.getLoginUsername();
+            if (comment.getAccount().getEmail().equals(loggedInUserEmail)) {
+                commentRepository.deleteById(commentId);
+            } else throw new AccessDeniedException("본인이 작성한 댓글만 삭제 가능합니다.");
+        } else {
+            throw new NoSuchElementException("해당 id 값으로 조회되는 댓글이 존재하지 않습니다." + commentId);
+        }
     }
 }
