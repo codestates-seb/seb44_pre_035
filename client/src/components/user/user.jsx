@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import getProfile from "../../profile/getProfile";
 
 export default function UserItem({ account }) {
   return (
     <Wrapper>
-      <Image src={account.profileImagePath} />
+      <Image src={getProfile()} />
       <Text>{account.nickname}</Text>
       <Text>{account.email}</Text>
     </Wrapper>

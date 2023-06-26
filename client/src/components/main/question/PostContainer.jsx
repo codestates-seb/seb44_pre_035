@@ -34,10 +34,7 @@ export default function PostContainer({
               handleDeletePost={handleDeletePost}
             />
           </ContentMetaPart>
-          <PostUserInfo
-            nickname={post.nickname}
-            profileImagePath={post.profileImagePath}
-          />
+          <PostUserInfo nickname={post.nickname} />
         </ContentMeta>
         {post.commentList && (
           <Comment

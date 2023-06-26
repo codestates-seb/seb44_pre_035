@@ -19,10 +19,7 @@ export default function QuestionListItem({ item }) {
         </ContentExcerpt>
         <ContentMeta>
           {item.tags && <TagList tags={item.tags} />}
-          <QuestionListItemUserInfo
-            nickname={item.nickname}
-            profileImagePath={item.profileImagePath}
-          />
+          <QuestionListItemUserInfo nickname={item.nickname} />
         </ContentMeta>
       </Content>
     </Wrapper>

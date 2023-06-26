@@ -1,12 +1,10 @@
 import styled from "styled-components";
+import getProfile from "../../../profile/getProfile";
 
-export default function QuestionListItemUserInfo({
-  nickname,
-  profileImagePath,
-}) {
+export default function QuestionListItemUserInfo({ nickname }) {
   return (
     <Wrapper>
-      <Image src={profileImagePath} />
+      <Image src={getProfile()} />
       <Content>{nickname}</Content>
     </Wrapper>
   );

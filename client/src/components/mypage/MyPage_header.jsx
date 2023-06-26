@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ProfileImage from "../../img/profile_img.png";
 import { faCakeCandles } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { getUsers } from "../../api/userAPI";
+import getProfile from "../../profile/getProfile";
 
 /**  상단 개인 프로필 전체 감싸는 컨테이너*/
 const Container = styled.div`
@@ -113,7 +113,7 @@ const Mypage_header = () => {
               {users.length > 0 && ( // Check if users array has at least one element
                 <img
                   id="profile_img"
-                  src={users[0]?.profileImagePath} // Use optional chaining (?.) to handle undefined/null values
+                  src={getProfile()} // Use optional chaining (?.) to handle undefined/null values
                   aria-hidden
                   alt="profile image"
                 />
