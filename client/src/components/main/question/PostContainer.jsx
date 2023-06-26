@@ -5,8 +5,13 @@ import TagList from "../TagList";
 import PostController from "./PostController";
 import ReactQuill from "react-quill";
 import { POST_TYPE } from "../utils";
+import Comment from "./Comment";
 
-export default function PostContainer({ post, handleDeletePost }) {
+export default function PostContainer({
+  post,
+  handleDeletePost,
+  requestGetQuestion,
+}) {
   const postType = post.answerId ? POST_TYPE.ANSWER : POST_TYPE.QUESTION;
 
   return (
@@ -29,8 +34,19 @@ export default function PostContainer({ post, handleDeletePost }) {
               handleDeletePost={handleDeletePost}
             />
           </ContentMetaPart>
-          <PostUserInfo userId={post.user_id} />
+          <PostUserInfo
+            nickname={post.nickname}
+            profileImagePath={post.profileImagePath}
+          />
         </ContentMeta>
+        {post.commentList && (
+          <Comment
+            questionId={post.questionId}
+            answerId={post.answerId}
+            comments={post.commentList}
+            requestGetQuestion={requestGetQuestion}
+          />
+        )}
       </Content>
     </Wrapper>
   );
@@ -43,11 +59,13 @@ const Wrapper = styled.div`
 `;
 
 const Content = styled.div`
+  width: calc(100% - 56px);
   padding-right: 16px;
   font-size: 15px;
   flex-grow: 1;
 
   .ql-editor {
+    width: 100%;
     min-height: 100px;
     padding: 0;
   }

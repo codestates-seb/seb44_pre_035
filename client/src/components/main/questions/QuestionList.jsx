@@ -3,11 +3,13 @@ import QuestionListItem from "./QuestionListItem";
 import ListPagination from "./ListPagination";
 import ListFilter from "./ListFilter";
 import { useLocation } from "react-router-dom";
+import ListSort from "./ListSort";
 
 export default function QuestionList({
   listType,
   totalQuestionsInfo,
   questions,
+  tab,
   sort,
   page,
 }) {
@@ -18,7 +20,20 @@ export default function QuestionList({
     <Wrapper>
       <ListHeader>
         <ListStatus>{totalQuestionsInfo.totalElements} questions</ListStatus>
-        <ListFilter listType={listType} sort={sort} keyword={keyword} />
+        <ListController>
+          <ListFilter
+            listType={listType}
+            tab={tab}
+            sort={sort}
+            keyword={keyword}
+          />
+          <ListSort
+            listType={listType}
+            tab={tab}
+            sort={sort}
+            keyword={keyword}
+          />
+        </ListController>
       </ListHeader>
       {questions.map((question) => (
         <QuestionListItem key={question.questionId} item={question} />
@@ -26,6 +41,7 @@ export default function QuestionList({
       <ListPagination
         listType={listType}
         totalQuestionsInfo={totalQuestionsInfo}
+        tab={tab}
         sort={sort}
         page={page}
         keyword={keyword}
@@ -47,4 +63,12 @@ const ListStatus = styled.div`
   font-size: 17px;
   display: flex;
   align-items: center;
+`;
+
+const ListController = styled.div`
+  display: flex;
+  align-items: center;
+  & > div:last-child {
+    margin-left: 10px;
+  }
 `;

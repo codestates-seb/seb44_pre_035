@@ -33,6 +33,7 @@ export const signUp = async (data) => {
   }
 };
 
+
 export const getUsers = async () => {
   try {
     const res = await axios({
@@ -45,19 +46,6 @@ export const getUsers = async () => {
     });
     console.log("users", res);
     return res;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const deleteUser = async (Token, userId) => {
-  try {
-    const res = await axios({
-      url: `/accounts/{account-id}/delete`,
-      method: "get",
-      headers: { Authorization: `Bearer ${Token}` },
-    });
-    return res.data.data;
   } catch (error) {
     console.log(error);
   }
