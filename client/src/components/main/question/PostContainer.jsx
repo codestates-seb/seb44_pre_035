@@ -5,8 +5,13 @@ import TagList from "../TagList";
 import PostController from "./PostController";
 import ReactQuill from "react-quill";
 import { POST_TYPE } from "../utils";
+import Comment from "./Comment";
 
-export default function PostContainer({ post, handleDeletePost }) {
+export default function PostContainer({
+  post,
+  handleDeletePost,
+  requestGetQuestion,
+}) {
   const postType = post.answerId ? POST_TYPE.ANSWER : POST_TYPE.QUESTION;
 
   return (
@@ -34,6 +39,14 @@ export default function PostContainer({ post, handleDeletePost }) {
             profileImagePath={post.profileImagePath}
           />
         </ContentMeta>
+        {post.commentList && (
+          <Comment
+            questionId={post.questionId}
+            answerId={post.answerId}
+            comments={post.commentList}
+            requestGetQuestion={requestGetQuestion}
+          />
+        )}
       </Content>
     </Wrapper>
   );

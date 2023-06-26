@@ -97,12 +97,12 @@ export const searchQuestionsAnswered = async (
   }
 };
 
-export const postAnswer = async (questionId, body) => {
+export const postAnswer = async (questionId, content) => {
   try {
     const res = await axios({
       url: `/questions/${questionId}/answers/submit`,
       method: "post",
-      data: body.answer,
+      data: content,
       headers: { "Content-Type": "application/json" },
     });
     console.log(res);
@@ -112,10 +112,32 @@ export const postAnswer = async (questionId, body) => {
   }
 };
 
+export const postComment = async (questionId, answerId, content) => {
+  axios({
+    url: `/questions/${questionId}/answers/${answerId}/comments`,
+    method: "post",
+    data: { content },
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => console.log(res));
+};
+
 export const deletePost = async (postType, postId) => {
   try {
     const res = await axios({
       url: `/${postType}s/${postId}`,
+      method: "delete",
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteComment = async (questionId, answerId, commentId) => {
+  try {
+    const res = await axios({
+      url: `/questions/${questionId}/answers/${answerId}/comments/${commentId}`,
       method: "delete",
     });
     console.log(res);
