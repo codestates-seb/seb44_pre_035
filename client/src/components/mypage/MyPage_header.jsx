@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCakeCandles } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { getUsers } from "../../api/userAPI";
-import getProfile from "../../profile/getProfile";
+import { getNickname, getProfile } from "../../profile/getRandomAccount";
 
 /**  상단 개인 프로필 전체 감싸는 컨테이너*/
 const Container = styled.div`
@@ -123,7 +123,7 @@ const Mypage_header = () => {
           <UserInfo>
             {logState ? (
               <UserName className="user_name">
-                <div className="username">{users[1].nickname}</div>
+                <div className="username">{getNickname()}</div>
               </UserName>
             ) : (
               <UserName>

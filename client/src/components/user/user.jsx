@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import getProfile from "../../profile/getProfile";
+import { getProfile } from "../../profile/getRandomAccount";
 
 export default function UserItem({ account }) {
   return (

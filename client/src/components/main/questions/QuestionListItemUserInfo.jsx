@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import getProfile from "../../../profile/getProfile";
+import { getProfile, getNickname } from "../../../profile/getRandomAccount";
 
-export default function QuestionListItemUserInfo({ nickname }) {
+export default function QuestionListItemUserInfo() {
   return (
     <Wrapper>
       <Image src={getProfile()} />
-      <Content>{nickname}</Content>
+      <Content>{getNickname()}</Content>
     </Wrapper>
   );
 }

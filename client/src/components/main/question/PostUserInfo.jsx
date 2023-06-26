@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import getProfile from "../../../profile/getProfile";
+import { getProfile, getNickname } from "../../../profile/getRandomAccount";
 
-export default function PostUserInfo({ nickname }) {
+export default function PostUserInfo() {
   return (
     <Wrapper>
       <Image src={getProfile()} />
-      <Content>{nickname} </Content>
+      <Content>{getNickname()} </Content>
     </Wrapper>
   );
 }

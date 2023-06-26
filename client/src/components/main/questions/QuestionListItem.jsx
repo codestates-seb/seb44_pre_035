@@ -19,7 +19,7 @@ export default function QuestionListItem({ item }) {
         </ContentExcerpt>
         <ContentMeta>
           {item.tags && <TagList tags={item.tags} />}
-          <QuestionListItemUserInfo nickname={item.nickname} />
+          <QuestionListItemUserInfo />
         </ContentMeta>
       </Content>
     </Wrapper>
@@ -79,4 +79,5 @@ const ContentMeta = styled.div`
   display: flex;
   font-size: 12px;
   align-items: center;
+  padding-right: 20px;
 `;
