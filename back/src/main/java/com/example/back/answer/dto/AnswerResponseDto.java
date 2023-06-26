@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -23,17 +22,20 @@ public class AnswerResponseDto {
     private String nickname;
     private String profileImagePath;
 
-    private List<CommentResponseDto> commentList = new ArrayList<>();
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime modifiedAt;
+    private List<CommentResponseDto> commentList;
 
     public void setAccount(Account account) {
         this.accountId = account.getId();
         this.nickname = account.getNickname();
         this.profileImagePath = account.profileImagePath();
+    }
+
+    public void setCommentList(List<CommentResponseDto> commentList) {
+        this.commentList = commentList;
     }
 }
