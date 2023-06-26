@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-// import { getTags } from "../../api/postAPI";
-
-// 서버 닫혀 있을 경우에 사용할 dummy 데이터
-const wholeTag = [
-  { tagId: 1, tagName: "js", tagContent: "" },
-  { tagId: 2, tagName: "java", tagContent: "" },
-  { tagId: 3, tagName: "Python", tagContent: "" },
-];
+import { getTags } from "../../api/postAPI";
 
 export default function SubmitTag({ title, comment, question, setAsk }) {
   // eslint-disable-next-line no-unused-vars
@@ -20,7 +13,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
   // 서버 열려있는 경우, wholeTag >> getTagList
-  const [dropDownList, setDropDownList] = useState(wholeTag);
+  const [dropDownList, setDropDownList] = useState(getTags);
 
   // console.log("tagItem", tagItem);
   // console.log("tagList", tagList);
@@ -59,13 +52,12 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
     setTagList(deleteTag);
   };
 
-  // 서버 열려있는 경우, wholeTag >> getTagList
   const handleDropDownList = () => {
     if (tagItem === "") {
       setIsHaveTagItem(false);
       setDropDownList([]);
     } else {
-      const IncludedTag = wholeTag.filter((tag) =>
+      const IncludedTag = getTagList.filter((tag) =>
         tag.tagName.includes(tagItem),
       );
       setDropDownList(IncludedTag);
@@ -77,21 +69,11 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
     setIsHaveTagItem(false);
   };
 
-  // 서버 닫혀 있을 경우에 사용할 태그 Get 요청
   useEffect(() => {
-    setGetTagList(wholeTag);
+    getTags().then((res) => {
+      setGetTagList(res.data);
+    });
   }, []);
-
-  // useEffect(() => {
-  //   const response = async () => {
-  //     try {
-  //       await getTags();
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   setGetTagList(response.data);
-  // }, []);
 
   useEffect(() => {
     const arr = new Array();
@@ -100,7 +82,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
       for (let tag of getTagList) {
         for (let tagName of tagList) {
           if (tag.tagName === tagName) {
-            arr.push({ tagId: tag.tagId });
+            arr.push({ questionTags: tag.tagId });
             console.log("arr", arr);
           }
         }
