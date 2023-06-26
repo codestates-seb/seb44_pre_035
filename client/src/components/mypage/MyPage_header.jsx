@@ -110,12 +110,14 @@ const Mypage_header = () => {
         <Content>
           <ProfileImg>
             <Link to="/mypage/activity">
-              <img
-                id="profile_img"
-                src={users[0].profileImagePath}
-                aria-hidden
-                alt="profile image"
-              />
+              {users.length > 0 && ( // Check if users array has at least one element
+                <img
+                  id="profile_img"
+                  src={users[0]?.profileImagePath} // Use optional chaining (?.) to handle undefined/null values
+                  aria-hidden
+                  alt="profile image"
+                />
+              )}
             </Link>
           </ProfileImg>
           <UserInfo>
@@ -125,7 +127,7 @@ const Mypage_header = () => {
               </UserName>
             ) : (
               <UserName>
-                <div>{users[0].nickname}</div>
+                <div>{users[0]?.nickname}</div>
               </UserName>
             )}
 
