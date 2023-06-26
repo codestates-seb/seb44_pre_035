@@ -69,11 +69,10 @@ const Wrapper = styled.div`
 
 const CommentList = styled.ul`
   background-color: rgb(250, 250, 250);
-  padding: 5px 10px;
 `;
 
 const CommentListItem = styled.li`
-  padding: 5px 0;
+  padding: 5px 10px;
 
   & > span:not(:first-child) {
     margin-left: 5px;
