@@ -62,9 +62,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment updateComment(Long commentId, CommentPatchDto commentPatchDto) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
-        if (optionalComment.isPresent()) {
-            Comment comment = optionalComment.get();
-            String loggedInUserEmail = SecurityUtil.getLoginUsername();
+
+        /* if (optionalComment.isPresent()) {
+
+            //String loggedInUserEmail = SecurityUtil.getLoginUsername();
             if (comment.getAccount().getEmail().equals(loggedInUserEmail)) {
                 comment.setContent(commentPatchDto.getContent());
                 comment.setModifiedAt(LocalDateTime.now());
@@ -76,6 +77,12 @@ public class CommentServiceImpl implements CommentService {
         } else {
             throw new NoSuchElementException("해당 id 값으로 조회되는 댓글이 존재하지 않습니다.");
         }
+        */
+        Comment comment = optionalComment.get();
+        comment.setContent(commentPatchDto.getContent());
+        comment.setModifiedAt(LocalDateTime.now());
+        Comment updatedComment = commentRepository.save(comment);
+        return updatedComment;
     }
 
     @Override
@@ -94,7 +101,7 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(Long commentId) {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         if(optionalComment.isPresent()) {
-            Comment comment = optionalComment.get();
+            /*
             String loggedInUserEmail = SecurityUtil.getLoginUsername();
             if (comment.getAccount().getEmail().equals(loggedInUserEmail)) {
                 commentRepository.deleteById(commentId);
@@ -102,5 +109,8 @@ public class CommentServiceImpl implements CommentService {
         } else {
             throw new NoSuchElementException("해당 id 값으로 조회되는 댓글이 존재하지 않습니다." + commentId);
         }
+
+             */
+            commentRepository.deleteById(commentId);}
     }
 }

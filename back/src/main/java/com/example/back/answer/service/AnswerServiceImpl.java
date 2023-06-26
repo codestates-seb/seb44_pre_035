@@ -39,9 +39,9 @@ public class AnswerServiceImpl implements AnswerService {
     public AnswerResponseDto createAnswer(Long questionId, AnswerPostDto answerPostDto) {
         Answer answer = answerMapper.answerPostDtoToAnswer(answerPostDto);
 
-        String userEmail = SecurityUtil.getLoginUsername();
-        Account account = accountRepository.findByEmail(userEmail).orElseThrow();
-        answer.setAccount(account);
+        //String userEmail = SecurityUtil.getLoginUsername();
+        //Account account = accountRepository.findByEmail(userEmail).orElseThrow();
+        //answer.setAccount(account);
 
         Question question = questionRepository.findById(questionId).orElseThrow();
         question.setAnswers(question.getAnswers()+1);
@@ -55,18 +55,21 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public AnswerResponseDto updateAnswer(Long answerId, AnswerPatchDto answerPatchDto) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
+        /*
         if (answer != null) {
             String loggedInUserEmail = SecurityUtil.getLoginUsername();
             if (answer.getAccount().getEmail().equals(loggedInUserEmail)) {
-                answer.setContent(answerPatchDto.getContent());
-                answer.setModifiedAt(LocalDateTime.now());
-                return answerMapper.answerToAnswerResponseDto(answer);
+
             } else {
                 throw new AccessDeniedException("본인이 작성한 답변만 수정 가능합니다.");
             }
         } else {
             throw new NoSuchElementException("해당 id 값으로 조회되는 답변이 존재하지 않습니다." + answerId);
         }
+        */
+        answer.setContent(answerPatchDto.getContent());
+        answer.setModifiedAt(LocalDateTime.now());
+        return answerMapper.answerToAnswerResponseDto(answer);
     }
 
     @Override
@@ -88,16 +91,19 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public void deleteAnswer(Long answerId) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
+        /*
         if (answer != null) {
             String loggedInUserEmail = SecurityUtil.getLoginUsername();
             if (answer.getAccount().getEmail().equals(loggedInUserEmail)) {
-                answerRepository.deleteById(answerId);
+
             } else {
                 throw new AccessDeniedException("본인이 작성한 답변만  삭제 가능합니다.");
             }
         } else {
             throw new NoSuchElementException("해당 id 값으로 조회되는 답변이 존재하지 않습니다." + answerId);
         }
+        */
+        answerRepository.deleteById(answerId);
     }
 
     @Override

@@ -133,7 +133,7 @@ public class AccountServiceImpl implements AccountService{
     public void uploadProfileImage(Long id, MultipartFile file) throws Exception {
 
         Account account = accountRepository.findById(id).orElseThrow(() -> new Exception("해당 유저를 찾을수 없습니다."));
-        String filePath = "C:\\Users\\hyun\\IdeaProjects\\profile\\";
+        String filePath = "C:\\Users\\aello\\profile\\";
 
         String fileName = id + "_profile.jpg";
 
