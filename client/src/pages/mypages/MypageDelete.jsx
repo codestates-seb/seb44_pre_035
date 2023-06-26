@@ -182,7 +182,10 @@ const MypageDelete = () => {
           dispatch(logout(state));
         }
       })
-      .catch(() => alert("An error occurred"));
+      .catch((error) => {
+        console.log(error); // Check for any errors
+        alert("An error occurred");
+      });
   };
   return (
     <React.Fragment>

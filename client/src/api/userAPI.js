@@ -33,14 +33,18 @@ export const signUp = async (data) => {
   }
 };
 
-export const getUser = async (Token, userId) => {
+export const getUsers = async () => {
   try {
     const res = await axios({
-      url: `/accounts/${userId}`,
+      url: `/accounts`,
       method: "get",
-      headers: { Authorization: `Bearer ${Token}` },
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
     });
-    return res.data.data;
+    console.log("users", res);
+    return res;
   } catch (error) {
     console.log(error);
   }
