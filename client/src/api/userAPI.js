@@ -36,7 +36,7 @@ export const signUp = async (data) => {
 export const getUser = async (Token, userId) => {
   try {
     const res = await axios({
-      url: `https://58ab-220-76-183-16.ngrok-free.app/mypage/${userId}`,
+      url: `/mypage/${userId}`,
       method: "get",
       headers: { Authorization: `Bearer ${Token}` },
     });
