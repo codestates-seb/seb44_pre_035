@@ -54,7 +54,7 @@ export default function Main() {
         });
         break;
     }
-  }, [tab, requestInfo.sort, requestInfo.page]);
+  }, [tab, requestInfo.criteria, requestInfo.sort, requestInfo.page]);
 
   return (
     <Container>
