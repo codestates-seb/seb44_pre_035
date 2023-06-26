@@ -33,18 +33,6 @@ export const signUp = async (data) => {
   }
 };
 
-export const getUser = async (Token, userId) => {
-  try {
-    const res = await axios({
-      url: `/mypage/${userId}`,
-      method: "get",
-      headers: { Authorization: `Bearer ${Token}` },
-    });
-    return res.data.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 export const getUsers = async () => {
   try {

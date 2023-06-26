@@ -125,7 +125,6 @@ const SignupLayout = () => {
       },
     });
   };
-  console.log("userName");
 
   const pass =
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;

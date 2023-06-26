@@ -11,7 +11,6 @@ export default function Header() {
   const handleClickMenu = (menu) => {
     if (menu === clickedMenu) setClickedMenu(null);
     else setClickedMenu(menu);
-    console.log(clickedMenu);
   };
 
   const cookies = new Cookies();

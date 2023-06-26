@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
@@ -6,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileImage from "../../img/profile_img.png";
 import { faCakeCandles } from "@fortawesome/free-solid-svg-icons";
 import { faClock, faCalendar } from "@fortawesome/free-regular-svg-icons";
+import { getUsers } from "../../api/userAPI";
+
 /**  상단 개인 프로필 전체 감싸는 컨테이너*/
 const Container = styled.div`
   position: relative;
@@ -88,35 +91,43 @@ const Icon = styled.div`
 `;
 
 // 마이페이지 상단 헤더부분 개인 프로필 컴포넌트 사용자 정보 api 받아와 이름, 로그값을 보여줘야함.
-const Mypage_header = ({ user }) => {
+const Mypage_header = () => {
   const logState = useSelector((state) => state.log);
   const [elapsedDay, setElapsedDay] = useState("?");
   if (logState === true) {
     let today = new Date();
     setElapsedDay(today);
   }
+
+  const [users, setUsers] = useState([]);
+  console.log(users);
+  useEffect(() => {
+    getUsers().then((res) => setUsers(res.data));
+  }, []);
   return (
     <React.Fragment>
       <Container>
         <Content>
           <ProfileImg>
             <Link to="/mypage/activity">
-              <img
-                id="profile_img"
-                src={`${ProfileImage}`}
-                aria-hidden
-                alt="profile image"
-              />
+              {users.length > 0 && ( // Check if users array has at least one element
+                <img
+                  id="profile_img"
+                  src={users[0]?.profileImagePath} // Use optional chaining (?.) to handle undefined/null values
+                  aria-hidden
+                  alt="profile image"
+                />
+              )}
             </Link>
           </ProfileImg>
           <UserInfo>
             {logState ? (
               <UserName className="user_name">
-                <div className="username">{user.data.name}</div>
+                <div className="username">{users[1].nickname}</div>
               </UserName>
             ) : (
               <UserName>
-                <div>사용자 이름</div>
+                <div>{users[0]?.nickname}</div>
               </UserName>
             )}
 
