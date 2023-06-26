@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Validated
 @RequestMapping("/questions/{question-id}/answers/{answer-id}")
@@ -43,9 +45,17 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/comments/{comment-id}")
-    public ResponseEntity<Void> deleteComment(@PathVariable("comment-id") Long commentId) {
-        commentService.deleteComment(commentId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @GetMapping("comments/{comment-id}")
+    public ResponseEntity<List<CommentResponseDto>> commentList() {
+        List<CommentResponseDto> comments = commentService.getAllComments();
+        return new ResponseEntity<>(comments, HttpStatus.OK);
     }
-}
+
+
+        @DeleteMapping("/comments/{comment-id}")
+        public ResponseEntity<Void> deleteComment (@PathVariable("comment-id") Long commentId){
+            commentService.deleteComment(commentId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
