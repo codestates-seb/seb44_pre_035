@@ -3,13 +3,26 @@ import styled from "styled-components";
 import Writer from "../../../share/Writer";
 import PostContainer from "../../../components/main/question/PostContainer";
 import PostButton from "../../../components/main/question/PostButton";
+import { useState } from "react";
+import { postAnswer } from "../../../api/mainAPI";
 
 export default function SectionAnswer({
+  questionId,
   answers,
   handleDeletePost,
-  handleSubmitForm,
-  setBody,
+  requestGetQuestion,
 }) {
+  // answer 작성용
+  const [body, setBody] = useState({ answer: "" });
+
+  const handleSubmitAnswer = (event) => {
+    event.preventDefault();
+    postAnswer(questionId, body.answer).then((res) => {
+      console.log(res);
+      requestGetQuestion();
+    });
+  };
+
   return (
     <Wrapper>
       <AnswerHeader>
@@ -21,6 +34,7 @@ export default function SectionAnswer({
             key={answer.answerId}
             post={answer}
             handleDeletePost={handleDeletePost}
+            requestGetQuestion={requestGetQuestion}
           />
         ))}
       </AnswerContent>
@@ -28,7 +42,7 @@ export default function SectionAnswer({
         <AnswerHeader>
           <AnswerStatus>Your Answer</AnswerStatus>
         </AnswerHeader>
-        <AnswerForm onSubmit={handleSubmitForm}>
+        <AnswerForm onSubmit={handleSubmitAnswer}>
           <Writer name="answer" setBody={setBody} />
           <PostButton />
         </AnswerForm>
