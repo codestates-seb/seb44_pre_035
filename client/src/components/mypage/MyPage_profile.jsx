@@ -260,7 +260,7 @@ const Mypage_profile = () => {
             <div className="title">Stats</div>
             <StatContainer>
               <StatDiv>
-                <StatNum>{1}</StatNum>
+                <StatNum>{0}</StatNum>
                 <StatMsg>reputation</StatMsg>
               </StatDiv>
               <StatDiv>
@@ -272,7 +272,7 @@ const Mypage_profile = () => {
                 <StatMsg>answers</StatMsg>
               </StatDiv>
               <StatDiv>
-                <StatNum>{0}</StatNum>
+                <StatNum>{1}</StatNum>
                 <StatMsg>questions</StatMsg>
               </StatDiv>
             </StatContainer>

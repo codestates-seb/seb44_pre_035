@@ -36,7 +36,20 @@ export const signUp = async (data) => {
 export const getUser = async (Token, userId) => {
   try {
     const res = await axios({
-      url: `https://58ab-220-76-183-16.ngrok-free.app/mypage/${userId}`,
+      url: `/accounts/${userId}`,
+      method: "get",
+      headers: { Authorization: `Bearer ${Token}` },
+    });
+    return res.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteUser = async (Token, userId) => {
+  try {
+    const res = await axios({
+      url: `/accounts/{account-id}/delete`,
       method: "get",
       headers: { Authorization: `Bearer ${Token}` },
     });
