@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { deleteComment, postComment } from "../../../api/mainAPI";
+import { getNickname } from "../../../profile/getRandomAccount";
 
 export default function Comment({
   comments,
@@ -30,9 +31,7 @@ export default function Comment({
         {comments.map((comment) => (
           <CommentListItem key={comment.commentId}>
             <CommentContent>{comment.content}</CommentContent>
-            <CommentUserInfo>
-              {comment.nickname ? comment.nickname : "sunny"}
-            </CommentUserInfo>
+            <CommentUserInfo>{getNickname()}</CommentUserInfo>
             <CommentCreatedAt>
               {comment.createdAt.slice(0, 16)}
             </CommentCreatedAt>
