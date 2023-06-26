@@ -47,6 +47,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
       tagList.includes(e.target.value) === true
     ) {
       alert("이미 추가된 태그입니다.");
+      setTagItem("");
     }
   };
 
