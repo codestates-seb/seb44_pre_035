@@ -21,8 +21,7 @@ export default function Question() {
   };
 
   const handleDeletePost = (postType, postId) => {
-    deletePost(postType, postId).then((res) => {
-      console.log(res);
+    deletePost(postType, postId).then(() => {
       if (postType === POST_TYPE.QUESTION) navigate("/");
       else if (postType === POST_TYPE.ANSWER) requestGetQuestion();
     });

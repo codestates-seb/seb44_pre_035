@@ -10,7 +10,6 @@ export const getQuestions = async ({ page, size, criteria, sort }) => {
         "ngrok-skip-browser-warning": "69420",
       },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -27,7 +26,6 @@ export const getQuestion = async (questionId) => {
         "ngrok-skip-browser-warning": "69420",
       },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -48,7 +46,6 @@ export const getQuestionsAnswered = async (
         "ngrok-skip-browser-warning": "69420",
       },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -68,7 +65,6 @@ export const searchQuestion = async (
         "ngrok-skip-browser-warning": "69420",
       },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -90,7 +86,6 @@ export const searchQuestionsAnswered = async (
         "ngrok-skip-browser-warning": "69420",
       },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -105,7 +100,6 @@ export const postAnswer = async (questionId, content) => {
       data: content,
       headers: { "Content-Type": "application/json" },
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -127,7 +121,6 @@ export const deletePost = async (postType, postId) => {
       url: `/${postType}s/${postId}`,
       method: "delete",
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
@@ -140,7 +133,6 @@ export const deleteComment = async (questionId, answerId, commentId) => {
       url: `/questions/${questionId}/answers/${answerId}/comments/${commentId}`,
       method: "delete",
     });
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err);
