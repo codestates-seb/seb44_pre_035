@@ -15,7 +15,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
   const [dropDownList, setDropDownList] = useState(getTags);
 
   // console.log("tagItem", tagItem);
-  // console.log("tagList", tagList);
+  console.log("tagList", tagList);
   // console.log("isHaveTagItem", isHaveTagItem);
   // console.log("dropDownList", dropDownList);
 
@@ -25,10 +25,14 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
   };
 
   const onKeyUp = (e) => {
+    const toLowerTags = tagList.map((tag) => {
+      tag.toLowerCase();
+    });
+
     if (
       e.target.value.length !== 0 &&
       e.key === "Enter" &&
-      tagList.includes(e.target.value) === false
+      toLowerTags.includes(e.target.value) === false
     ) {
       setTagList((prev) => [...prev, tagItem]);
     }
@@ -57,7 +61,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
       setDropDownList([]);
     } else {
       const IncludedTag = getTagList.filter((tag) =>
-        tag.tagName.includes(tagItem),
+        tag.tagName.toLowerCase().includes(tagItem),
       );
       setDropDownList(IncludedTag);
     }
