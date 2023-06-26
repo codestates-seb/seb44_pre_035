@@ -46,14 +46,4 @@ public class Question extends BaseEntity {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answerList = new ArrayList<>();
 
-    public void addQuestionTag(QuestionTag questionTag) {
-        this.questionTags.add(questionTag);
-        if (questionTag.getQuestion() != this) {
-            questionTag.addQuestion(this);
-        }
-    }
-
-    public void resetQuestionTags(){
-        this.questionTags = new ArrayList<>();
-    }
 }

@@ -8,7 +8,6 @@ import com.example.back.question.entity.Question;
 import com.example.back.question.entity.QuestionTag;
 import com.example.back.tag.dto.TagResponseDto;
 import com.example.back.tag.entity.Tag;
-import com.example.back.tag.repository.TagRepository;
 import org.mapstruct.Mapper;
 
 import java.util.List;

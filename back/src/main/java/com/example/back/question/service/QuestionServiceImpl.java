@@ -9,9 +9,6 @@ import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.question.entity.Question;
 import com.example.back.question.entity.QuestionTag;
 import com.example.back.question.repository.QuestionRepository;
-//import com.example.back.tag.Service.TagServiceImpl;
-import com.example.back.question.repository.QuestionTagRepository;
-import com.example.back.tag.Service.TagServiceImpl;
 import com.example.back.tag.entity.Tag;
 import com.example.back.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +16,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -32,8 +31,6 @@ public class QuestionServiceImpl implements QuestionService{
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private final TagRepository tagRepository;
-    private final QuestionTagRepository questionTagRepository;
-    private final TagServiceImpl tagService;
     private final AccountRepository accountRepository;
 
     @Override
@@ -41,9 +38,8 @@ public class QuestionServiceImpl implements QuestionService{
         String userEmail = SecurityUtil.getLoginUsername();
         Account account = accountRepository.findByEmail(userEmail).orElseThrow();
         question.setAccount(account);
-        Question savedquestion = questionRepository.save(question);
 
-        return savedquestion;
+        return questionRepository.save(question);
     }
 
     @Override
@@ -97,32 +93,44 @@ public class QuestionServiceImpl implements QuestionService{
 
     @Override
     public void deleteQuestion(Long questionId){
-        questionRepository.delete(findQuestion(questionId));
+        Question question = questionRepository.findById(questionId).orElse(null);
+        if(question != null) {
+            String loggedInUserEmail = SecurityUtil.getLoginUsername();
+            if (question.getAccount().getEmail().equals(loggedInUserEmail)) {
+                questionRepository.deleteById(questionId);
+            } else throw new AccessDeniedException("본인이 작성한 질문만 삭제 가능합니다.");
+        } else {
+            throw new NoSuchElementException("해당 id 값으로 조회되는 질문이 존재하지 않습니다." + questionId);
+        }
     }
-
-
 
     @Override
     public Question updateQuestion(Long questionId, Question question) {
         Question foundQuestion = questionRepository.findById(questionId).orElseThrow();
+        if(question != null) {
+            String loggedInUserEmail = SecurityUtil.getLoginUsername();
+            if (question.getAccount().getEmail().equals(loggedInUserEmail)) {
+                foundQuestion.setTitle(question.getTitle());
+                foundQuestion.setContent(question.getContent());
 
-        foundQuestion.setTitle(question.getTitle());
-        foundQuestion.setContent(question.getContent());
+                List<QuestionTag> questionTags = (question.getQuestionTags().stream()
+                        .map(questionTag ->{
+                            Tag tag = tagRepository.findById(questionTag.getPatchTagId());
+                            tag.resetQuestionTags();
+                            return QuestionTag.builder()
+                                    .tag(tag)
+                                    .question(foundQuestion)
+                                    .build();
+                        }).collect(Collectors.toList()));
+                foundQuestion.setQuestionTags(questionTags);
 
-        //foundQuestion.resetQuestionTags();
-        List<QuestionTag> questionTags = (question.getQuestionTags().stream()
-                .map(questionTag ->{
-                    Tag tag = tagRepository.findById(questionTag.getPatchTagId());
-                    tag.resetQuestionTags();
-                    return QuestionTag.builder()
-                            .tag(tag)
-                            .question(foundQuestion)
-                            .build();
-                }).collect(Collectors.toList()));
-        foundQuestion.setQuestionTags(questionTags);
+                questionRepository.save(foundQuestion);
+                return foundQuestion;
+            } else throw new AccessDeniedException("본인이 작성한 질문만 수정 가능합니다.");
+        } else {
+            throw new NoSuchElementException("해당 id 값으로 조회되는 질문이 존재하지 않습니다." + questionId);
+        }
 
-        questionRepository.save(foundQuestion);
-        return foundQuestion;
     }
 
 }

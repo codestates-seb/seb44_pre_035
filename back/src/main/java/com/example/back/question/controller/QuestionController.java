@@ -52,7 +52,7 @@ public class QuestionController {
 
     @PostMapping("/ask")
     public ResponseEntity postQuestion(
-            @Valid @RequestBody QuestionPostDto questionPostDto) {
+            @Valid @RequestBody QuestionPostDto questionPostDto){
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto));
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, question.getQuestionId());
 
@@ -61,7 +61,7 @@ public class QuestionController {
 
     @GetMapping("/{question_id}")
     public ResponseEntity getQuestion(@PathVariable("question_id")
-                                          @Positive long questionId) {
+                                          @Positive long questionId){
         Question question = questionService.findQuestion(questionId);
         List<Answer> answerList = questionService.findQuestionAnswer(question);
         //Question
@@ -186,14 +186,14 @@ public class QuestionController {
 
     @DeleteMapping("/{question_id}")
     public ResponseEntity deleteQuestion(@PathVariable("question_id")
-                                         @Positive long questionId) {
+                                         @Positive long questionId) throws Exception {
         questionService.deleteQuestion(questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("/{question_id}")
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
-                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) {
+                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) throws Exception {
         Question question = questionService.updateQuestion(questionId, questionMapper.questionPatchDtoToQuestion(questionPatchDto));
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, question.getQuestionId());
 
