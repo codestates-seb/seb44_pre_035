@@ -1,31 +1,22 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-// import { getTags } from "../../api/postAPI";
-
-// 서버 닫혀 있을 경우에 사용할 dummy 데이터
-const wholeTag = [
-  { tagId: 1, tagName: "js", tagContent: "" },
-  { tagId: 2, tagName: "java", tagContent: "" },
-  { tagId: 3, tagName: "Python", tagContent: "" },
-];
+import { getTags } from "../../api/postAPI";
 
 export default function SubmitTag({ title, comment, question, setAsk }) {
-  // eslint-disable-next-line no-unused-vars
   const [getTagList, setGetTagList] = useState([]);
 
-  // console.log("------getTagList", getTagList);
+  console.log("------getTagList", getTagList);
 
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
-  // 서버 열려있는 경우, wholeTag >> getTagList
-  const [dropDownList, setDropDownList] = useState(wholeTag);
+  const [dropDownList, setDropDownList] = useState(getTags);
 
-  // console.log("tagItem", tagItem);
-  // console.log("tagList", tagList);
-  // console.log("isHaveTagItem", isHaveTagItem);
-  // console.log("dropDownList", dropDownList);
+  console.log("tagItem", tagItem);
+  console.log("tagList", tagList);
+  console.log("isHaveTagItem", isHaveTagItem);
+  console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -33,10 +24,14 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
   };
 
   const onKeyUp = (e) => {
+    const toLowerTags = tagList.map((tag) => {
+      tag.toLowerCase();
+    });
+
     if (
       e.target.value.length !== 0 &&
       e.key === "Enter" &&
-      tagList.includes(e.target.value) === false
+      toLowerTags.includes(e.target.value) === false
     ) {
       setTagList((prev) => [...prev, tagItem]);
     }
@@ -59,39 +54,28 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
     setTagList(deleteTag);
   };
 
-  // 서버 열려있는 경우, wholeTag >> getTagList
   const handleDropDownList = () => {
     if (tagItem === "") {
       setIsHaveTagItem(false);
       setDropDownList([]);
     } else {
-      const IncludedTag = wholeTag.filter((tag) =>
-        tag.tagName.includes(tagItem),
+      const IncludedTag = getTagList.filter((tag) =>
+        tag.tagName.toLowerCase().includes(tagItem),
       );
       setDropDownList(IncludedTag);
     }
   };
 
   const handleClickDropDownTag = (e) => {
-    setTagItem(e);
+    setTagList((prev) => [...prev, e]);
     setIsHaveTagItem(false);
   };
 
-  // 서버 닫혀 있을 경우에 사용할 태그 Get 요청
   useEffect(() => {
-    setGetTagList(wholeTag);
+    getTags().then((res) => {
+      setGetTagList(res.data);
+    });
   }, []);
-
-  // useEffect(() => {
-  //   const response = async () => {
-  //     try {
-  //       await getTags();
-  //     } catch (error) {
-  //       console.log(error.message);
-  //     }
-  //   };
-  //   setGetTagList(response.data);
-  // }, []);
 
   useEffect(() => {
     const arr = new Array();
@@ -100,8 +84,8 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
       for (let tag of getTagList) {
         for (let tagName of tagList) {
           if (tag.tagName === tagName) {
-            arr.push({ tagId: tag.tagId });
-            console.log("arr", arr);
+            arr.push({ questionTags: tag.tagId });
+            // console.log("arr", arr);
           }
         }
       }
