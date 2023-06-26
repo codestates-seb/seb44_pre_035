@@ -81,7 +81,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
           }
         }
       }
-      setAsk((prev) => ({ ...prev, questionTags: [arr] }));
+      setAsk((prev) => ({ ...prev, questionTags: arr }));
     }
 
     if (tagList.length === 0) {
