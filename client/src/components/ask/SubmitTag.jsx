@@ -77,7 +77,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
       for (let tag of getTagList) {
         for (let tagName of tagList) {
           if (tag.tagName === tagName) {
-            arr.push({ questionTags: tag.tagId });
+            arr.push({ tagId: tag.tagId });
           }
         }
       }
