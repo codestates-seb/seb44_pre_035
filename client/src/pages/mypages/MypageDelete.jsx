@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import MyPage_header from "../../components/mypage/MyPage_header";
@@ -7,9 +6,8 @@ import Mypage_setNav from "../../components/mypage/MyPage_Nav";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../features/mypage/logSlice";
-import { userDataSlice, deleteData } from "../../features/mypage/userDataSlice";
+import { deleteData } from "../../features/mypage/userDataSlice";
 import ModalComponet from "../../share/Modal";
-import { FormProvider, useForm } from "react-hook-form";
 import axios from "axios";
 /**  전체영역(메인 Nav + 컨텐츠) 컴포넌트  */
 const MainDiv = styled.div`
@@ -140,7 +138,6 @@ const PlsLoginDiv = styled.div`
 const MypageDelete = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userDataState = useSelector((state) => state.userData);
   const state = useSelector((state) => state.log);
   const [boxChecked, setBoxChecked] = useState(false);
   const [modal, setModal] = useState({
@@ -165,7 +162,7 @@ const MypageDelete = () => {
     // const refreshToken = localStorage.getItem('Refresh');
 
     axios
-      .delete(`http://localhost:3005/users/${userDataState.memberId}`, {
+      .delete(`accounts/delete`, {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
