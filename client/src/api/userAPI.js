@@ -33,7 +33,6 @@ export const signUp = async (data) => {
   }
 };
 
-
 export const getUsers = async () => {
   try {
     const res = await axios({
