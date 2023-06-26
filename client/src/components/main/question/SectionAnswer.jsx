@@ -17,8 +17,7 @@ export default function SectionAnswer({
 
   const handleSubmitAnswer = (event) => {
     event.preventDefault();
-    postAnswer(questionId, body.answer).then((res) => {
-      console.log(res);
+    postAnswer(questionId, body.answer).then(() => {
       requestGetQuestion();
     });
   };
