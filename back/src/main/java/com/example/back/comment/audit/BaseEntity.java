@@ -1,7 +1,5 @@
-package com.example.back.question.audit;
+package com.example.back.comment.audit;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;

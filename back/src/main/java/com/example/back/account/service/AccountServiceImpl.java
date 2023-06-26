@@ -51,17 +51,17 @@ public class AccountServiceImpl implements AccountService{
             throw new Exception("이미 가입된 이메일입니다.");
         }
 
-//        //여기부터
-//        String[] defaultProfileImages = {
-//                "a.jpg", "b.jpg", "c.jpg", "d.jpg", "e.jpg", "f.jpg"
-//        };
-//        Random random = new Random();
-//        int selectedIndex = random.nextInt(defaultProfileImages.length);
-//        String selectedImage = defaultProfileImages[selectedIndex];
-//
-//        account.setProfileImgName(selectedImage);
-//        account.setProfileImgPath("C:\\Users\\hyun\\IdeaProjects\\profile\\default");
-//        //여기까지 주석처리 하고 테스트
+        //여기부터
+        String[] defaultProfileImages = {
+                "a.jpg", "b.jpg", "c.jpg", "d.jpg", "e.jpg", "f.jpg"
+        };
+        Random random = new Random();
+        int selectedIndex = random.nextInt(defaultProfileImages.length);
+        String selectedImage = defaultProfileImages[selectedIndex];
+
+        account.setProfileImgName(selectedImage);
+        account.setProfileImgPath("C:\\Users\\aello\\profile\\default");
+        //여기까지 주석처리 하고 테스트
 
         accountRepository.save(account);
 
@@ -105,11 +105,12 @@ public class AccountServiceImpl implements AccountService{
 
         List<Question> questionList = questionRepository.findAllByAccount(account);
         List<Answer> answerList = answerRepository.findAllByAccount(account);
+
         account.setReputation(questionList.size()*3L + answerList.size()+1L);
         Long questionSize = (long) questionList.size();
         Long answerSize = (long) answerList.size();
 
-        List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionResponseDtos(questionList);
+        List<QuestionResponseDto> questionResponseDtos = questionMapper.questionsToQuestionsResponseDtos(questionList);
         List<AnswerResponseDto> answerResponseDtos = answerMapper.answersToAnswerResponseDtos(answerList);
 
         return new AccountInfoDto(account.getId(), account.getNickname(), account.getEmail(),
@@ -132,7 +133,7 @@ public class AccountServiceImpl implements AccountService{
     public void uploadProfileImage(Long id, MultipartFile file) throws Exception {
 
         Account account = accountRepository.findById(id).orElseThrow(() -> new Exception("해당 유저를 찾을수 없습니다."));
-        String filePath = "C:\\Users\\hyun\\IdeaProjects\\profile\\";
+        String filePath = "C:\\Users\\aello\\profile\\";
 
         String fileName = id + "_profile.jpg";
 

@@ -1,4 +1,4 @@
-package com.example.back.question.dto;
+package com.example.back.DTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
