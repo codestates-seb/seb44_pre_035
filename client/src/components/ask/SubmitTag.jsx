@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 import { getTags } from "../../api/postAPI";
 
 export default function SubmitTag({ title, comment, question, setAsk }) {
-  // eslint-disable-next-line no-unused-vars
   const [getTagList, setGetTagList] = useState([]);
 
   // console.log("------getTagList", getTagList);
@@ -83,7 +82,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
         for (let tagName of tagList) {
           if (tag.tagName === tagName) {
             arr.push({ questionTags: tag.tagId });
-            console.log("arr", arr);
+            // console.log("arr", arr);
           }
         }
       }
