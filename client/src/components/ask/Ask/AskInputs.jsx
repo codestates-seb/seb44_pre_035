@@ -12,6 +12,8 @@ export default function AskInputs() {
   const [ask, setAsk] = useState({ title: "", content: "", questionTags: [] });
   const [body, setBody] = useState({ problem: "", try: "" });
 
+  console.log("***ask", ask);
+
   const nav = useNavigate();
 
   const handleChange = (e) => {
