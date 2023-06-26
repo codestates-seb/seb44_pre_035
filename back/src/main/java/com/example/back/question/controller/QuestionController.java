@@ -1,8 +1,6 @@
 package com.example.back.question.controller;
 
 import com.example.back.DTOs.MultiResponseDto;
-import com.example.back.account.entity.Account;
-import com.example.back.account.repository.AccountRepository;
 import com.example.back.answer.dto.AnswerResponseDto;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.mapper.AnswerMapper;
@@ -17,7 +15,6 @@ import com.example.back.question.mapper.QuestionMapper;
 import com.example.back.question.repository.QuestionRepository;
 import com.example.back.question.service.QuestionServiceImpl;
 import com.example.back.question.utils.UriCreator;
-//import com.example.back.tag.Service.TagServiceImpl;
 import com.example.back.tag.Service.TagServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +28,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -177,7 +173,6 @@ public class QuestionController {
                 new MultiResponseDto<>(questionResponseDtos, pageQuestions), HttpStatus.OK);
     }
 
-
     @GetMapping("/ask")
     public ResponseEntity getTags(){
         return new ResponseEntity<>(questionMapper.tagsToTagResponseDtos(tagService.getTags())
@@ -199,10 +194,4 @@ public class QuestionController {
 
         return ResponseEntity.created(location).build();
     }
-
-/*
-
-*/
-
-
 }

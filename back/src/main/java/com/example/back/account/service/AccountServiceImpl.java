@@ -60,7 +60,7 @@ public class AccountServiceImpl implements AccountService{
         String selectedImage = defaultProfileImages[selectedIndex];
 
         account.setProfileImgName(selectedImage);
-        account.setProfileImgPath("C:\\Users\\hyun\\IdeaProjects\\profile\\default");
+        account.setProfileImgPath("C:\\Users\\aello\\profile\\default");
         //여기까지 주석처리 하고 테스트
 
         accountRepository.save(account);
