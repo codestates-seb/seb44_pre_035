@@ -1,13 +1,25 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+// import { getTags } from "../../api/postAPI";
 
-const wholeTag = ["css", "javaScript", "java", "react"];
+// 서버 닫혀 있을 경우에 사용할 dummy 데이터
+const wholeTag = [
+  { tagId: 1, tagName: "js", tagContent: "" },
+  { tagId: 2, tagName: "java", tagContent: "" },
+  { tagId: 3, tagName: "Python", tagContent: "" },
+];
 
-export default function SubmitTag({ title, comment, question }) {
+export default function SubmitTag({ title, comment, question, setAsk }) {
+  // eslint-disable-next-line no-unused-vars
+  const [getTagList, setGetTagList] = useState([]);
+
+  // console.log("------getTagList", getTagList);
+
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
+  // 서버 열려있는 경우, wholeTag >> getTagList
   const [dropDownList, setDropDownList] = useState(wholeTag);
 
   // console.log("tagItem", tagItem);
@@ -21,21 +33,41 @@ export default function SubmitTag({ title, comment, question }) {
   };
 
   const onKeyUp = (e) => {
-    if (e.target.value.length !== 0 && e.key === "Enter") {
+    if (
+      e.target.value.length !== 0 &&
+      e.key === "Enter" &&
+      tagList.includes(e.target.value) === false
+    ) {
       setTagList((prev) => [...prev, tagItem]);
+    }
+
+    if (
+      e.target.value.length !== 0 &&
+      e.key === "Enter" &&
+      tagList.includes(e.target.value) === true
+    ) {
+      alert("이미 추가된 태그입니다.");
+      setTagItem("");
     }
   };
 
-  // const handleDelete = (id) => {
-  //   setTagList(tagList.filter((tag) => tag.id !== id));
-  // };
+  const handleDelete = (tag) => {
+    const deleteTag = tagList.filter((item) => {
+      return item !== tag;
+    });
 
+    setTagList(deleteTag);
+  };
+
+  // 서버 열려있는 경우, wholeTag >> getTagList
   const handleDropDownList = () => {
     if (tagItem === "") {
       setIsHaveTagItem(false);
       setDropDownList([]);
     } else {
-      const IncludedTag = wholeTag.filter((tag) => tag.includes(tagItem));
+      const IncludedTag = wholeTag.filter((tag) =>
+        tag.tagName.includes(tagItem),
+      );
       setDropDownList(IncludedTag);
     }
   };
@@ -45,7 +77,41 @@ export default function SubmitTag({ title, comment, question }) {
     setIsHaveTagItem(false);
   };
 
+  // 서버 닫혀 있을 경우에 사용할 태그 Get 요청
   useEffect(() => {
+    setGetTagList(wholeTag);
+  }, []);
+
+  // useEffect(() => {
+  //   const response = async () => {
+  //     try {
+  //       await getTags();
+  //     } catch (error) {
+  //       console.log(error.message);
+  //     }
+  //   };
+  //   setGetTagList(response.data);
+  // }, []);
+
+  useEffect(() => {
+    const arr = new Array();
+
+    if (tagList.length !== 0) {
+      for (let tag of getTagList) {
+        for (let tagName of tagList) {
+          if (tag.tagName === tagName) {
+            arr.push({ tagId: tag.tagId });
+            console.log("arr", arr);
+          }
+        }
+      }
+      setAsk((prev) => ({ ...prev, tags: [arr] }));
+    }
+
+    if (tagList.length === 0) {
+      setAsk((prev) => ({ ...prev, tags: [] }));
+    }
+
     setTagItem("");
   }, [tagList]);
 
@@ -58,7 +124,13 @@ export default function SubmitTag({ title, comment, question }) {
           return (
             <TagItem key={index}>
               <Text>{tag}</Text>
-              <Button>X</Button>
+              <Button
+                onClick={() => {
+                  handleDelete(tag);
+                }}
+              >
+                X
+              </Button>
             </TagItem>
           );
         })}
@@ -77,15 +149,15 @@ export default function SubmitTag({ title, comment, question }) {
             {dropDownList.length === 0 && (
               <DropDownItem>No corresponding tags found</DropDownItem>
             )}
-            {dropDownList.map((dropDownItem, idex) => {
+            {dropDownList.map((dropDownItem) => {
               return (
                 <DropDownItem
-                  key={idex}
+                  key={dropDownItem.tagId}
                   onClick={() => {
-                    handleClickDropDownTag(dropDownItem);
+                    handleClickDropDownTag(dropDownItem.tagName);
                   }}
                 >
-                  {dropDownItem}
+                  {dropDownItem.tagName}
                 </DropDownItem>
               );
             })}
