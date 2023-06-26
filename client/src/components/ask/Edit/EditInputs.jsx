@@ -18,8 +18,6 @@ export default function EditInputs() {
 
   const [body, setBody] = useState({ content: "" });
 
-  // console.log("ask:", ask, "//", "body", body);
-
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

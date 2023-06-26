@@ -5,18 +5,11 @@ import { getTags } from "../../api/postAPI";
 export default function SubmitTag({ title, comment, question, setAsk }) {
   const [getTagList, setGetTagList] = useState([]);
 
-  console.log("------getTagList", getTagList);
-
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
   const [dropDownList, setDropDownList] = useState(getTags);
-
-  console.log("tagItem", tagItem);
-  console.log("tagList", tagList);
-  console.log("isHaveTagItem", isHaveTagItem);
-  console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -85,7 +78,6 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
         for (let tagName of tagList) {
           if (tag.tagName === tagName) {
             arr.push({ questionTags: tag.tagId });
-            // console.log("arr", arr);
           }
         }
       }
