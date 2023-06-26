@@ -9,16 +9,12 @@ import { postQuestion } from "../../../api/postAPI";
 import SubmitTag from "../SubmitTag";
 
 export default function AskInputs() {
-  const [ask, setAsk] = useState({ title: "", content: "", tags: [] });
+  const [ask, setAsk] = useState({ title: "", content: "", questionTags: [] });
   const [body, setBody] = useState({ problem: "", try: "" });
 
-  const nav = useNavigate();
+  console.log("***ask", ask);
 
-  // const handleAddTag = (e) => {
-  //   if (e.target.value.length !== 0 && e.key === "Enter") {
-  //     setTags((prev) => [...prev, e.target.value]);
-  //   }
-  // };
+  const nav = useNavigate();
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -69,6 +65,7 @@ export default function AskInputs() {
         <SubmitTag
           title="tags"
           comment="Add up to 5 tags to describe what your question is about. Start typing to see suggestions."
+          setAsk={setAsk}
         />
       </Wrapper>
       <Wrapper>

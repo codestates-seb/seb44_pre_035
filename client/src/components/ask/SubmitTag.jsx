@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { getTags } from "../../api/postAPI";
 
-const wholeTag = ["css", "javaScript", "java", "react"];
+export default function SubmitTag({ title, comment, question, setAsk }) {
+  const [getTagList, setGetTagList] = useState([]);
 
-export default function SubmitTag({ title, comment, question }) {
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
-  const [dropDownList, setDropDownList] = useState(wholeTag);
-
-  // console.log("tagItem", tagItem);
-  // console.log("tagList", tagList);
-  // console.log("isHaveTagItem", isHaveTagItem);
-  // console.log("dropDownList", dropDownList);
+  const [dropDownList, setDropDownList] = useState(getTags);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -21,31 +17,77 @@ export default function SubmitTag({ title, comment, question }) {
   };
 
   const onKeyUp = (e) => {
-    if (e.target.value.length !== 0 && e.key === "Enter") {
+    const toLowerTags = tagList.map((tag) => {
+      tag.toLowerCase();
+    });
+
+    if (
+      e.target.value.length !== 0 &&
+      e.key === "Enter" &&
+      toLowerTags.includes(e.target.value) === false
+    ) {
       setTagList((prev) => [...prev, tagItem]);
+    }
+
+    if (
+      e.target.value.length !== 0 &&
+      e.key === "Enter" &&
+      tagList.includes(e.target.value) === true
+    ) {
+      alert("이미 추가된 태그입니다.");
+      setTagItem("");
     }
   };
 
-  // const handleDelete = (id) => {
-  //   setTagList(tagList.filter((tag) => tag.id !== id));
-  // };
+  const handleDelete = (tag) => {
+    const deleteTag = tagList.filter((item) => {
+      return item !== tag;
+    });
+
+    setTagList(deleteTag);
+  };
 
   const handleDropDownList = () => {
     if (tagItem === "") {
       setIsHaveTagItem(false);
       setDropDownList([]);
     } else {
-      const IncludedTag = wholeTag.filter((tag) => tag.includes(tagItem));
+      const IncludedTag = getTagList.filter((tag) =>
+        tag.tagName.toLowerCase().includes(tagItem),
+      );
       setDropDownList(IncludedTag);
     }
   };
 
   const handleClickDropDownTag = (e) => {
-    setTagItem(e);
+    setTagList((prev) => [...prev, e]);
     setIsHaveTagItem(false);
   };
 
   useEffect(() => {
+    getTags().then((res) => {
+      setGetTagList(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const arr = new Array();
+
+    if (tagList.length !== 0) {
+      for (let tag of getTagList) {
+        for (let tagName of tagList) {
+          if (tag.tagName === tagName) {
+            arr.push({ tagId: tag.tagId });
+          }
+        }
+      }
+      setAsk((prev) => ({ ...prev, questionTags: arr }));
+    }
+
+    if (tagList.length === 0) {
+      setAsk((prev) => ({ ...prev, questionTags: [] }));
+    }
+
     setTagItem("");
   }, [tagList]);
 
@@ -58,7 +100,13 @@ export default function SubmitTag({ title, comment, question }) {
           return (
             <TagItem key={index}>
               <Text>{tag}</Text>
-              <Button>X</Button>
+              <Button
+                onClick={() => {
+                  handleDelete(tag);
+                }}
+              >
+                X
+              </Button>
             </TagItem>
           );
         })}
@@ -77,15 +125,15 @@ export default function SubmitTag({ title, comment, question }) {
             {dropDownList.length === 0 && (
               <DropDownItem>No corresponding tags found</DropDownItem>
             )}
-            {dropDownList.map((dropDownItem, idex) => {
+            {dropDownList.map((dropDownItem) => {
               return (
                 <DropDownItem
-                  key={idex}
+                  key={dropDownItem.tagId}
                   onClick={() => {
-                    handleClickDropDownTag(dropDownItem);
+                    handleClickDropDownTag(dropDownItem.tagName);
                   }}
                 >
-                  {dropDownItem}
+                  {dropDownItem.tagName}
                 </DropDownItem>
               );
             })}

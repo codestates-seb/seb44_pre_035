@@ -36,6 +36,7 @@ function Writer({ name, setBody, question }) {
 const ReactQuillStyle = styled(ReactQuill)`
   & .ql-editor {
     height: 250px;
+    width: 700px;
   }
 `;
 

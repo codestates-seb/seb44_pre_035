@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { EditQuestion } from "../../../api/postAPI";
 import { getQuestion } from "../../../api/mainAPI";
+import SubmitTag from "../SubmitTag";
 
 export default function EditInputs() {
   const { questionId } = useParams("questionId");
@@ -16,8 +17,6 @@ export default function EditInputs() {
   });
 
   const [body, setBody] = useState({ content: "" });
-
-  // console.log("ask:", ask, "//", "body", body);
 
   const handleChange = (e) => {
     setAsk((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -59,7 +58,7 @@ export default function EditInputs() {
           setBody={setBody}
           question={ask.content}
         />
-        <SubmitInput title="Tags" />
+        <SubmitTag title="tags" />
       </InputsWrapper>
       <ButtonsWrapper>
         <SubmitButton button="Edit your question" handleSubmit={handleSubmit} />

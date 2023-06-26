@@ -3,8 +3,8 @@ import styled from "styled-components";
 import MyPage_header from "../../components/mypage/MyPage_header";
 import MyPage_menu from "../../components/mypage/MyPage_menu";
 import Mypage_setNav from "../../components/mypage/MyPage_Nav";
-import ProfileImage from "../../img/profile_img.png";
 import WmdBurtton from "../../img/wmd-buttons.svg";
+import { getProfile } from "../../profile/getRandomAccount";
 
 const MainDiv = styled.div`
   display: flex;
@@ -260,7 +260,7 @@ const EditProfile = () => {
                         <div>
                           <img
                             id="my_profile_img"
-                            src={`${ProfileImage}`}
+                            src={getProfile()}
                             alt="my profile img"
                           />
                         </div>
