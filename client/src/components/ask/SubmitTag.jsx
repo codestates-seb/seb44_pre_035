@@ -5,19 +5,18 @@ import { getTags } from "../../api/postAPI";
 export default function SubmitTag({ title, comment, question, setAsk }) {
   const [getTagList, setGetTagList] = useState([]);
 
-  // console.log("------getTagList", getTagList);
+  console.log("------getTagList", getTagList);
 
   const [tagItem, setTagItem] = useState("");
   const [tagList, setTagList] = useState([]);
 
   const [isHaveTagItem, setIsHaveTagItem] = useState(false);
-  // 서버 열려있는 경우, wholeTag >> getTagList
   const [dropDownList, setDropDownList] = useState(getTags);
 
-  // console.log("tagItem", tagItem);
+  console.log("tagItem", tagItem);
   console.log("tagList", tagList);
-  // console.log("isHaveTagItem", isHaveTagItem);
-  // console.log("dropDownList", dropDownList);
+  console.log("isHaveTagItem", isHaveTagItem);
+  console.log("dropDownList", dropDownList);
 
   const handleChange = (e) => {
     setTagItem(e.target.value);
@@ -68,7 +67,7 @@ export default function SubmitTag({ title, comment, question, setAsk }) {
   };
 
   const handleClickDropDownTag = (e) => {
-    setTagItem(e);
+    setTagList((prev) => [...prev, e]);
     setIsHaveTagItem(false);
   };
 
