@@ -3,7 +3,7 @@ import axios from "axios";
 export const getQuestions = async ({ page, size, criteria, sort }) => {
   try {
     const res = await axios({
-      url: `/questions?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      url: `http://52.79.137.231:8080/questions?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -19,7 +19,7 @@ export const getQuestions = async ({ page, size, criteria, sort }) => {
 export const getQuestion = async (questionId) => {
   try {
     const res = await axios({
-      url: `/questions/${questionId}`,
+      url: `http://52.79.137.231:8080/questions/${questionId}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -39,7 +39,7 @@ export const getQuestionsAnswered = async (
 ) => {
   try {
     const res = await axios({
-      url: `/questions/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      url: `http://52.79.137.231:8080/questions/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -58,7 +58,7 @@ export const searchQuestion = async (
 ) => {
   try {
     const res = await axios({
-      url: `/questions/search/${keyword}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      url: `http://52.79.137.231:8080/questions/search/${keyword}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -79,7 +79,7 @@ export const searchQuestionsAnswered = async (
 ) => {
   try {
     const res = await axios({
-      url: `/questions/search/${keyword}/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
+      url: `http://52.79.137.231:8080/questions/search/${keyword}/isAnswered/${yOrN}?page=${page}&size=${size}&criteria=${criteria}&sort=${sort}`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,
@@ -95,7 +95,7 @@ export const searchQuestionsAnswered = async (
 export const postAnswer = async (questionId, content) => {
   try {
     const res = await axios({
-      url: `/questions/${questionId}/answers/submit`,
+      url: `http://52.79.137.231:8080/questions/${questionId}/answers/submit`,
       method: "post",
       data: content,
       headers: { "Content-Type": "application/json" },
@@ -108,7 +108,7 @@ export const postAnswer = async (questionId, content) => {
 
 export const postComment = async (questionId, answerId, content) => {
   axios({
-    url: `/questions/${questionId}/answers/${answerId}/comments`,
+    url: `http://52.79.137.231:8080/questions/${questionId}/answers/${answerId}/comments`,
     method: "post",
     data: { content },
     headers: { "Content-Type": "application/json" },
