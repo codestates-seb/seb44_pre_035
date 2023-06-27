@@ -7,7 +7,7 @@ export const logIn = async (data) => {
       method: "post",
       data,
       headers: { Authorization: null },
-      url: "/login",
+      url: "http://52.79.137.231:8080/login",
     });
 
     return res;
@@ -19,7 +19,7 @@ export const logIn = async (data) => {
 export const signUp = async (data) => {
   try {
     const res = await axios({
-      url: "/accounts/signup",
+      url: "http://52.79.137.231:8080/accounts/signup",
       method: "post",
       data: {
         email: data.userEmail,
@@ -36,7 +36,7 @@ export const signUp = async (data) => {
 export const getUsers = async () => {
   try {
     const res = await axios({
-      url: `/accounts`,
+      url: `http://52.79.137.231:8080/accounts`,
       method: "get",
       headers: {
         "Content-Type": `application/json`,

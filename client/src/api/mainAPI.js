@@ -118,7 +118,7 @@ export const postComment = async (questionId, answerId, content) => {
 export const deletePost = async (postType, postId) => {
   try {
     const res = await axios({
-      url: `/${postType}s/${postId}`,
+      url: `http://52.79.137.231:8080/${postType}s/${postId}`,
       method: "delete",
     });
     return res;
@@ -130,7 +130,7 @@ export const deletePost = async (postType, postId) => {
 export const deleteComment = async (questionId, answerId, commentId) => {
   try {
     const res = await axios({
-      url: `/questions/${questionId}/answers/${answerId}/comments/${commentId}`,
+      url: `http://52.79.137.231:8080/questions/${questionId}/answers/${answerId}/comments/${commentId}`,
       method: "delete",
     });
     return res;
