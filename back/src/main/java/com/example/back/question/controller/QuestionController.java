@@ -16,6 +16,7 @@ import com.example.back.question.repository.QuestionRepository;
 import com.example.back.question.service.QuestionServiceImpl;
 import com.example.back.question.utils.UriCreator;
 import com.example.back.tag.Service.TagServiceImpl;
+import com.example.back.tag.mapper.TagMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -42,6 +43,7 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final AnswerMapper answerMapper;
     private final CommentMapper commentMapper;
+    private final TagMapper tagMapper;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
     private final CommentRepository commentRepository;
@@ -175,7 +177,7 @@ public class QuestionController {
 
     @GetMapping("/ask")
     public ResponseEntity getTags(){
-        return new ResponseEntity<>(questionMapper.tagsToTagResponseDtos(tagService.getTags())
+        return new ResponseEntity<>(tagMapper.tagsToTagResponseDtos(tagService.getTags())
                 , HttpStatus.OK);
     }
 

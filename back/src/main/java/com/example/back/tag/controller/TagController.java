@@ -26,5 +26,4 @@ public class TagController {
     public ResponseEntity postTag(@RequestBody TagPostDto tagPostDto){
         return new ResponseEntity<>(tagMapper.tagToTagResponseDto(tagService.postTag(tagMapper.tagPostDtoToTag(tagPostDto))), HttpStatus.OK);
     }
-
 }

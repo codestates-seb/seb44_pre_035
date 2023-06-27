@@ -1,9 +1,7 @@
 package com.example.back.question.service;
 
 
-import com.example.back.account.entity.Account;
 import com.example.back.account.repository.AccountRepository;
-import com.example.back.account.util.SecurityUtil;
 import com.example.back.answer.entity.Answer;
 import com.example.back.answer.repository.AnswerRepository;
 import com.example.back.question.entity.Question;
@@ -16,12 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -138,6 +134,7 @@ public class QuestionServiceImpl implements QuestionService {
         } else {
             throw new NoSuchElementException("해당 id 값으로 조회되는 질문이 존재하지 않습니다." + questionId);
         }
+
 
              */
 
