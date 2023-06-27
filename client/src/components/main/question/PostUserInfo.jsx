@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import profileImage from "../../../img/profile_img.png";
+import { getProfile, getNickname } from "../../../profile/getRandomAccount";
 
-export default function PostUserInfo({ userId }) {
+export default function PostUserInfo() {
   return (
     <Wrapper>
-      <Image src={profileImage} />
-      <Content>{userId} hahagarden</Content>
+      <Image src={getProfile()} />
+      <Content>{getNickname()} </Content>
     </Wrapper>
   );
 }

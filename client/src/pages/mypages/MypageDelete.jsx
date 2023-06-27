@@ -5,9 +5,10 @@ import MyPage_menu from "../../components/mypage/MyPage_menu";
 import Mypage_setNav from "../../components/mypage/MyPage_Nav";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-// eslint-disable-next-line no-unused-vars
-import { userDataSlice, deleteData } from "../../features/mypage/userDataSlice";
 import { logout } from "../../features/mypage/logSlice";
+import { deleteData } from "../../features/mypage/userDataSlice";
+import ModalComponet from "../../share/Modal";
+import axios from "axios";
 /**  전체영역(메인 Nav + 컨텐츠) 컴포넌트  */
 const MainDiv = styled.div`
   display: flex;
@@ -137,11 +138,15 @@ const PlsLoginDiv = styled.div`
 const MypageDelete = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userDataState = useSelector((state) => state.userData) || {};
-  const state = useSelector((state) => state.log) || {};
+  const state = useSelector((state) => state.log);
   const [boxChecked, setBoxChecked] = useState(false);
+  const [modal, setModal] = useState({
+    open: false,
+    title: "",
+    message: "",
+    callback: false,
+  });
   let deleteQuery = window.location.search;
-
   useEffect(() => {
     if (deleteQuery === "?delete-agree=on") {
       alert("회원정보를 삭제하고 로그아웃하였습니다.");
@@ -153,46 +158,42 @@ const MypageDelete = () => {
   };
 
   const deleteHandler = () => {
-    if (userDataState.memberId !== "1") {
-      const accessToken = localStorage.getItem("Authorization");
-      fetch(
-        `https://54fe-220-76-183-16.ngrok-free.app/accounts/${userDataState.accountId}/delete`,
-        {
-          credentials: "include",
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: accessToken,
-          },
+    const accessToken = localStorage.getItem("Authorization");
+    // const refreshToken = localStorage.getItem('Refresh');
+
+    axios
+      .delete(`accounts/delete`, {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: accessToken,
+          // Refresh: refreshToken,
         },
-      )
-        .then((res) => {
-          // 확인하기 : 삭제 후 쿼리 GET 요청이 자동으로 이루어지며 페이지가 해당 주소로 이동됨 대체 왜ㅐㅐㅐㅐ?
-          if (!res.ok) {
-            alert("회원정보 탈퇴 실패");
-          } else {
-            let data = res.json();
-            console.log(data);
-            localStorage.removeItem("Authorization");
-            // localStorage.removeItem('Refresh');
-            dispatch(userDataSlice.actions.deleteData());
-            dispatch(logout(state));
-          }
-        })
-        .catch(() => alert("에러 발생"));
-    } else {
-      alert(
-        "테스트용 계정으로, 삭제할 수 없습니다. 임의의 계정으로 회원가입 후 계정 삭제 테스트 해주세요.",
-      );
-    }
+      })
+      .then((res) => {
+        if (!res.ok) {
+          alert("Failed to delete member information");
+        } else {
+          let data = res.data;
+          console.log(data);
+          localStorage.removeItem("Authorization");
+          // localStorage.removeItem('Refresh');
+          dispatch(deleteData());
+          dispatch(logout(state));
+        }
+      })
+      .catch((error) => {
+        console.log(error); // Check for any errors
+        alert("An error occurred");
+      });
   };
   return (
     <React.Fragment>
       <MainDiv>
         <Container>
-          <MyPage_header />
-          <MyPage_menu />
           <Content>
+            <MyPage_header />
+            <MyPage_menu />
             <MainContainer>
               <Mypage_setNav />
               <Main>
@@ -249,6 +250,13 @@ const MypageDelete = () => {
                   </Fieldset>
                   {boxChecked ? (
                     <DeleteBtn onClick={deleteHandler}>
+                      {" "}
+                      <ModalComponet
+                        open={modal.open}
+                        setModal={setModal}
+                        message={modal.message}
+                        title={modal.title}
+                      />
                       Delete Profile
                     </DeleteBtn>
                   ) : (

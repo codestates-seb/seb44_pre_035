@@ -7,7 +7,7 @@ export const logIn = async (data) => {
       method: "post",
       data,
       headers: { Authorization: null },
-      url: "/login",
+      url: "http://52.79.137.231:8080/login",
     });
 
     return res;
@@ -19,7 +19,7 @@ export const logIn = async (data) => {
 export const signUp = async (data) => {
   try {
     const res = await axios({
-      url: "/accounts/signup",
+      url: "http://52.79.137.231:8080/accounts/signup",
       method: "post",
       data: {
         email: data.userEmail,
@@ -33,14 +33,18 @@ export const signUp = async (data) => {
   }
 };
 
-export const getUser = async (Token, userId) => {
+export const getUsers = async () => {
   try {
     const res = await axios({
-      url: `https://58ab-220-76-183-16.ngrok-free.app/mypage/${userId}`,
+      url: `http://52.79.137.231:8080/accounts`,
       method: "get",
-      headers: { Authorization: `Bearer ${Token}` },
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
     });
-    return res.data.data;
+    console.log("users", res);
+    return res;
   } catch (error) {
     console.log(error);
   }
