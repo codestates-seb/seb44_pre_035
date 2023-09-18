@@ -3,10 +3,6 @@ import { BsBookmarkPlus, BsFillBookmarkPlusFill } from 'react-icons/bs';
 import tw from 'tailwind-styled-components';
 import StarRatings from 'react-star-ratings';
 
-const BoldP = tw.p`
-  font-bold
-`;
-
 function MovieInfo({ movieData, creditData }) {
   const [isBookmarkChecked, setIsBookmarkChecked] = useState(false);
   const cast = creditData.cast.slice(0, 5).map(el => el.name);
@@ -19,7 +15,7 @@ function MovieInfo({ movieData, creditData }) {
 
   return (
     <>
-      <h1 className="text-7xl text-white mb-3">{movieData.original_title}</h1>
+      <h1 className="mb-3 text-7xl text-white">{movieData.original_title}</h1>
       {isBookmarkChecked ? (
         <BsFillBookmarkPlusFill
           className="my-2"
@@ -35,8 +31,8 @@ function MovieInfo({ movieData, creditData }) {
           onClick={HandlerBookmark}
         />
       )}
-      <div className="flex my-3 text-white">
-        <div className="flex gap-2 mr-9">
+      <div className="my-3 flex text-white">
+        <div className="mr-9 flex gap-2">
           <BoldP className="mr-2">{releaseYear}</BoldP>
           <BoldP>{movieData.runtime}분</BoldP>
         </div>
@@ -68,5 +64,9 @@ function MovieInfo({ movieData, creditData }) {
     </>
   );
 }
+
+const BoldP = tw.p`
+  font-bold
+`;
 
 export default MovieInfo;

@@ -14,29 +14,9 @@ import {
 } from '../API/movie';
 import { API_KEY } from '../Assets/ConstantValue';
 import { movieIdActions } from '../Store/movieId-slice';
+import useScrollLock from '../Hooks/use-scrollLock';
 
-// Todo 제목이 긴 경우 아래 부분이 안보임 css수정해야함
-const ModalDiv = tw.div`
-  w-4/5 h-4/5 relative rounded-md overflow-hidden
-`;
-
-const Main = styled.main`
-  background-image: url(${props => props.backdrop});
-`;
-
-const ShadowDiv = tw.div`
-w-full h-full absolute top-0 left-0 bg-black/45 rounded-md p-[55px] pt-[90px]
-`;
-
-const BackdropDiv = tw.div`
-absolute top-0 left-0 flex justify-center items-center w-full h-screen bg-black/728 z-10
-`;
-
-const Button = tw.button`
-absolute top-5 right-5 
-`;
-
-// TODO 모달 열려있을 때 scroll 금지
+// TODO 모달 열려있을 때 scroll 금지 -> useCustom 훅 만들어서
 function ModalOverlay() {
   const movieId = useSelector(state => state.ID.id);
   const dispatch = useDispatch();
@@ -46,10 +26,10 @@ function ModalOverlay() {
   const [videoData, setVideoData] = useState(null);
   const [creditData, setCreditData] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
-
   const { fetchData: fetchMovieData } = useFetchMovie();
   const { fetchData: fetchVideoData } = useFetchMovie();
   const { fetchData: fetchCreditData } = useFetchMovie();
+  const { openScroll } = useScrollLock();
 
   useEffect(() => {
     fetchMovieData(movieDetailFetchedData(movieId, API_KEY), data => {
@@ -71,6 +51,7 @@ function ModalOverlay() {
   }, [movieData, videoData, creditData]);
 
   const HandlerModalClose = () => {
+    openScroll();
     dispatch(movieIdActions.closeModal());
   };
 
@@ -80,17 +61,17 @@ function ModalOverlay() {
       {!isFetching && (
         <Main
           backdrop={backdropURL}
-          className="w-full h-full rounded-md text-black bg-no-repeat 
-          bg-cover bg-gradient-to-r from-cyan-500 to-blue-500"
+          className="h-full w-full rounded-md bg-gradient-to-r from-cyan-500 
+          to-blue-500 bg-cover bg-no-repeat text-black"
         >
           <ShadowDiv>
-            <Button
-              className="justify-end"
+            <button
+              className="absolute right-5 top-5  justify-end"
               type="button"
               onClick={HandlerModalClose}
             >
               <AiOutlineClose size={21} color="white" />
-            </Button>
+            </button>
             <MovieInfo movieData={movieData} creditData={creditData} />
             <MovieOverViewVideo
               postURL={postURL}
@@ -106,7 +87,9 @@ function ModalOverlay() {
 
 function Backdrop() {
   const dispatch = useDispatch();
+  const { openScroll } = useScrollLock();
   const HandlerModalClose = () => {
+    openScroll();
     dispatch(movieIdActions.closeModal());
   };
   return (
@@ -126,5 +109,22 @@ function MovieDetail() {
     </>
   );
 }
+
+// Todo 제목이 긴 경우 아래 부분이 안보임 css수정해야함 px로 해놓은 친구들 rem으로 고치기
+const ModalDiv = tw.div`
+  w-4/5 h-4/5 relative rounded-md overflow-hidden
+`;
+
+const Main = styled.main`
+  background-image: url(${props => props.backdrop});
+`;
+
+const ShadowDiv = tw.div`
+w-full h-full absolute top-0 left-0 bg-black/45 rounded-md p-[3.4rem] pt-[5.6rem]
+`;
+
+const BackdropDiv = tw.div`
+fixed top-0 left-0 flex justify-center items-center w-full h-screen bg-black/728 z-10
+`;
 
 export default MovieDetail;

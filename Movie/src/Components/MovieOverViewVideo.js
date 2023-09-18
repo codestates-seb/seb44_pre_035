@@ -2,18 +2,6 @@ import React, { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
 
-const MoviePoster = tw.img`
- w-[183px] h-full border-[0.3px] border-slate-600
-`;
-
-const MovieGenres = styled.li`
-  display: inline-block;
-  list-style: none;
-  border: 1px solid white;
-  border-radius: 30px;
-  margin-right: 10px;
-`;
-
 function MovieOverViewVideo({ postURL, movieData, videoData }) {
   const [videoPath, setVideoPath] = useState(null);
 
@@ -29,11 +17,11 @@ function MovieOverViewVideo({ postURL, movieData, videoData }) {
 
   return (
     <>
-      <div className="border-[0.3px] border-slate-600 my-10" />
+      <div className="my-10 border-[0.3px] border-slate-600" />
       <div className="flex gap-5 text-white ">
         <MoviePoster src={postURL} alt="moviePoster" />
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col w-1/2 h-full justify-between">
+        <div className="flex w-full justify-between">
+          <OverviewDiv>
             <p className="break-keep">{movieData.overview}</p>
             <ul>
               {movieData.genres.map(genre => {
@@ -47,7 +35,7 @@ function MovieOverViewVideo({ postURL, movieData, videoData }) {
                 );
               })}
             </ul>
-          </div>
+          </OverviewDiv>
           {videoPath && (
             <iframe
               width="30%"
@@ -64,5 +52,21 @@ function MovieOverViewVideo({ postURL, movieData, videoData }) {
     </>
   );
 }
+
+const MoviePoster = tw.img`
+ w-1/5 border-[0.3px] border-slate-600
+`;
+
+const MovieGenres = styled.li`
+  display: inline-block;
+  list-style: none;
+  border: 1px solid white;
+  border-radius: 30px;
+  margin-right: 10px;
+`;
+
+const OverviewDiv = tw.div`
+flex h-full w-1/2 flex-col justify-between
+`;
 
 export default MovieOverViewVideo;
